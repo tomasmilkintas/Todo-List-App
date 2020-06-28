@@ -5,7 +5,7 @@ Set up user stories and therefore authentication to accomplish that.
 Register / login / password recovery using Firebase.
 Various features that go beyond add/remove list item.
 
-Also as a practice for better Front-end architecture using Figma and Storybook to supplement my project.
+Also as a practice for a better Front-end architecture using Figma and Storybook to supplement my project.
 
 ---
 
@@ -77,4 +77,5 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
 # Todo-List-App
