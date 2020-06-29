@@ -10,6 +10,6 @@ export default {
     component: StyledButton,
 };
 
-export const Text = () => <StyledButton onClick={action("clicked")}>{defaultText}</StyledButton>;
+export const Default = () => <StyledButton onClick={action("clicked")}>{defaultText}</StyledButton>;
 
 export const Submit = () => <StyledButton onClick={action("submit")}> Submit </StyledButton>;
