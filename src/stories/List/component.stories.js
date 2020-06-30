@@ -1,31 +1,23 @@
 import React from "react";
 
-import StyledList from "./index";
-import StyledListItem from "./ListItem/index";
-import StyledHeader from "../Header";
+import List from "./index";
+import ListItem from "./ListItem/index";
+import Header from "../Theme/Header";
+import { storiesOf } from "@storybook/react";
 
-export default {
-    title: "List",
-    component: StyledList,
-};
+// items hard-coded for now
+const items = [1, 2, 3, 4];
 
-export const Default = () => <StyledList>My List</StyledList>;
+const mappedItems = items.map((item) => {
+    return <ListItem> List Item{item} </ListItem>;
+});
 
-export const Items = () => (
-    <StyledList>
-        <StyledListItem> Item 1 </StyledListItem>
-        <StyledListItem> Item 2 </StyledListItem>
-        <StyledListItem> Item 3 </StyledListItem>
-        <StyledListItem> Item 4 </StyledListItem>
-    </StyledList>
-);
-
-export const ItemsWithHeader = () => (
-    <StyledList>
-        <StyledHeader> MY LIST </StyledHeader>
-        <StyledListItem> Item 1 </StyledListItem>
-        <StyledListItem> Item 2 </StyledListItem>
-        <StyledListItem> Item 3 </StyledListItem>
-        <StyledListItem> Item 4 </StyledListItem>
-    </StyledList>
-);
+storiesOf("List", module)
+    .add("Default", () => <List>My List</List>)
+    .add("List Items", () => <List> {mappedItems}</List>)
+    .add("List Items With Header", () => (
+        <List>
+            <Header> MY LIST </Header>
+            {mappedItems}
+        </List>
+    ));

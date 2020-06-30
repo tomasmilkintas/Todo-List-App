@@ -1,10 +1,6 @@
 import React from "react";
 
-import StyledForm from "./index";
+import Form from "./index";
+import { storiesOf } from "@storybook/react";
 
-export default {
-    title: "Form",
-    component: StyledForm,
-};
-
-export const Default = () => <StyledForm></StyledForm>;
+storiesOf("Form", module).add("Default", () => <Form></Form>);

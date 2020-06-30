@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Button = styled.button`
+const StyledButton = styled.button`
     align-items: center;
     text-align: center;
     font-style: normal;
@@ -10,4 +10,4 @@ const Button = styled.button`
     padding: 12px;
 `;
 
-export default Button;
+export default StyledButton;

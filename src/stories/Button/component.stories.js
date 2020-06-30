@@ -1,15 +1,31 @@
 import React from "react";
 
-import { action } from "@storybook/addon-actions";
-import StyledButton from "./index";
+import Button from "./index";
+import { storiesOf } from "@storybook/react";
 
-const defaultText = "Default";
-
-export default {
-    title: "Button",
-    component: StyledButton,
+const defaultProps = {
+    label: "Button",
+    onClick: () => null,
 };
 
-export const Default = () => <StyledButton onClick={action("clicked")}>{defaultText}</StyledButton>;
+const withPrimary = {
+    ...defaultProps,
+    color: "primary",
+};
 
-export const Submit = () => <StyledButton onClick={action("submit")}> Submit </StyledButton>;
+const withDisabled = {
+    ...defaultProps,
+    // logic and colours to be added
+    color: "see-through",
+    disabled: true,
+};
+
+const withText = {
+    text: "Submit",
+};
+
+storiesOf("Button", module)
+    .add("Default", () => <Button {...defaultProps}></Button>)
+    .add("Primary", () => <Button {...withPrimary}> </Button>)
+    .add("Submit", () => <Button {...withPrimary}> {withText.text} </Button>)
+    .add("Disabled", () => <Button {...withDisabled}> </Button>);

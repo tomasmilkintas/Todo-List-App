@@ -1,13 +1,9 @@
 import React from "react";
 
-import Form from "./component";
+import StyledForm from "./component";
 
-const StyledForm = (props) => {
-    return (
-        <div>
-            <Form></Form>
-        </div>
-    );
+const Form = (props) => {
+    return <StyledForm {...props}>{props.children}</StyledForm>;
 };
 
-export default StyledForm;
+export default Form;

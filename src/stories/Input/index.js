@@ -1,10 +1,15 @@
 import React from "react";
-import Input from "./component";
+import StyledInput from "./component";
 
-const StyledInput = (props) => {
+const Input = (props) => {
     return (
-        <Input {...props} type={props.type} placeholder={props.placeholder} value={props.value} />
+        <StyledInput
+            {...props}
+            type={props.type}
+            placeholder={props.placeholder}
+            value={props.value}
+        />
     );
 };
 
-export default StyledInput;
+export default Input;

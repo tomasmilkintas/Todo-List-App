@@ -1,7 +1,11 @@
 import React from "react";
 
-import Button from "./component";
+import StyledButton from "./component";
 
-const StyledButton = (props) => <Button onClick={props.clicked}>{props.children}</Button>;
+const Button = (props) => (
+    <StyledButton {...props} onClick={props.clicked}>
+        {props.children}
+    </StyledButton>
+);
 
-export default StyledButton;
+export default Button;

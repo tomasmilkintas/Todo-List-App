@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const ListItem = styled.li`
+const StyledListItem = styled.li`
     cursor: pointer;
     position: relative;
     padding: 12px 8px;
@@ -16,4 +16,4 @@ const ListItem = styled.li`
     }
 `;
 
-export default ListItem;
+export default StyledListItem;

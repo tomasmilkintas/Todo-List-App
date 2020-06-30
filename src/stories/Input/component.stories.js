@@ -1,20 +1,38 @@
 import React from "react";
 
-import StyledInput from "./index";
+import Input from "./index";
+import { storiesOf } from "@storybook/react";
 
-export default {
-    title: "Input",
-    component: StyledInput,
+const defaultProps = {
+    label: "Input",
+    placeholder: "Placeholder...",
 };
 
-export const Placeholder = () => <StyledInput type="text" placeholder="Placeholder..." />;
+const withText = {
+    ...defaultProps,
+    type: "text",
+    value: "Value",
+};
 
-export const Value = () => <StyledInput type="text" value="Value" />;
+const withPassword = {
+    ...withText,
+    type: "password",
+};
 
-export const Password = () => <StyledInput type="password" value="Password" />;
+const withEmail = {
+    ...defaultProps,
+    type: "email",
+};
 
-export const Email = () => <StyledInput type="email" placeholder="Email..." />;
+const withDisabled = {
+    ...withText,
+    disabled: true,
+};
 
-export const Checkbox = () => <StyledInput type="checkbox" />;
-
-export const Disabled = () => <StyledInput type="text" placeholder="Disabled" disabled />;
+storiesOf("Input", module)
+    .add("Placeholder", () => <Input {...defaultProps} />)
+    .add("Value", () => <Input {...withText} />)
+    .add("Password", () => <Input {...withPassword} />)
+    .add("Checkbox", () => <Input type="checkbox" />)
+    .add("Email", () => <Input {...withEmail} />)
+    .add("Disabled", () => <Input {...withDisabled} />);

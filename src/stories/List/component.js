@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const List = styled.ul`
+const StyledList = styled.ul`
     padding: 0;
     width: 200px;
     font-size: 18px;
@@ -9,4 +9,4 @@ const List = styled.ul`
     text-align: center;
 `;
 
-export default List;
+export default StyledList;

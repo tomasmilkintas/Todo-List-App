@@ -1,10 +1,6 @@
 import React from "react";
 
-import StyledListItem from "./index";
+import ListItem from "./index";
+import { storiesOf } from "@storybook/react";
 
-export default {
-    title: "List Item",
-    component: StyledListItem,
-};
-
-export const Default = () => <StyledListItem>List Item</StyledListItem>;
+storiesOf("List Item", module).add("Default", () => <ListItem>List Item</ListItem>);

@@ -1,9 +1,9 @@
 import React from "react";
 
-import List from "./component";
+import StyledList from "./component";
 
-const StyledList = (props) => {
-    return <List>{props.children}</List>;
+const List = (props) => {
+    return <StyledList {...props}>{props.children}</StyledList>;
 };
 
-export default StyledList;
+export default List;
