@@ -1,8 +1,8 @@
 import styled from "styled-components";
+import { colours } from "../Colours/index";
 
 const StyledHeader = styled.header`
-    /* color for now */
-    background-color: teal;
+    background: ${colours.primaryColours.Sky};
     width: 300px;
     padding: 20px 30px;
     color: white;

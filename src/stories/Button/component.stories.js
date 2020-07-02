@@ -2,22 +2,11 @@ import React from "react";
 
 import Button from "./index";
 import { storiesOf } from "@storybook/react";
+import { colours, mystyle } from "../Theme/Colours/index";
 
 const defaultProps = {
     label: "Button",
     onClick: () => null,
-};
-
-const withPrimary = {
-    ...defaultProps,
-    color: "primary",
-};
-
-const withDisabled = {
-    ...defaultProps,
-    // logic and colours to be added
-    color: "see-through",
-    disabled: true,
 };
 
 const withText = {
@@ -25,7 +14,15 @@ const withText = {
 };
 
 storiesOf("Button", module)
-    .add("Default", () => <Button {...defaultProps}></Button>)
-    .add("Primary", () => <Button {...withPrimary}> </Button>)
-    .add("Submit", () => <Button {...withPrimary}> {withText.text} </Button>)
-    .add("Disabled", () => <Button {...withDisabled}> </Button>);
+    .add("Default", () => <Button {...defaultProps}>Default Button</Button>)
+    .add("Submit", () => <Button {...defaultProps}> {withText.text} </Button>)
+    .add("Primary", () => (
+        <Button {...defaultProps} style={mystyle(colours.primaryColours.Sky, "white")}>
+            {withText.text}
+        </Button>
+    ))
+    .add("Disabled", () => (
+        <Button {...defaultProps} style={mystyle(colours.neutralColours.Default, "white")}>
+            Disabled
+        </Button>
+    ));
