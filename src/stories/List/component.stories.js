@@ -1,7 +1,7 @@
 import React from "react";
 
 import List from "./index";
-import Header from "../Theme/Header";
+import Header from "../Header/index";
 import { storiesOf } from "@storybook/react";
 import { mappedItems } from "./mappedItems/mappedItems";
 

@@ -2,7 +2,7 @@ import React from "react";
 
 import Form from "./index";
 import { storiesOf } from "@storybook/react";
-import { colours, mystyle } from "../Theme/Colours/index";
+import { colours, mystyle } from "../Colours/index";
 
 storiesOf("Form", module)
     .add("Default", () => <Form></Form>)

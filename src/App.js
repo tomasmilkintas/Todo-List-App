@@ -1,18 +1,12 @@
 import React from "react";
 import "./App.css";
-import StyledButton from "./stories/Button";
 
-import { Placeholder } from "./stories/Input/component.stories";
+import Layout from "./hoc/Layout/Layout";
 
 function App() {
     return (
         <div className="App">
-            {/* To be updated */}
-            <form>
-                <h1>Magical List</h1>
-                <Placeholder />
-                <StyledButton>Submit</StyledButton>
-            </form>
+            <Layout />
         </div>
     );
 }

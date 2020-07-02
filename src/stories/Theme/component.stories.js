@@ -3,7 +3,7 @@ import React from "react";
 import Theme from "./index";
 import { storiesOf } from "@storybook/react";
 
-import { colours } from "./Colours/index";
+import { colours } from "../Colours/index";
 
 storiesOf("Theme", module)
     .add("Default Grey", () => <Theme />, {
