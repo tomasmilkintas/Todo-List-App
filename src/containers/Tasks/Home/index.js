@@ -1,12 +1,25 @@
 import React, { Component } from "react";
 
 import List from "../../../stories/List/index";
-import mappedItems from "../../../stories/List/mappedItems/mappedItems";
+import { mappedItems } from "../../../stories/List/mappedItems/mappedItems";
 import Button from "../../../stories/Button/index";
 import Header from "../../../stories/Header/index";
 import { colours, mystyle } from "../../../stories/Colours/index";
 
+import fire from "../../../API/config/Fire";
+
 class Home extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+        this.logout = this.logout.bind(this);
+    }
+
+    logout() {
+        fire.auth().signOut();
+        localStorage.clear();
+    }
+
     render() {
         return (
             // visualising the home
@@ -25,6 +38,8 @@ class Home extends Component {
                 <List>{mappedItems}</List>
 
                 <Button style={mystyle(colours.primaryColours.Sky, "white")}>Submit</Button>
+
+                <Button onClick={this.logout}>Logout</Button>
 
                 <div id="status-bars-bottom"></div>
             </div>

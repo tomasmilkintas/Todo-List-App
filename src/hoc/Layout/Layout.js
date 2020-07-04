@@ -2,28 +2,41 @@ import React, { Component } from "react";
 
 import Aux from "../Aux/Aux";
 
-import Input from "../../stories/Input/index";
-import Button from "../../stories/Button/index";
-import Header from "../../stories/Header/index";
-import Form from "../../stories/Form/index";
+import Authentication from "../../API/Authentication";
+import fire from "../../API/config/Fire";
 
-import { colours, mystyle } from "../../stories/Colours/index";
-import Theme from "../../stories/Theme";
+import Home from "../../containers/Tasks/Home/index";
 
 class Layout extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            user: {},
+        };
+    }
+
+    authListener() {
+        fire.auth().onAuthStateChanged((user) => {
+            // console.log(user);
+            if (user) {
+                this.setState({ user: user });
+                localStorage.setItem("user", user.uid);
+                console.log("logged in");
+            } else {
+                this.setState({ user: null });
+                localStorage.removeItem("user");
+                console.log("not logged in");
+            }
+        });
+    }
+
+    componentDidMount() {
+        this.authListener();
+    }
+
     render() {
-        return (
-            <Aux>
-                {/* Layout to be updated, for now all in one place */}
-                <Theme style={{ backgroundColor: colours.neutralColours.Graphite }}>
-                    <Form style={{ backgroundColor: colours.primaryColours.Mint }}>
-                        <Header> Magical List</Header>
-                        <Input placeholder="placeholder..." />
-                        <Button style={mystyle(colours.primaryColours.Sky, "white")}>Submit</Button>
-                    </Form>
-                </Theme>
-            </Aux>
-        );
+        return <Aux>{this.state.user ? <Home /> : <Authentication />}</Aux>;
     }
 }
 
