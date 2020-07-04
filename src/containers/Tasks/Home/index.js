@@ -7,20 +7,29 @@ import Header from "../../../stories/Header/index";
 import { colours, mystyle } from "../../../stories/Colours/index";
 
 import fire from "../../../API/config/Fire";
+import { Redirect } from "react-router-dom";
 
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            redirect: false,
+        };
         this.logout = this.logout.bind(this);
     }
 
     logout() {
         fire.auth().signOut();
         localStorage.clear();
+        this.setState({ redirect: true });
     }
 
     render() {
+        const { redirect } = this.state;
+
+        if (redirect) {
+            return <Redirect to="/" />;
+        }
         return (
             // visualising the home
             <div>

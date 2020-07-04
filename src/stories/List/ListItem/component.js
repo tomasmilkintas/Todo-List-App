@@ -8,7 +8,7 @@ const StyledListItem = styled.li`
     transition: 0.2s;
     box-sizing: border-box;
     background: #eee;
-    width: 200px;
+    width: 400px;
     text-align: center;
 
     &:nth-child(odd) {

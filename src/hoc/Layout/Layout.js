@@ -2,8 +2,10 @@ import React, { Component } from "react";
 
 import Aux from "../Aux/Aux";
 
-import Authentication from "../../API/Authentication";
 import fire from "../../API/config/Fire";
+
+import Welcome from "../../containers/Welcome";
+// import Login from "../../containers/Authentication/Login";
 
 import Home from "../../containers/Tasks/Home/index";
 
@@ -36,7 +38,7 @@ class Layout extends Component {
     }
 
     render() {
-        return <Aux>{this.state.user ? <Home /> : <Authentication />}</Aux>;
+        return <Aux>{this.state.user ? <Home /> : <Welcome />}</Aux>;
     }
 }
 
