@@ -16,6 +16,7 @@ class Register extends Component {
         this.state = {
             email: "",
             password: "",
+            name: "",
             returnSecureToken: true,
             idToken: "",
             redirect: false,
@@ -24,7 +25,9 @@ class Register extends Component {
 
     signup(event) {
         event.preventDefault();
-        signupHandler(this.state.email, this.state.password);
+        signupHandler(this.state.email, this.state.password, this.state.name);
+        alert("Success, login now!");
+        this.props.history.push("/login");
     }
 
     changeHandler(event) {
@@ -44,6 +47,13 @@ class Register extends Component {
         return (
             <Form method="POST">
                 <TitleText> Sign up</TitleText>
+                <Input
+                    onChange={(e) => this.changeHandler(e)}
+                    placeholder="Your Name"
+                    type="text"
+                    name="name"
+                    value={this.state.name}
+                />
                 <Input
                     onChange={(e) => this.changeHandler(e)}
                     placeholder="Your Email"

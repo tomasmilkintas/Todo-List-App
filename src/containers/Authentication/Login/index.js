@@ -25,7 +25,6 @@ class Login extends Component {
     login(event) {
         event.preventDefault();
         loginHandler(this.state.email, this.state.password);
-        this.props.history.push("/home");
     }
 
     changeHandler(event) {
@@ -65,6 +64,12 @@ class Login extends Component {
                     Don't have an account?
                     <Link onClick={() => this.handleOnClick()} to="/login">
                         Register
+                    </Link>
+                </Text>
+                <Text>
+                    Having trouble logging in?
+                    <Link onClick={() => this.handleOnClick()} to="/reset">
+                        Reset your password
                     </Link>
                 </Text>
             </Form>

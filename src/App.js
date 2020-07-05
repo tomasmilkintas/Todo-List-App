@@ -8,6 +8,7 @@ import Register from "./containers/Authentication/Register/Index";
 import Home from "./containers/Tasks/Home";
 import firebaseInit from "./API/config/FirebaseInit";
 import Welcome from "./containers/Welcome";
+import PasswordRecovery from "./containers/Authentication/ForgotPassword";
 
 class App extends Component {
     constructor(props) {
@@ -15,18 +16,20 @@ class App extends Component {
 
         this.state = {
             user: {},
+            name: "",
         };
     }
 
     authListener() {
         firebaseInit.auth().onAuthStateChanged((user) => {
             if (user) {
-                this.setState({ user: user });
-                localStorage.setItem("user", user.uid);
-                this.props.history.push("/home");
+                this.setState({ user });
+                if (user.displayName) {
+                    this.props.history.push("/home");
+                    console.log(user.displayName);
+                }
             } else {
                 this.setState({ user: null });
-                localStorage.removeItem("user");
             }
         });
     }
@@ -41,6 +44,7 @@ class App extends Component {
                 <Switch>
                     <Route path="/login" component={Login} />
                     <Route path="/signup" component={Register} />
+                    <Route path="/reset" component={PasswordRecovery} />
                     <Route path="/home" component={Home} />
                     <Route path="/" component={Welcome} />
                     <Redirect to="/" />

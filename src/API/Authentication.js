@@ -4,12 +4,35 @@ export const loginHandler = (email, password) => {
     firebaseInit.auth().signInWithEmailAndPassword(email, password).then().catch();
 };
 
-export const signupHandler = (email, password) => {
+export const signupHandler = (email, password, name) => {
     firebaseInit
         .auth()
         .createUserWithEmailAndPassword(email, password)
-        .then((user) =>
-            firebaseInit.auth().currentUser.getIdToken(true).then(console.log(user)).catch()
-        )
+        .then(() => {
+            firebaseInit
+                .auth()
+                .currentUser.updateProfile({
+                    displayName: name,
+                })
+                .then(firebaseInit.auth().signOut())
+                .catch();
+        })
         .catch();
+};
+
+let actionCodeSettings = {
+    // After password reset, the user will be give the ability to go back
+    // to this page.
+    url: "http://localhost:3000/login",
+    handleCodeInApp: false,
+};
+
+export const PasswordRecoveryHandler = (email) => {
+    firebaseInit
+        .auth()
+        .sendPasswordResetEmail(email, actionCodeSettings)
+        .then(alert("Please check your email..."))
+        .catch((e) => {
+            console.log(e);
+        });
 };
