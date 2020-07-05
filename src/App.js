@@ -3,29 +3,48 @@ import "./App.css";
 
 import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 
-import Layout from "./hoc/Layout/Layout";
 import Login from "./containers/Authentication/Login";
 import Register from "./containers/Authentication/Register/Index";
 import Home from "./containers/Tasks/Home";
+import firebaseInit from "./API/config/FirebaseInit";
+import Welcome from "./containers/Welcome";
 
 class App extends Component {
-    render() {
-        let routes = (
-            <Switch>
-                <Route path="/login" component={Login}>
-                    Login
-                </Route>
-                <Route path="/signup" component={Register}>
-                    Register
-                </Route>
-                <Route path="/home" component={Home} />
+    constructor(props) {
+        super(props);
 
-                <Redirect to="/" />
-            </Switch>
-        );
+        this.state = {
+            user: {},
+        };
+    }
+
+    authListener() {
+        firebaseInit.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({ user: user });
+                localStorage.setItem("user", user.uid);
+                this.props.history.push("/home");
+            } else {
+                this.setState({ user: null });
+                localStorage.removeItem("user");
+            }
+        });
+    }
+
+    componentDidMount() {
+        this.authListener();
+    }
+
+    render() {
         return (
             <div className="App">
-                <Layout>{routes}</Layout>
+                <Switch>
+                    <Route path="/login" component={Login} />
+                    <Route path="/signup" component={Register} />
+                    <Route path="/home" component={Home} />
+                    <Route path="/" component={Welcome} />
+                    <Redirect to="/" />
+                </Switch>
             </div>
         );
     }

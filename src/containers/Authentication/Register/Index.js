@@ -6,6 +6,8 @@ import Input from "../../../stories/Input";
 
 import { signupHandler } from "../../../API/Authentication";
 import { Redirect, Link } from "react-router-dom";
+import Text from "../../../stories/Text";
+import TitleText from "../../../stories/TitleText";
 
 class Register extends Component {
     constructor(props) {
@@ -29,7 +31,7 @@ class Register extends Component {
         this.setState({ [event.target.name]: event.target.value });
     }
 
-    clicked() {
+    handleOnClick() {
         this.setState({ redirect: true });
     }
 
@@ -40,32 +42,30 @@ class Register extends Component {
             return <Redirect to="/login" />;
         }
         return (
-            <div>
-                <Form method="POST">
-                    <h1> Sign up</h1>
-                    <Input
-                        onChange={(e) => this.changeHandler(e)}
-                        placeholder="Your Email"
-                        type="email"
-                        name="email"
-                        value={this.state.email}
-                    />
-                    <Input
-                        onChange={(e) => this.changeHandler(e)}
-                        placeholder="Your Password"
-                        type="password"
-                        name="password"
-                        value={this.state.password}
-                    />
-                    <Button onClick={(e) => this.signup(e)}>Sign up</Button>
-                    <p>
-                        Got an account?{" "}
-                        <Link onClick={() => this.clicked()} to="/login">
-                            Log in
-                        </Link>
-                    </p>
-                </Form>
-            </div>
+            <Form method="POST">
+                <TitleText> Sign up</TitleText>
+                <Input
+                    onChange={(e) => this.changeHandler(e)}
+                    placeholder="Your Email"
+                    type="email"
+                    name="email"
+                    value={this.state.email}
+                />
+                <Input
+                    onChange={(e) => this.changeHandler(e)}
+                    placeholder="Your Password"
+                    type="password"
+                    name="password"
+                    value={this.state.password}
+                />
+                <Button onClick={(e) => this.signup(e)}>Sign up</Button>
+                <Text>
+                    Got an account?{" "}
+                    <Link onClick={() => this.handleOnClick()} to="/login">
+                        Log in
+                    </Link>
+                </Text>
+            </Form>
         );
     }
 }

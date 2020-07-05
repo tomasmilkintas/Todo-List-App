@@ -1,13 +1,16 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import firebaseInit from "../../../API/config/FirebaseInit";
 
 import List from "../../../stories/List/index";
-import { mappedItems } from "../../../stories/List/mappedItems/mappedItems";
 import Button from "../../../stories/Button/index";
-import Header from "../../../stories/Header/index";
+import StatusBarTop from "../../../stories/StatusBarTop";
 import { colours, mystyle } from "../../../stories/Colours/index";
-
-import fire from "../../../API/config/Fire";
-import { Redirect } from "react-router-dom";
+import { mappedItems } from "../../../stories/List/mappedItems/mappedItems";
+import StatusBarBottom from "../../../stories/StatusBarBottom";
+import Text from "../../../stories/Text";
+import Container from "../../../stories/Container";
+import TitleText from "../../../stories/TitleText";
 
 class Home extends Component {
     constructor(props) {
@@ -19,7 +22,7 @@ class Home extends Component {
     }
 
     logout() {
-        fire.auth().signOut();
+        firebaseInit.auth().signOut();
         localStorage.clear();
         this.setState({ redirect: true });
     }
@@ -32,26 +35,23 @@ class Home extends Component {
         }
         return (
             // visualising the home
-            <div>
-                <div id="status-bars-top"></div>
+            <Container>
+                <StatusBarTop>Icons</StatusBarTop>
 
-                <Header id="header"></Header>
+                <TitleText>Home</TitleText>
 
                 <div id="logo"></div>
 
                 {/* if no tasks - */}
-                <p id="text">
-                    Looks like you don’t have any tasks, go ahead and create a new task!
-                </p>
+                <Text>Looks like you don’t have any tasks, go ahead and create a new task!</Text>
                 {/* else - */}
                 <List>{mappedItems}</List>
 
                 <Button style={mystyle(colours.primaryColours.Sky, "white")}>Submit</Button>
-
                 <Button onClick={this.logout}>Logout</Button>
 
-                <div id="status-bars-bottom"></div>
-            </div>
+                <StatusBarBottom>Icons</StatusBarBottom>
+            </Container>
         );
     }
 }

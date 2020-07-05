@@ -6,6 +6,8 @@ import Input from "../../../stories/Input";
 
 import { loginHandler } from "../../../API/Authentication";
 import { Link, Redirect } from "react-router-dom";
+import Text from "../../../stories/Text";
+import TitleText from "../../../stories/TitleText";
 
 class Login extends Component {
     constructor(props) {
@@ -23,13 +25,14 @@ class Login extends Component {
     login(event) {
         event.preventDefault();
         loginHandler(this.state.email, this.state.password);
+        this.props.history.push("/home");
     }
 
     changeHandler(event) {
         this.setState({ [event.target.name]: event.target.value });
     }
 
-    clicked() {
+    handleOnClick() {
         this.setState({ redirect: true });
     }
 
@@ -39,33 +42,32 @@ class Login extends Component {
         if (redirect) {
             return <Redirect to="/signup" />;
         }
+
         return (
-            <div>
-                <Form method="POST">
-                    <h1> Log in</h1>
-                    <Input
-                        onChange={(e) => this.changeHandler(e)}
-                        placeholder="Your Email"
-                        type="email"
-                        name="email"
-                        value={this.state.email}
-                    />
-                    <Input
-                        onChange={(e) => this.changeHandler(e)}
-                        placeholder="Your Password"
-                        type="password"
-                        name="password"
-                        value={this.state.password}
-                    />
-                    <Button onClick={(e) => this.login(e)}>Login</Button>
-                    <p>
-                        Don't have an account?
-                        <Link onClick={() => this.clicked()} to="/login">
-                            Register
-                        </Link>
-                    </p>
-                </Form>
-            </div>
+            <Form method="POST">
+                <TitleText> Log in</TitleText>
+                <Input
+                    onChange={(e) => this.changeHandler(e)}
+                    placeholder="Your Email"
+                    type="email"
+                    name="email"
+                    value={this.state.email}
+                />
+                <Input
+                    onChange={(e) => this.changeHandler(e)}
+                    placeholder="Your Password"
+                    type="password"
+                    name="password"
+                    value={this.state.password}
+                />
+                <Button onClick={(e) => this.login(e)}>Login</Button>
+                <Text>
+                    Don't have an account?
+                    <Link onClick={() => this.handleOnClick()} to="/login">
+                        Register
+                    </Link>
+                </Text>
+            </Form>
         );
     }
 }

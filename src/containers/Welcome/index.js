@@ -1,22 +1,44 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
+// import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
-import Register from "../Authentication/Register/Index";
-import Login from "../Authentication/Login";
+import TitleText from "../../stories/TitleText";
+import Container from "../../stories/Container";
+import Button from "../../stories/Button";
 
 class Welcome extends Component {
-    render() {
-        return (
-            <BrowserRouter>
-                <h1>Welcome!</h1>
-                <Link to="/login">Login</Link>
-                <Link to="/signup">Register</Link>
+    constructor(props) {
+        super(props);
+        this.state = {
+            redirectLogin: false,
+            redirectSignup: false,
+        };
+    }
 
-                <Switch>
-                    <Route path="/login" component={Login} />
-                    <Route path="/signup" component={Register} />
-                </Switch>
-            </BrowserRouter>
+    handleOnClickLogin() {
+        this.setState({ redirectLogin: true });
+    }
+    handleOnClickSingup() {
+        this.setState({ redirectSignup: true });
+    }
+
+    render() {
+        const { redirectLogin } = this.state;
+        const { redirectSignup } = this.state;
+
+        if (redirectLogin) {
+            return <Redirect to="/login" />;
+        }
+        if (redirectSignup) {
+            return <Redirect to="/signup" />;
+        }
+        return (
+            <Container>
+                <TitleText>Welcome</TitleText>
+
+                <Button onClick={() => this.handleOnClickLogin()}>Login</Button>
+                <Button onClick={() => this.handleOnClickSingup()}>Signup</Button>
+            </Container>
         );
     }
 }

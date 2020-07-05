@@ -1,22 +1,15 @@
-import fire from "./config/Fire";
+import firebaseInit from "./config/FirebaseInit";
 
 export const loginHandler = (email, password) => {
-    fire.auth()
-        .signInWithEmailAndPassword(email, password)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err.message));
+    firebaseInit.auth().signInWithEmailAndPassword(email, password).then().catch();
 };
 
 export const signupHandler = (email, password) => {
-    fire.auth()
+    firebaseInit
+        .auth()
         .createUserWithEmailAndPassword(email, password)
         .then((user) =>
-            fire
-                .auth()
-                .currentUser.getIdToken(true)
-                .then((idToken) => console.log(idToken))
-                .catch((err) => console.log(err))
+            firebaseInit.auth().currentUser.getIdToken(true).then(console.log(user)).catch()
         )
-        .catch((err) => console.log(err.message));
-    console.log(email, password);
+        .catch();
 };

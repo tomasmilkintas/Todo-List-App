@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { colours } from "../Colours/index";
 
-const StyledForm = styled.form`
+const StyledContainer = styled.div`
     width: 400px;
-    height: 400px;
+    height: 500px;
     border: 4px solid ${colours.secondaryColours.Teal};
     display: flex;
     flex-direction: column;
@@ -11,4 +11,4 @@ const StyledForm = styled.form`
     align-items: center;
 `;
 
-export default StyledForm;
+export default StyledContainer;

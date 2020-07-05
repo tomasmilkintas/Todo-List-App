@@ -9,6 +9,7 @@ export const colours = {
         Purple: "#2A2C70",
         Sunshine: "#FEC834",
         Red: "#EC403D",
+        Teal: "teal",
     },
     neutralColours: {
         Default: "#3b7998",

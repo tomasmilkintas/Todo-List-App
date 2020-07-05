@@ -28,6 +28,9 @@ storiesOf("Theme", module)
         <Theme style={{ backgroundColor: colours.secondaryColours.Sunshine }} />
     ))
     .add("Secondary Red", () => <Theme style={{ backgroundColor: colours.secondaryColours.Red }} />)
+    .add("Secondary Teal", () => (
+        <Theme style={{ backgroundColor: colours.secondaryColours.Teal }} />
+    ))
     .add("Neutral Graphite", () => (
         <Theme style={{ backgroundColor: colours.neutralColours.Graphite }} />
     ))

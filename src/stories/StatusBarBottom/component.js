@@ -1,14 +1,13 @@
 import styled from "styled-components";
 import { colours } from "../Colours/index";
 
-const StyledForm = styled.form`
+const StyledStatusBarBottom = styled.section`
     width: 400px;
-    height: 400px;
+    height: 40px;
     border: 4px solid ${colours.secondaryColours.Teal};
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
 `;
 
-export default StyledForm;
+export default StyledStatusBarBottom;
