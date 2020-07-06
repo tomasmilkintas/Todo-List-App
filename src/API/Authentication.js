@@ -23,7 +23,7 @@ export const signupHandler = (email, password, name) => {
 let actionCodeSettings = {
     // After password reset, the user will be give the ability to go back
     // to this page.
-    url: "http://localhost:3000/login",
+    url: process.env.REACT_APP_BASE_URL,
     handleCodeInApp: false,
 };
 
