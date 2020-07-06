@@ -16,7 +16,7 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "",
+            name: { firstName: "", lastName: "" },
             redirect: false,
         };
         this.logout = this.logout.bind(this);
@@ -31,7 +31,7 @@ class Home extends Component {
     authListener() {
         firebaseInit.auth().onAuthStateChanged((user) => {
             if (user) {
-                this.setState({ name: user.displayName });
+                this.setState({ firstName: user.displayName });
             } else {
                 this.setState({ name: null });
             }
@@ -53,7 +53,7 @@ class Home extends Component {
             <Container>
                 <StatusBarTop>Icons</StatusBarTop>
 
-                <TitleText id="name">Hello, {this.state.name}</TitleText>
+                <TitleText id="name">Hello, {this.state.name.firstName}</TitleText>
 
                 {/* if no tasks - */}
                 <Text>Looks like you don’t have any tasks, go ahead and create a new task!</Text>

@@ -16,7 +16,7 @@ class App extends Component {
 
         this.state = {
             user: {},
-            name: "",
+            name: { firstName: "", lastName: "" },
         };
     }
 
@@ -26,7 +26,6 @@ class App extends Component {
                 this.setState({ user });
                 if (user.displayName) {
                     this.props.history.push("/home");
-                    console.log(user.displayName);
                 }
             } else {
                 this.setState({ user: null });

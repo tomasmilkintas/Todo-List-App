@@ -1,10 +1,14 @@
 import firebaseInit from "./config/FirebaseInit";
 
 export const loginHandler = (email, password) => {
-    firebaseInit.auth().signInWithEmailAndPassword(email, password).then().catch();
+    firebaseInit
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then()
+        .catch((err) => console.log(err));
 };
 
-export const signupHandler = (email, password, name) => {
+export const signupHandler = (email, password, firstName) => {
     firebaseInit
         .auth()
         .createUserWithEmailAndPassword(email, password)
@@ -12,7 +16,7 @@ export const signupHandler = (email, password, name) => {
             firebaseInit
                 .auth()
                 .currentUser.updateProfile({
-                    displayName: name,
+                    displayName: firstName,
                 })
                 .then(firebaseInit.auth().signOut())
                 .catch();
@@ -23,7 +27,7 @@ export const signupHandler = (email, password, name) => {
 let actionCodeSettings = {
     // After password reset, the user will be give the ability to go back
     // to this page.
-    url: "http://localhost:3000/login",
+    url: process.env.REACT_APP_BASE_URL,
     handleCodeInApp: false,
 };
 

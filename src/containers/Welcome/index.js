@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 
 import TitleText from "../../stories/TitleText";
-import Container from "../../stories/Container";
+import Form from "../../stories/Form";
 import Button from "../../stories/Button";
 
 class Welcome extends Component {
@@ -33,12 +33,12 @@ class Welcome extends Component {
             return <Redirect to="/signup" />;
         }
         return (
-            <Container>
+            <Form>
                 <TitleText>Welcome</TitleText>
 
                 <Button onClick={() => this.handleOnClickLogin()}>Login</Button>
                 <Button onClick={() => this.handleOnClickSingup()}>Signup</Button>
-            </Container>
+            </Form>
         );
     }
 }

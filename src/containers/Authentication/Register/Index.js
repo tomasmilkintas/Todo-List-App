@@ -16,7 +16,10 @@ class Register extends Component {
         this.state = {
             email: "",
             password: "",
-            name: "",
+            name: {
+                firstName: "",
+                lastName: "",
+            },
             returnSecureToken: true,
             idToken: "",
             redirect: false,
@@ -25,7 +28,8 @@ class Register extends Component {
 
     signup(event) {
         event.preventDefault();
-        signupHandler(this.state.email, this.state.password, this.state.name);
+        signupHandler(this.state.email, this.state.password, this.state.name.firstName);
+        console.log(this.state.name);
         alert("Success, login now!");
         this.props.history.push("/login");
     }
@@ -52,7 +56,14 @@ class Register extends Component {
                     placeholder="Your Name"
                     type="text"
                     name="name"
-                    value={this.state.name}
+                    value={this.state.name.firstName}
+                />
+                <Input
+                    onChange={(e) => this.changeHandler(e)}
+                    placeholder="Your Surname"
+                    type="text"
+                    name="surname"
+                    value={this.state.name.lastName}
                 />
                 <Input
                     onChange={(e) => this.changeHandler(e)}
