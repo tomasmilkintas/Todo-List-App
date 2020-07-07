@@ -9,14 +9,16 @@ import Home from "./containers/Tasks/Home";
 import firebaseInit from "./API/config/FirebaseInit";
 import Welcome from "./containers/Welcome";
 import PasswordRecovery from "./containers/Authentication/ForgotPassword";
+import Profile from "./containers/Profile";
 
 class App extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            user: {},
-            name: { firstName: "", lastName: "" },
+            user: {
+                displayName: "",
+            },
         };
     }
 
@@ -24,8 +26,16 @@ class App extends Component {
         firebaseInit.auth().onAuthStateChanged((user) => {
             if (user) {
                 this.setState({ user });
-                if (user.displayName) {
+
+                let newUser = new Date() - new Date(user.metadata.creationTime) < 3000;
+                console.log(newUser);
+
+                if (newUser) {
+                    firebaseInit.auth().signOut();
+                    this.props.history.push("/login");
+                } else {
                     this.props.history.push("/home");
+                    console.log(user);
                 }
             } else {
                 this.setState({ user: null });
@@ -44,6 +54,7 @@ class App extends Component {
                     <Route path="/login" component={Login} />
                     <Route path="/signup" component={Register} />
                     <Route path="/reset" component={PasswordRecovery} />
+                    <Route path="/profile" component={Profile} />
                     <Route path="/home" component={Home} />
                     <Route path="/" component={Welcome} />
                     <Redirect to="/" />

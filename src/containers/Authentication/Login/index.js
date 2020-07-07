@@ -16,8 +16,6 @@ class Login extends Component {
         this.state = {
             email: "",
             password: "",
-            returnSecureToken: true,
-            idToken: "",
             redirect: false,
         };
     }

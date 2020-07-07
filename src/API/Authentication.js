@@ -1,24 +1,26 @@
 import firebaseInit from "./config/FirebaseInit";
 
 export const loginHandler = (email, password) => {
-    firebaseInit
-        .auth()
-        .signInWithEmailAndPassword(email, password)
-        .then()
-        .catch((err) => console.log(err));
+    firebaseInit.auth().signInWithEmailAndPassword(email, password).then().catch();
 };
 
-export const signupHandler = (email, password, firstName) => {
+export const signupHandler = (email, password, firstName, lastName) => {
     firebaseInit
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(() => {
+            let userId = firebaseInit.auth().currentUser.uid;
+
             firebaseInit
-                .auth()
-                .currentUser.updateProfile({
-                    displayName: firstName,
+                .database()
+                .ref("users/" + userId)
+                .set({
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    userId: userId,
                 })
-                .then(firebaseInit.auth().signOut())
+                .then(firebaseInit.auth().currentUser.updateProfile({ displayName: firstName }))
                 .catch();
         })
         .catch();

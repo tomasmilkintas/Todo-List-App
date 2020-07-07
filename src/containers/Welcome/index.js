@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 
 import TitleText from "../../stories/TitleText";
