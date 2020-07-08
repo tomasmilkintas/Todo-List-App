@@ -42,3 +42,21 @@ export const PasswordRecoveryHandler = (email) => {
             console.log(e);
         });
 };
+
+// export const profileDisplayHandler = () => {
+//     let userId = firebaseInit.auth().currentUser.uid;
+
+//     let ref = firebaseInit.database().ref("users/" + userId);
+
+//     ref.on(
+//         "value",
+//         (data) => {
+//             let values = data.val();
+//             this.setState({ userId: values.userId });
+//             this.setState({ firstName: values.firstName });
+//             this.setState({ lastName: values.lastName });
+//             this.setState({ email: values.email });
+//         },
+//         (err) => console.log(err)
+//     );
+// };

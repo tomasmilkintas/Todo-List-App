@@ -26,6 +26,25 @@ class Home extends Component {
         localStorage.clear();
         this.props.history.push("/");
     }
+
+    profileDisplayHandler() {
+        let userId = firebaseInit.auth().currentUser.uid;
+
+        let ref = firebaseInit.database().ref("users/" + userId);
+
+        ref.on(
+            "value",
+            (data) => {
+                let values = data.val();
+                this.setState({ userId: values.userId });
+                this.setState({ firstName: values.firstName });
+                this.setState({ lastName: values.lastName });
+                this.setState({ email: values.email });
+            },
+            (err) => console.log(err)
+        );
+    }
+
     profileHandler() {
         this.props.history.push("/profile");
     }
