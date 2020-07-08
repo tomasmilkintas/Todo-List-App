@@ -4,17 +4,23 @@ export const loginHandler = (email, password) => {
     firebaseInit.auth().signInWithEmailAndPassword(email, password).then().catch();
 };
 
-export const signupHandler = (email, password, name) => {
+export const signupHandler = (email, password, firstName, lastName) => {
     firebaseInit
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(() => {
+            let userId = firebaseInit.auth().currentUser.uid;
+
             firebaseInit
-                .auth()
-                .currentUser.updateProfile({
-                    displayName: name,
+                .database()
+                .ref("users/" + userId)
+                .set({
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    userId: userId,
                 })
-                .then(firebaseInit.auth().signOut())
+                .then(firebaseInit.auth().currentUser.updateProfile({ displayName: firstName }))
                 .catch();
         })
         .catch();

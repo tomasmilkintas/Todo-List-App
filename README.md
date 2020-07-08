@@ -1,81 +1,54 @@
-The aim of this project is to have a well-rounded Todo List App.
+## Vision
 
-The plan is to link it up with a database for the list items themselves,
-Set up user stories and therefore authentication to accomplish that.
-Register / login / password recovery using Firebase.
-Various features that go beyond add/remove list item.
+The aim of this project is to have a well-rounded Todo List App with users
+and appropriate authentication. The tasks themselves will be linked to the
+unique registered user, so that the user can manipulate only his own list of
+tasks. Naturally, a database is used to store and retrieve the data.
 
-Also as a practice for a better Front-end architecture using Figma and Storybook to supplement my project.
+Both the authentication and the database used here are with Firebase.
 
----
+## Storybook
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+For this project I started using Storybook to achieve a cleaner and a more consice architecture.
+Basically it allows you to break down the reusable components into little chunk and give you your
+own mini visual library for each component irrespective of where the app itself is at that point.
 
-## Available Scripts
+To get it running, paste this in the terminal:
 
-In the project directory, you can run:
+```
+npx -p @storybook/cli sb init --type react
+```
 
-### `yarn start`
+followed by:
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+yarn storybook
+```
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+For more information visit the official [site](https://storybook.js.org/docs/basics/introduction/).
 
-### `yarn test`
+## Delete Firebase users
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+For those wanting to play around and test it out with multiple users, here's a handy snippet
+of code to delete them later. Currently in the authentication section, you can delete users
+only one by one, so this code circumvents that:
 
-### `yarn build`
+```
+var intervalId;
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+var clearFunction = function() {
+  var size = $('[aria-label="Delete account"]').size()
+  if (size == 0) {
+    console.log("interval cleared")
+    clearInterval(intervalId)
+    return
+  }
+  var index = Math.floor(Math.random() * size)
+  $('[aria-label="Delete account"]')[index].click();
+  setTimeout(function () {
+     $(".md-raised:contains(Delete)").click()
+  }, 1000);
+};
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-
-# Todo-List-App
+intervalId = setInterval(clearFunction, 300)
+```

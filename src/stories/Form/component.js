@@ -7,7 +7,7 @@ const StyledForm = styled.form`
     border: 4px solid ${colours.secondaryColours.Teal};
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
 `;
 

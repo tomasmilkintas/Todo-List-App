@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 import firebaseInit from "../../../API/config/FirebaseInit";
 
 import List from "../../../stories/List/index";
@@ -16,24 +15,27 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "",
-            redirect: false,
+            firstName: "",
         };
         this.logout = this.logout.bind(this);
+        this.profileHandler = this.profileHandler.bind(this);
     }
 
     logout() {
         firebaseInit.auth().signOut();
         localStorage.clear();
-        this.setState({ redirect: true });
+        this.props.history.push("/");
+    }
+    profileHandler() {
+        this.props.history.push("/profile");
     }
 
     authListener() {
         firebaseInit.auth().onAuthStateChanged((user) => {
             if (user) {
-                this.setState({ name: user.displayName });
+                this.setState({ firstName: user.displayName });
             } else {
-                this.setState({ name: null });
+                this.setState({ firstName: null });
             }
         });
     }
@@ -43,17 +45,14 @@ class Home extends Component {
     }
 
     render() {
-        const { redirect } = this.state;
-
-        if (redirect) {
-            return <Redirect to="/" />;
-        }
         return (
             // visualising the home
             <Container>
-                <StatusBarTop>Icons</StatusBarTop>
+                <StatusBarTop>
+                    <Button onClick={this.profileHandler}>Profile</Button>
+                </StatusBarTop>
 
-                <TitleText id="name">Hello, {this.state.name}</TitleText>
+                <TitleText id="name">Hello, {this.state.firstName}</TitleText>
 
                 {/* if no tasks - */}
                 <Text>Looks like you don’t have any tasks, go ahead and create a new task!</Text>
