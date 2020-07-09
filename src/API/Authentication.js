@@ -43,7 +43,7 @@ export const PasswordRecoveryHandler = (email) => {
         });
 };
 
-// export const profileDisplayHandler = () => {
+// export const profileDisplayHandler = (item) => {
 //     let userId = firebaseInit.auth().currentUser.uid;
 
 //     let ref = firebaseInit.database().ref("users/" + userId);
@@ -52,10 +52,7 @@ export const PasswordRecoveryHandler = (email) => {
 //         "value",
 //         (data) => {
 //             let values = data.val();
-//             this.setState({ userId: values.userId });
-//             this.setState({ firstName: values.firstName });
-//             this.setState({ lastName: values.lastName });
-//             this.setState({ email: values.email });
+//             return values.item;
 //         },
 //         (err) => console.log(err)
 //     );

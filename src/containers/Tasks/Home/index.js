@@ -23,26 +23,7 @@ class Home extends Component {
 
     logout() {
         firebaseInit.auth().signOut();
-        localStorage.clear();
         this.props.history.push("/");
-    }
-
-    profileDisplayHandler() {
-        let userId = firebaseInit.auth().currentUser.uid;
-
-        let ref = firebaseInit.database().ref("users/" + userId);
-
-        ref.on(
-            "value",
-            (data) => {
-                let values = data.val();
-                this.setState({ userId: values.userId });
-                this.setState({ firstName: values.firstName });
-                this.setState({ lastName: values.lastName });
-                this.setState({ email: values.email });
-            },
-            (err) => console.log(err)
-        );
     }
 
     profileHandler() {
@@ -69,6 +50,7 @@ class Home extends Component {
             <Container>
                 <StatusBarTop>
                     <Button onClick={this.profileHandler}>Profile</Button>
+                    <Button onClick={this.logout}>Logout</Button>
                 </StatusBarTop>
 
                 <TitleText id="name">Hello, {this.state.firstName}</TitleText>
@@ -79,7 +61,6 @@ class Home extends Component {
                 <List>{mappedItems}</List>
 
                 <Button style={mystyle(colours.primaryColours.Sky, "white")}>Submit</Button>
-                <Button onClick={this.logout}>Logout</Button>
 
                 <StatusBarBottom>Icons</StatusBarBottom>
             </Container>

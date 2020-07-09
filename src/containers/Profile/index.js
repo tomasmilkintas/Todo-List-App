@@ -5,7 +5,6 @@ import Button from "../../stories/Button/index";
 import Container from "../../stories/Container";
 import TitleText from "../../stories/TitleText";
 import firebaseInit from "../../API/config/FirebaseInit";
-
 class Profile extends Component {
     constructor(props) {
         super(props);
@@ -63,7 +62,7 @@ class Profile extends Component {
                     {this.state.firstName}
                 </Text>
                 <Text>
-                    <b>Your Surnam: </b>
+                    <b>Your Surname: </b>
                     {this.state.lastName}
                 </Text>
 
