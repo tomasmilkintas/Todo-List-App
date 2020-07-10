@@ -34,16 +34,16 @@ of code to delete them later. Currently in the authentication section, you can d
 only one by one, so this code circumvents that:
 
 ```
-var intervalId;
+let intervalId;
 
-var clearFunction = function() {
-  var size = $('[aria-label="Delete account"]').size()
+let clearFunction = function() {
+  let size = $('[aria-label="Delete account"]').size()
   if (size == 0) {
     console.log("interval cleared")
     clearInterval(intervalId)
     return
   }
-  var index = Math.floor(Math.random() * size)
+  let index = Math.floor(Math.random() * size)
   $('[aria-label="Delete account"]')[index].click();
   setTimeout(function () {
      $(".md-raised:contains(Delete)").click()
@@ -52,3 +52,7 @@ var clearFunction = function() {
 
 intervalId = setInterval(clearFunction, 300)
 ```
+
+In order to use it, copy the text above and paste it into the developer tools console,
+when you are at your authentication section. This code will select users one by one and
+run until the list is empty.

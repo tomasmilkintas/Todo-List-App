@@ -23,9 +23,9 @@ class Home extends Component {
 
     logout() {
         firebaseInit.auth().signOut();
-        localStorage.clear();
         this.props.history.push("/");
     }
+
     profileHandler() {
         this.props.history.push("/profile");
     }
@@ -50,6 +50,7 @@ class Home extends Component {
             <Container>
                 <StatusBarTop>
                     <Button onClick={this.profileHandler}>Profile</Button>
+                    <Button onClick={this.logout}>Logout</Button>
                 </StatusBarTop>
 
                 <TitleText id="name">Hello, {this.state.firstName}</TitleText>
@@ -60,7 +61,6 @@ class Home extends Component {
                 <List>{mappedItems}</List>
 
                 <Button style={mystyle(colours.primaryColours.Sky, "white")}>Submit</Button>
-                <Button onClick={this.logout}>Logout</Button>
 
                 <StatusBarBottom>Icons</StatusBarBottom>
             </Container>

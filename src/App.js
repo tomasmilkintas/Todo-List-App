@@ -28,14 +28,12 @@ class App extends Component {
                 this.setState({ user });
 
                 let newUser = new Date() - new Date(user.metadata.creationTime) < 3000;
-                console.log(newUser);
 
                 if (newUser) {
                     firebaseInit.auth().signOut();
                     this.props.history.push("/login");
                 } else {
                     this.props.history.push("/home");
-                    console.log(user);
                 }
             } else {
                 this.setState({ user: null });

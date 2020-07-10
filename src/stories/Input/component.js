@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 const StyledInput = styled.input`
-    margin: 0;
+    margin: -23px;
     border-radius: 10px;
-    width: 200px;
-    padding: 10px;
-    font-size: 16px;
+    width: 40%;
+    padding: 0.8em;
+    font-size: 1em;
     background-color: wheat;
 `;
 
