@@ -17,12 +17,39 @@ class Login extends Component {
             email: "",
             password: "",
             redirect: false,
+            emailError: "",
+            passwordError: "",
         };
     }
 
+    validationHandler = () => {
+        let emailError = "";
+        let passwordError = "";
+
+        if (!this.state.email.includes("@")) {
+            emailError = "Please enter a valid email address";
+        }
+
+        if (this.state.password.length < 8) {
+            passwordError = "Password should be 8 characters or more";
+        }
+
+        if (emailError || passwordError) {
+            this.setState({ passwordError });
+            this.setState({ emailError });
+            return false;
+        }
+        return true;
+    };
+
     login(event) {
         event.preventDefault();
-        loginHandler(this.state.email, this.state.password);
+        const isValid = this.validationHandler();
+        console.log(isValid);
+
+        if (isValid) {
+            loginHandler(this.state.email, this.state.password);
+        }
     }
 
     changeHandler(event) {
@@ -43,6 +70,8 @@ class Login extends Component {
         return (
             <Form method="POST">
                 <TitleText> Log in</TitleText>
+                <Text style={{ color: "red", fontSize: "14px" }}>{this.state.emailError}</Text>
+
                 <Input
                     onChange={(e) => this.changeHandler(e)}
                     placeholder="Your Email"
@@ -50,6 +79,8 @@ class Login extends Component {
                     name="email"
                     value={this.state.email}
                 />
+                <Text style={{ color: "red", fontSize: "14px" }}>{this.state.passwordError}</Text>
+
                 <Input
                     onChange={(e) => this.changeHandler(e)}
                     placeholder="Your Password"

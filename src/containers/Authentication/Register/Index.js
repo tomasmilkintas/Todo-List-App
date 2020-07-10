@@ -9,31 +9,71 @@ import { Redirect, Link } from "react-router-dom";
 import Text from "../../../stories/Text";
 import TitleText from "../../../stories/TitleText";
 
+const initialState = {
+    email: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    userId: "",
+    redirect: false,
+    returnSecureToken: true,
+    firstNameError: "",
+    lastNameError: "",
+    emailError: "",
+    passwordError: "",
+};
+
 class Register extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            email: "",
-            password: "",
-            firstName: "",
-            lastName: "",
-            userId: "",
-            redirect: false,
-            returnSecureToken: true,
-        };
+        this.state = initialState;
     }
+
+    validationHandler = () => {
+        let firstNameError = "";
+        let lastNameError = "";
+        let emailError = "";
+        let passwordError = "";
+
+        if (!this.state.email.includes("@")) {
+            emailError = "Please enter a valid email address";
+        }
+        if (this.state.firstName === "") {
+            firstNameError = "Cannot be blank";
+        }
+        if (this.state.lastName === "") {
+            lastNameError = "Cannot be blank";
+        }
+
+        if (this.state.password.length < 8) {
+            passwordError = "Password should be 8 characters or more";
+        }
+
+        if (firstNameError || lastNameError || emailError || passwordError) {
+            this.setState({ passwordError });
+            this.setState({ emailError });
+            this.setState({ firstNameError });
+            this.setState({ lastNameError });
+            return false;
+        }
+        return true;
+    };
 
     signup(event) {
         event.preventDefault();
-        signupHandler(
-            this.state.email,
-            this.state.password,
-            this.state.firstName,
-            this.state.lastName
-        );
-        alert("Success, login now!");
-        console.log(this.state.name);
+        const isValid = this.validationHandler();
+        console.log(isValid);
+
+        if (isValid) {
+            signupHandler(
+                this.state.email,
+                this.state.password,
+                this.state.firstName,
+                this.state.lastName
+            );
+            alert("Success, login now!");
+        } else {
+        }
     }
 
     changeHandler(event) {
@@ -53,6 +93,7 @@ class Register extends Component {
         return (
             <Form method="POST">
                 <TitleText> Sign up</TitleText>
+                <Text style={{ color: "red", fontSize: "14px" }}>{this.state.firstNameError}</Text>
                 <Input
                     onChange={(e) => this.changeHandler(e)}
                     placeholder="Your Name"
@@ -60,6 +101,7 @@ class Register extends Component {
                     name="firstName"
                     value={this.state.firstName}
                 />
+                <Text style={{ color: "red", fontSize: "14px" }}>{this.state.lastNameError}</Text>
                 <Input
                     onChange={(e) => this.changeHandler(e)}
                     placeholder="Your Surname"
@@ -67,6 +109,8 @@ class Register extends Component {
                     name="lastName"
                     value={this.state.lastName}
                 />
+
+                <Text style={{ color: "red", fontSize: "14px" }}>{this.state.emailError}</Text>
                 <Input
                     onChange={(e) => this.changeHandler(e)}
                     placeholder="Your Email"
@@ -74,6 +118,8 @@ class Register extends Component {
                     name="email"
                     value={this.state.email}
                 />
+
+                <Text style={{ color: "red", fontSize: "14px" }}>{this.state.passwordError}</Text>
                 <Input
                     onChange={(e) => this.changeHandler(e)}
                     placeholder="Your Password"
@@ -81,6 +127,7 @@ class Register extends Component {
                     name="password"
                     value={this.state.password}
                 />
+
                 <Button onClick={(e) => this.signup(e)}>Sign up</Button>
                 <Text>
                     Got an account?{" "}
