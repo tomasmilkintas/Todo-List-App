@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import firebaseInit from "../../../API/config/FirebaseInit";
 
-import List from "../../../stories/List/index";
 import Button from "../../../stories/Button/index";
 import StatusBarTop from "../../../stories/StatusBarTop";
-import { colours, mystyle } from "../../../stories/Colours/index";
-import { mappedItems } from "../../../stories/List/mappedItems/mappedItems";
 import StatusBarBottom from "../../../stories/StatusBarBottom";
-import Text from "../../../stories/Text";
 import Container from "../../../stories/Container";
 import TitleText from "../../../stories/TitleText";
+import Tasks from "../../../API/Tasks";
 
 class Home extends Component {
     constructor(props) {
@@ -56,11 +53,11 @@ class Home extends Component {
                 <TitleText id="name">Hello, {this.state.firstName}</TitleText>
 
                 {/* if no tasks - */}
-                <Text>Looks like you don’t have any tasks, go ahead and create a new task!</Text>
-                {/* else - */}
-                <List>{mappedItems}</List>
+                {/* <Text>Looks like you don’t have any tasks, go ahead and create a new task!</Text> */}
 
-                <Button style={mystyle(colours.primaryColours.Sky, "white")}>Submit</Button>
+                {/* else - */}
+
+                <Tasks />
 
                 <StatusBarBottom>Icons</StatusBarBottom>
             </Container>
