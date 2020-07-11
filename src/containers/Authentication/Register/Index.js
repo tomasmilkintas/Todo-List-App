@@ -8,6 +8,7 @@ import { signupHandler } from "../../../API/Authentication";
 import { Redirect, Link } from "react-router-dom";
 import Text from "../../../stories/Text";
 import TitleText from "../../../stories/TitleText";
+import Box from "../../../stories/Box";
 
 const initialState = {
     email: "",
@@ -44,7 +45,6 @@ class Register extends Component {
         if (this.state.lastName === "") {
             lastNameError = "Cannot be blank";
         }
-
         if (this.state.password.length < 8) {
             passwordError = "Password should be 8 characters or more";
         }
@@ -93,41 +93,79 @@ class Register extends Component {
         return (
             <Form method="POST">
                 <TitleText> Sign up</TitleText>
-                <Text style={{ color: "red", fontSize: "14px" }}>{this.state.firstNameError}</Text>
-                <Input
-                    onChange={(e) => this.changeHandler(e)}
-                    placeholder="Your Name"
-                    type="text"
-                    name="firstName"
-                    value={this.state.firstName}
-                />
-                <Text style={{ color: "red", fontSize: "14px" }}>{this.state.lastNameError}</Text>
-                <Input
-                    onChange={(e) => this.changeHandler(e)}
-                    placeholder="Your Surname"
-                    type="text"
-                    name="lastName"
-                    value={this.state.lastName}
-                />
+                <Box>
+                    <Text
+                        style={
+                            this.state.firstNameError === ""
+                                ? { color: "white", fontSize: "14px" }
+                                : { color: "red", fontSize: "14px" }
+                        }
+                    >
+                        {this.state.firstNameError}
+                    </Text>
+                    <Input
+                        onChange={(e) => this.changeHandler(e)}
+                        placeholder="Your Name"
+                        type="text"
+                        name="firstName"
+                        value={this.state.firstName}
+                    />
+                </Box>
+                <Box>
+                    <Text
+                        style={
+                            this.state.lastNameError === ""
+                                ? { color: "white", fontSize: "14px" }
+                                : { color: "red", fontSize: "14px" }
+                        }
+                    >
+                        {this.state.lastNameError}
+                    </Text>
+                    <Input
+                        onChange={(e) => this.changeHandler(e)}
+                        placeholder="Your Surname"
+                        type="text"
+                        name="lastName"
+                        value={this.state.lastName}
+                    />
+                </Box>
+                <Box>
+                    <Text
+                        style={
+                            this.state.emailError === ""
+                                ? { color: "white", fontSize: "14px" }
+                                : { color: "red", fontSize: "14px" }
+                        }
+                    >
+                        {this.state.emailError}
+                    </Text>
+                    <Input
+                        onChange={(e) => this.changeHandler(e)}
+                        placeholder="Your Email"
+                        type="email"
+                        name="email"
+                        value={this.state.email}
+                    />
+                </Box>
 
-                <Text style={{ color: "red", fontSize: "14px" }}>{this.state.emailError}</Text>
-                <Input
-                    onChange={(e) => this.changeHandler(e)}
-                    placeholder="Your Email"
-                    type="email"
-                    name="email"
-                    value={this.state.email}
-                />
-
-                <Text style={{ color: "red", fontSize: "14px" }}>{this.state.passwordError}</Text>
-                <Input
-                    onChange={(e) => this.changeHandler(e)}
-                    placeholder="Your Password"
-                    type="password"
-                    name="password"
-                    value={this.state.password}
-                />
-
+                <Box>
+                    <Text
+                        style={
+                            this.state.passwordError === ""
+                                ? { color: "white", fontSize: "14px" }
+                                : { color: "red", fontSize: "14px" }
+                        }
+                    >
+                        {this.state.passwordError}
+                    </Text>
+                    <Input
+                        onChange={(e) => this.changeHandler(e)}
+                        placeholder="Your Password"
+                        type="password"
+                        name="password"
+                        value={this.state.password}
+                    />
+                </Box>
                 <Button onClick={(e) => this.signup(e)}>Sign up</Button>
                 <Text>
                     Got an account?{" "}

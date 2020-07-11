@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import TitleText from "../../stories/TitleText";
 import Form from "../../stories/Form";
 import Button from "../../stories/Button";
+import Box from "../../stories/Box";
 
 class Welcome extends Component {
     constructor(props) {
@@ -34,9 +35,10 @@ class Welcome extends Component {
         return (
             <Form>
                 <TitleText>Welcome</TitleText>
-
-                <Button onClick={() => this.handleOnClickLogin()}>Login</Button>
-                <Button onClick={() => this.handleOnClickSingup()}>Signup</Button>
+                <Box>
+                    <Button onClick={() => this.handleOnClickLogin()}>Login</Button>
+                    <Button onClick={() => this.handleOnClickSingup()}>Signup</Button>
+                </Box>
             </Form>
         );
     }

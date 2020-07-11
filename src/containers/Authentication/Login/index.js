@@ -8,6 +8,7 @@ import { loginHandler } from "../../../API/Authentication";
 import { Link, Redirect } from "react-router-dom";
 import Text from "../../../stories/Text";
 import TitleText from "../../../stories/TitleText";
+import Box from "../../../stories/Box";
 
 class Login extends Component {
     constructor(props) {
@@ -45,8 +46,6 @@ class Login extends Component {
     login(event) {
         event.preventDefault();
         const isValid = this.validationHandler();
-        console.log(isValid);
-
         if (isValid) {
             loginHandler(this.state.email, this.state.password);
         }
@@ -70,24 +69,43 @@ class Login extends Component {
         return (
             <Form method="POST">
                 <TitleText> Log in</TitleText>
-                <Text style={{ color: "red", fontSize: "14px" }}>{this.state.emailError}</Text>
 
-                <Input
-                    onChange={(e) => this.changeHandler(e)}
-                    placeholder="Your Email"
-                    type="email"
-                    name="email"
-                    value={this.state.email}
-                />
-                <Text style={{ color: "red", fontSize: "14px" }}>{this.state.passwordError}</Text>
-
-                <Input
-                    onChange={(e) => this.changeHandler(e)}
-                    placeholder="Your Password"
-                    type="password"
-                    name="password"
-                    value={this.state.password}
-                />
+                <Box>
+                    <Text
+                        style={
+                            this.state.emailError === ""
+                                ? { color: "white", fontSize: "14px" }
+                                : { color: "red", fontSize: "14px" }
+                        }
+                    >
+                        {this.state.emailError}
+                    </Text>
+                    <Input
+                        onChange={(e) => this.changeHandler(e)}
+                        placeholder="Your Email"
+                        type="email"
+                        name="email"
+                        value={this.state.email}
+                    />
+                </Box>
+                <Box>
+                    <Text
+                        style={
+                            this.state.passwordError === ""
+                                ? { color: "white", fontSize: "14px" }
+                                : { color: "red", fontSize: "14px" }
+                        }
+                    >
+                        {this.state.passwordError}
+                    </Text>
+                    <Input
+                        onChange={(e) => this.changeHandler(e)}
+                        placeholder="Your Password"
+                        type="password"
+                        name="password"
+                        value={this.state.password}
+                    />
+                </Box>
                 <Button onClick={(e) => this.login(e)}>Login</Button>
                 <Text>
                     Don't have an account?

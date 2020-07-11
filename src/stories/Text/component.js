@@ -5,6 +5,7 @@ const StyledText = styled.p`
     font-size: 14px;
     font-size: 1.1em;
     padding: 0px 20px;
+    height: 26px;
 `;
 
 export default StyledText;
