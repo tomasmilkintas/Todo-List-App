@@ -6,7 +6,7 @@ import Text from "../../../stories/Text";
 
 import { PasswordRecoveryHandler } from "../../../API/Authentication";
 import Form from "../../../stories/Form";
-import Box from "../../../stories/Box";
+import TextInputContainer from "../../../stories/TextInputContainer";
 
 class PasswordRecovery extends Component {
     constructor(props) {
@@ -53,7 +53,7 @@ class PasswordRecovery extends Component {
             <Form method="POST">
                 <Text>Enter a valid email address to reset your password!</Text>
 
-                <Box>
+                <TextInputContainer>
                     <Text
                         style={
                             this.state.emailError === ""
@@ -70,7 +70,7 @@ class PasswordRecovery extends Component {
                         name="email"
                         value={this.state.email}
                     />
-                </Box>
+                </TextInputContainer>
                 <Button onClick={(e) => this.emailHandler(e)}>Reset Password</Button>
                 <Button onClick={(e) => this.returnHandler(e)}>Go back &#10226;</Button>
             </Form>

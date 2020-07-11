@@ -8,7 +8,7 @@ import { loginHandler } from "../../../API/Authentication";
 import { Link, Redirect } from "react-router-dom";
 import Text from "../../../stories/Text";
 import TitleText from "../../../stories/TitleText";
-import Box from "../../../stories/Box";
+import TextInputContainer from "../../../stories/TextInputContainer";
 
 class Login extends Component {
     constructor(props) {
@@ -70,7 +70,7 @@ class Login extends Component {
             <Form method="POST">
                 <TitleText> Log in</TitleText>
 
-                <Box>
+                <TextInputContainer>
                     <Text
                         style={
                             this.state.emailError === ""
@@ -87,8 +87,8 @@ class Login extends Component {
                         name="email"
                         value={this.state.email}
                     />
-                </Box>
-                <Box>
+                </TextInputContainer>
+                <TextInputContainer>
                     <Text
                         style={
                             this.state.passwordError === ""
@@ -105,7 +105,7 @@ class Login extends Component {
                         name="password"
                         value={this.state.password}
                     />
-                </Box>
+                </TextInputContainer>
                 <Button onClick={(e) => this.login(e)}>Login</Button>
                 <Text>
                     Don't have an account?

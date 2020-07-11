@@ -8,7 +8,7 @@ import { signupHandler } from "../../../API/Authentication";
 import { Redirect, Link } from "react-router-dom";
 import Text from "../../../stories/Text";
 import TitleText from "../../../stories/TitleText";
-import Box from "../../../stories/Box";
+import TextInputContainer from "../../../stories/TextInputContainer";
 
 const initialState = {
     email: "",
@@ -93,7 +93,7 @@ class Register extends Component {
         return (
             <Form method="POST">
                 <TitleText> Sign up</TitleText>
-                <Box>
+                <TextInputContainer>
                     <Text
                         style={
                             this.state.firstNameError === ""
@@ -110,8 +110,8 @@ class Register extends Component {
                         name="firstName"
                         value={this.state.firstName}
                     />
-                </Box>
-                <Box>
+                </TextInputContainer>
+                <TextInputContainer>
                     <Text
                         style={
                             this.state.lastNameError === ""
@@ -128,8 +128,8 @@ class Register extends Component {
                         name="lastName"
                         value={this.state.lastName}
                     />
-                </Box>
-                <Box>
+                </TextInputContainer>
+                <TextInputContainer>
                     <Text
                         style={
                             this.state.emailError === ""
@@ -146,9 +146,9 @@ class Register extends Component {
                         name="email"
                         value={this.state.email}
                     />
-                </Box>
+                </TextInputContainer>
 
-                <Box>
+                <TextInputContainer>
                     <Text
                         style={
                             this.state.passwordError === ""
@@ -165,7 +165,7 @@ class Register extends Component {
                         name="password"
                         value={this.state.password}
                     />
-                </Box>
+                </TextInputContainer>
                 <Button onClick={(e) => this.signup(e)}>Sign up</Button>
                 <Text>
                     Got an account?{" "}
