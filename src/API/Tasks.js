@@ -13,6 +13,7 @@ class Tasks extends Component {
             userId: "",
             newTask: "",
             list: [],
+            key: "",
         };
     }
 
@@ -28,6 +29,8 @@ class Tasks extends Component {
             .database()
             .ref("users/" + userId)
             .child("tasks");
+        // let refKey = tasksRef.push().key;
+
         const newTask = {
             id: 1 + Math.random(),
             value: this.state.newTask.slice(),
@@ -36,9 +39,11 @@ class Tasks extends Component {
         const list = [...this.state.list];
         list.push(newTask);
 
-        tasksRef.set({
-            ...this.state.list,
-        });
+        tasksRef
+            .push({
+                ...newTask,
+            })
+            .then((res) => this.setState({ key: res.key }));
 
         this.setState({
             list,
@@ -47,34 +52,33 @@ class Tasks extends Component {
     }
 
     taskRemoveHandler(id) {
+        let userId = firebaseInit.auth().currentUser.uid;
+
         const list = [...this.state.list];
         const updatedList = list.filter((item) => item.id !== id);
         this.setState({ list: updatedList });
-        // let userId = firebaseInit.auth().currentUser.uid;
-        // let tasksRef = firebaseInit
-        //     .database()
-        //     .ref("users/" + userId)
-        //     .child("tasks");
 
-        // tasksRef.remove({
-        //     updatedList,
-        // });
+        let tasksRef = firebaseInit
+            .database()
+            .ref("users/" + userId)
+            .child("tasks");
+
+        tasksRef.child(this.state.key).remove();
     }
 
-    // componentDidMount() {
-    //     const previousList = this.state.list;
-    //     firebaseInit
-    //         .database()
-    //         .ref()
-    //         .on("child_added", (snap) => {
-    //             previousList.push({
-    //                 id: snap.key,
-    //                 newTask: snap.val().newTask,
-    //             });
-    //             this.setState({
-    //                 list: previousList,
-    //             });
+    // databaseListener() {
+    //     let userId = firebaseInit.auth().currentUser.uid;
+
+    //     let tasksRef = firebaseInit.database().ref("tasks");
+    //     tasksRef.on("value", function (snapshot) {
+    //         snapshot.forEach(function (childSnapshot) {
+    //             let childData = childSnapshot.val();
     //         });
+    //     });
+    // }
+
+    // componentDidMount() {
+    //     this.databaseListener();
     // }
 
     render() {
@@ -88,14 +92,18 @@ class Tasks extends Component {
                 />
                 <Button onClick={() => this.taskAddHandler()}>Add</Button>
                 <List>
-                    {this.state.list.map((item) => {
-                        return (
-                            <ListItem key={item.id} taskId={item.id}>
-                                {item.value}
-                                <span onClick={() => this.taskRemoveHandler(item.id)}>&#215;</span>
-                            </ListItem>
-                        );
-                    })}
+                    {this.state.list !== []
+                        ? this.state.list.map((item) => {
+                              return (
+                                  <ListItem key={item.id} taskId={item.id}>
+                                      {item.value}
+                                      <span onClick={() => this.taskRemoveHandler(item.id)}>
+                                          &#215;
+                                      </span>
+                                  </ListItem>
+                              );
+                          })
+                        : null}
                 </List>
             </div>
         );
