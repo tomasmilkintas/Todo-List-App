@@ -6,10 +6,10 @@
 //     .database()
 //     .ref("users/" + userId)
 //     .on("child_added", (snap) => {
-//         previousList.push({
-//             id: snap.key,
-//             newTask: snap.val().newTask,
-//         });
+// previousList.push({
+//     id: snap.key,
+//     newTask: snap.val().newTask,
+// });
 //         this.setState({
 //             list: previousList,
 //         });

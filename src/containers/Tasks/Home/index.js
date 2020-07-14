@@ -7,6 +7,7 @@ import StatusBarBottom from "../../../stories/StatusBarBottom";
 import Container from "../../../stories/Container";
 import TitleText from "../../../stories/TitleText";
 import Tasks from "../../../API/Tasks";
+import { getValueHandler } from "../../../API/Database";
 
 class Home extends Component {
     constructor(props) {
@@ -31,6 +32,7 @@ class Home extends Component {
         firebaseInit.auth().onAuthStateChanged((user) => {
             if (user) {
                 this.setState({ firstName: user.displayName });
+                getValueHandler();
             } else {
                 this.setState({ firstName: null });
             }
