@@ -54,7 +54,7 @@ class Tasks extends Component {
         // tasksRef.on("child_added", (data) => {
         //     list.push({
         //         key: data.key,
-        //         value: data.val().value,
+        //         value: data.val().newTask,
         //     });
         //     console.log(data.key, data.val().value);
         //     this.setState({
@@ -64,14 +64,26 @@ class Tasks extends Component {
         // });
 
         // FOR GETTING INITIAL DATA
-        // tasksRef.once("value", (snapshot) => {
+        // tasksRef.on("value", (snapshot) => {
         //     snapshot.forEach((childSnapshot) => {
         //         let childData = childSnapshot.val().value;
         //         let childKey = childSnapshot.key;
-        //         console.log(childData, childKey);
+        //         this.updatedList(childKey, childData);
         //     });
         // });
     }
+
+    // Doesn't quite work as intended
+    // updatedList = (key, data) => {
+    //     const newTask = { key: key, value: data };
+    //     const list = this.state.list;
+    //     console.log(newTask);
+    //     list.push(newTask);
+    //     this.setState({
+    //         list,
+    //         newTask: "",
+    //     });
+    // };
 
     taskRemoveHandler(key) {
         let userId = firebaseInit.auth().currentUser.uid;
@@ -104,6 +116,7 @@ class Tasks extends Component {
                               return (
                                   <ListItem key={item.key} taskId={item.key}>
                                       {item.value}
+
                                       <span onClick={() => this.taskRemoveHandler(item.key)}>
                                           &#215;
                                       </span>
