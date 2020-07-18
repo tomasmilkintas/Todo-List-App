@@ -23,6 +23,8 @@ class App extends Component {
     }
 
     authListener() {
+        // user + auth reducer
+
         firebaseInit.auth().onAuthStateChanged((user) => {
             if (user) {
                 this.setState({ user });

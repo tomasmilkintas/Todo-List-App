@@ -6,7 +6,13 @@ import Button from "../stories/Button";
 import Input from "../stories/Input";
 import firebaseInit from "./config/FirebaseInit";
 
+// import { connect } from "react-redux";
+// import { fetchTasks, createTask } from "../store/actions/taskActions";
+// import PropTypes from "prop-types";
+
 class Tasks extends Component {
+    //remove
+
     constructor(props) {
         super(props);
         this.state = {
@@ -22,7 +28,10 @@ class Tasks extends Component {
     }
 
     taskAddHandler() {
+        // user reducer
         let userId = firebaseInit.auth().currentUser.uid;
+
+        // database reducer
         let tasksRef = firebaseInit
             .database()
             .ref("users/" + userId)
@@ -35,6 +44,7 @@ class Tasks extends Component {
 
         const list = this.state.list;
 
+        // database reducer
         tasksRef
             .push({
                 ...newTask,
@@ -49,41 +59,14 @@ class Tasks extends Component {
             list,
             newTask: "",
         });
-
-        // WHAT I'M TRYING TO UTILISE
-        // tasksRef.on("child_added", (data) => {
-        //     list.push({
-        //         key: data.key,
-        //         value: data.val().newTask,
-        //     });
-        //     console.log(data.key, data.val().value);
-        //     this.setState({
-        //         list,
-        //         newTask: "",
-        //     });
-        // });
-
-        // FOR GETTING INITIAL DATA
-        // tasksRef.on("value", (snapshot) => {
-        //     snapshot.forEach((childSnapshot) => {
-        //         let childData = childSnapshot.val().value;
-        //         let childKey = childSnapshot.key;
-        //         this.updatedList(childKey, childData);
-        //     });
-        // });
+        // this.props.createTask(...newTask);
     }
 
-    // Doesn't quite work as intended
-    // updatedList = (key, data) => {
-    //     const newTask = { key: key, value: data };
-    //     const list = this.state.list;
-    //     console.log(newTask);
-    //     list.push(newTask);
-    //     this.setState({
-    //         list,
-    //         newTask: "",
-    //     });
-    // };
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.newTask) {
+    //         this.props.tasks.push(nextProps.newTask);
+    //     }
+    // }
 
     taskRemoveHandler(key) {
         let userId = firebaseInit.auth().currentUser.uid;
@@ -92,6 +75,7 @@ class Tasks extends Component {
         const updatedList = list.filter((item) => item.key !== key);
         this.setState({ list: updatedList });
 
+        //database reducer
         let tasksRef = firebaseInit
             .database()
             .ref("users/" + userId)
@@ -99,6 +83,10 @@ class Tasks extends Component {
 
         tasksRef.child(key).remove();
     }
+
+    // componentDidMount() {
+    //     this.props.fetchTasks();
+    // }
 
     render() {
         return (
@@ -129,5 +117,17 @@ class Tasks extends Component {
         );
     }
 }
+
+// const mapStateToProps = (state) => ({
+//     tasks: state.tasks.taskList,
+//     newTask: state.tasks.task,
+// });
+
+// Tasks.propTypes = {
+//     fetchTasks: PropTypes.func.isRequired,
+//     createPost: PropTypes.func.isRequired,
+// };
+
+// export default connect(mapStateToProps, { fetchTasks, createTask })(Tasks);
 
 export default Tasks;

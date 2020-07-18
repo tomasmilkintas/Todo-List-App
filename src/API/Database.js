@@ -22,6 +22,6 @@ export const getValueHandler = () => {
 
 export const updateListHandler = (list) => {
     let newList = list;
-    console.log(newList);
+    // console.log(newList);
     return newList;
 };

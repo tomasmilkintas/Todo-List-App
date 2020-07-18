@@ -1,6 +1,8 @@
 // experimental ideas for cleaner layout during coding
 // saving for now - to be deleted upon successful implementation
 
+//database reducer
+
 // const previousList = this.state.list;
 // firebaseInit
 //     .database()

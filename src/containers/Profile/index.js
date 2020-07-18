@@ -10,7 +10,6 @@ class Profile extends Component {
         super(props);
 
         this.state = {
-            userId: "",
             email: "",
             firstName: "",
             lastName: "",
@@ -27,6 +26,8 @@ class Profile extends Component {
     }
 
     authListener() {
+        // user reducer
+
         let userId = firebaseInit.auth().currentUser.uid;
 
         let ref = firebaseInit.database().ref("users/" + userId);
@@ -35,7 +36,6 @@ class Profile extends Component {
             "value",
             (data) => {
                 let values = data.val();
-                this.setState({ userId: values.userId });
                 this.setState({ firstName: values.firstName });
                 this.setState({ lastName: values.lastName });
                 this.setState({ email: values.email });
@@ -53,10 +53,6 @@ class Profile extends Component {
             <Container>
                 <TitleText>Profile Summary</TitleText>
 
-                <Text>
-                    <b>UserId: </b>
-                    {this.state.userId}
-                </Text>
                 <Text>
                     <b>Your Name: </b>
                     {this.state.firstName}
