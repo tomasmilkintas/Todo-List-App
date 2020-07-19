@@ -10,6 +10,9 @@ import Text from "../../../stories/Text";
 import TitleText from "../../../stories/TitleText";
 import TextInputContainer from "../../../stories/TextInputContainer";
 
+import * as actions from "../../../store/actions/userActions";
+import { connect } from "react-redux";
+
 const initialState = {
     email: "",
     password: "",
@@ -178,4 +181,20 @@ class Register extends Component {
     }
 }
 
-export default Register;
+// preparing for conversion
+
+const mapStateToProps = (state) => ({
+    firstName: state.user.firstName,
+    lastName: state.user.lastName,
+    email: state.user.email,
+    password: state.user.password,
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onRegister: (firstName, lastName, email, password) =>
+            dispatch(actions.registerUser(firstName, lastName, email, password)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

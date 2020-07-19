@@ -1,6 +1,8 @@
 import { FETCH_TASKS, NEW_TASK } from "./actionTypes";
 import firebaseInit from "../../API/config/FirebaseInit";
 
+// not quite adjusted yet, will tackle user first, just as a mockup of fleshing it out
+
 export const fetchTasks = () => (dispatch) => {
     console.log("fetching");
 
