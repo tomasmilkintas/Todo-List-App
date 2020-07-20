@@ -9,6 +9,9 @@ import TitleText from "../../../stories/TitleText";
 import Tasks from "../../../API/Tasks";
 import { getValueHandler } from "../../../API/Database";
 
+import * as actions from "../../../store/actions/index";
+import { connect } from "react-redux";
+
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -20,7 +23,7 @@ class Home extends Component {
     }
 
     logout() {
-        firebaseInit.auth().signOut();
+        this.props.onLogout();
         this.props.history.push("/");
     }
 
@@ -67,4 +70,11 @@ class Home extends Component {
     }
 }
 
-export default Home;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLogout: () => dispatch(actions.logoutUser()),
+        onGetUserData: () => dispatch(actions.getUserData()),
+    };
+};
+
+export default connect(null, mapDispatchToProps)(Home);

@@ -11,14 +11,15 @@ import Welcome from "./containers/Welcome";
 import PasswordRecovery from "./containers/Authentication/ForgotPassword";
 import Profile from "./containers/Profile";
 
+import * as actions from "./store/actions/index";
+import { connect } from "react-redux";
+
 class App extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            user: {
-                displayName: "",
-            },
+            user: {},
         };
     }
 
@@ -27,7 +28,10 @@ class App extends Component {
 
         firebaseInit.auth().onAuthStateChanged((user) => {
             if (user) {
-                this.setState({ user });
+                this.setState({ ...user });
+
+                // this.props.getUserData();
+                console.log(user);
 
                 let newUser = new Date() - new Date(user.metadata.creationTime) < 3000;
 
@@ -64,4 +68,11 @@ class App extends Component {
     }
 }
 
-export default withRouter(App);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLogin: () => dispatch(actions.loginUser()),
+        onGetUserData: () => dispatch(actions.getUserData()),
+    };
+};
+
+export default connect(null, mapDispatchToProps)(withRouter(App));

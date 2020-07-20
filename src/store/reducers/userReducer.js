@@ -27,8 +27,8 @@ export default (state = initialState, action) => {
         case actionTypes.LOGIN_USER:
             return {
                 ...state,
-                firstName: action.firstName,
-                lastName: action.lastName,
+                email: action.email,
+                password: action.password,
                 authRedirectPath: action.authRedirectPath,
             };
         case actionTypes.LOGOUT_USER:
