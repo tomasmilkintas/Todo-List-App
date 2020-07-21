@@ -11,6 +11,8 @@ export default (state = initialState, action) => {
             return { ...state, tasksList: action.payload };
         case actionTypes.NEW_TASK:
             return { ...state, task: action.payload };
+        case actionTypes.DELETE_TASK:
+            return { ...state, task: action.payload };
         default:
             return state;
     }

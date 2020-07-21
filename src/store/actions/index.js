@@ -1,12 +1,12 @@
 export { fetchTasks, createTask } from "./taskActions";
-export { authStart, authSuccess, authFail } from "./authActions";
 export {
-    registerUser,
-    loginUser,
-    logoutUser,
-    recoverUser,
-    updateUser,
-    getUserData,
-} from "./userActions";
+    authLoginRequest,
+    authLoginResponse,
+    authSignupRequest,
+    authSignupResponse,
+    authFail,
+    authStateChanged,
+} from "./authActions";
+export { registerUser, loginUser, logoutUser, recoverUser } from "./userActions";
 
-export {} from "./databaseActions";
+export { updateUser, getUserData } from "./databaseActions";

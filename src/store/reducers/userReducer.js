@@ -1,14 +1,10 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-    userId: "",
     email: "",
     password: "",
     firstName: "",
     lastName: "",
-    token: null,
-    error: null,
-    loading: false,
     authRedirectPath: "/home",
 };
 
@@ -21,8 +17,6 @@ export default (state = initialState, action) => {
                 lastName: action.lastName,
                 email: action.email,
                 password: action.password,
-                token: action.idToken,
-                userId: action.userId,
             };
         case actionTypes.LOGIN_USER:
             return {
@@ -32,18 +26,14 @@ export default (state = initialState, action) => {
                 authRedirectPath: action.authRedirectPath,
             };
         case actionTypes.LOGOUT_USER:
-            return { ...state, userId: null, authRedirectPath: action.authRedirectPath };
-        case actionTypes.RECOVER_USER:
-            return { ...state, email: action.email };
-        case actionTypes.GET_USER_DETAILS:
             return {
                 ...state,
-                firstName: action.firstName,
-                lastName: action.lastName,
-                email: action.email,
+                email: null,
+                password: null,
+                authRedirectPath: action.authRedirectPath,
             };
-        case actionTypes.UPDATE_USER_DETAILS:
-            return { ...state, firstName: action.firstName, lastName: action.lastName };
+        case actionTypes.RECOVER_USER:
+            return { ...state, email: action.email };
         default:
             return state;
     }

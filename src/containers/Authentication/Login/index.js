@@ -51,6 +51,7 @@ class Login extends Component {
         // const isValid = this.validationHandler();
         // if (isValid) {
         this.props.onLogin(this.state.email, this.state.password);
+        this.props.history.push("/home");
         // }
     }
 
@@ -61,7 +62,7 @@ class Login extends Component {
     }
 
     handleOnClick() {
-        // this.setState({ redirect: true });
+        this.setState({ redirect: true });
         this.props.history.push(this.props.authRedirectPath);
     }
 

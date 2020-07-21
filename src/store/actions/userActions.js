@@ -17,20 +17,7 @@ export const recoverUser = (email) => {
         email: email,
     };
 };
-export const getUserData = (userId, token) => {
-    return {
-        type: actionTypes.GET_USER_DETAILS,
-        idToken: token,
-        userId: userId,
-    };
-};
-export const updateUser = (firstName, lastName) => {
-    return {
-        type: actionTypes.UPDATE_USER_DETAILS,
-        firstName: firstName,
-        lastName: lastName,
-    };
-};
+
 export const logoutUser = () => (dispatch) => {
     firebaseInit
         .auth()
@@ -43,12 +30,12 @@ export const logoutUser = () => (dispatch) => {
 };
 
 export const loginUser = (email, password) => (dispatch) => {
-    dispatch(actions.authStart());
+    dispatch(actions.authLoginRequest());
     firebaseInit
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then((response) => {
-            dispatch(actions.authSuccess(response.user._lat, response.user.uid));
+            dispatch(actions.authLoginResponse(response.user._lat, response.user.uid));
             dispatch({
                 type: actionTypes.LOGIN_USER,
                 email: email,
