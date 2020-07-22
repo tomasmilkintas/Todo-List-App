@@ -1,8 +1,8 @@
 import firebaseInit from "./config/FirebaseInit";
 
-export const loginHandler = (email, password) => {
-    firebaseInit.auth().signInWithEmailAndPassword(email, password).then().catch();
-};
+// export const loginHandler = (email, password) => {
+//     firebaseInit.auth().signInWithEmailAndPassword(email, password).then().catch();
+// };
 
 export const signupHandler = (email, password, firstName, lastName) => {
     firebaseInit
@@ -33,7 +33,7 @@ let actionCodeSettings = {
     handleCodeInApp: false,
 };
 
-export const PasswordRecoveryHandler = (email) => {
+export const passwordRecoveryHandler = (email) => {
     firebaseInit
         .auth()
         .sendPasswordResetEmail(email, actionCodeSettings)

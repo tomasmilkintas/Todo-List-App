@@ -1,4 +1,5 @@
 import * as actionTypes from "./actionTypes";
+import * as actions from "./index";
 
 import firebaseInit from "../../API/config/FirebaseInit";
 
@@ -42,9 +43,18 @@ export const authStateChanged = () => (dispatch) => {
                 idToken: user._lat,
                 userId: user.uid,
             });
+            dispatch(actions.getUserData());
+            dispatch(actions.fetchTasks());
         } else {
             // No user is signed in.
             dispatch({ type: actionTypes.AUTH_STATE_CHANGED, idToken: null, userId: null });
+            dispatch({
+                type: actionTypes.GET_USER_DETAILS,
+                userId: null,
+                firstName: null,
+                lastName: null,
+                email: null,
+            });
         }
     });
 };

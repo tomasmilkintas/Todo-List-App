@@ -8,11 +8,11 @@ const initialState = {
 export default (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_TASKS:
-            return { ...state, tasksList: action.payload };
+            return { ...state, taskList: action.taskList };
         case actionTypes.NEW_TASK:
-            return { ...state, task: action.payload };
+            return { ...state, task: action.task };
         case actionTypes.DELETE_TASK:
-            return { ...state, task: action.payload };
+            return { ...state, task: action.task, taskList: action.taskList };
         default:
             return state;
     }

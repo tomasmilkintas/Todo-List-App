@@ -4,18 +4,11 @@ import Text from "../../stories/Text";
 import Button from "../../stories/Button/index";
 import Container from "../../stories/Container";
 import TitleText from "../../stories/TitleText";
-import firebaseInit from "../../API/config/FirebaseInit";
+
+import * as actions from "../../store/actions/index";
+import { connect } from "react-redux";
+
 class Profile extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            email: "",
-            firstName: "",
-            lastName: "",
-        };
-    }
-
     returnHandler(event) {
         event.preventDefault();
         this.props.history.push("/home");
@@ -25,29 +18,6 @@ class Profile extends Component {
         // logic for updating user to be added shortly
     }
 
-    authListener() {
-        // user reducer
-
-        let userId = firebaseInit.auth().currentUser.uid;
-
-        let ref = firebaseInit.database().ref("users/" + userId);
-
-        ref.on(
-            "value",
-            (data) => {
-                let values = data.val();
-                this.setState({ firstName: values.firstName });
-                this.setState({ lastName: values.lastName });
-                this.setState({ email: values.email });
-            },
-            (err) => console.log(err)
-        );
-    }
-
-    componentDidMount() {
-        this.authListener();
-    }
-
     render() {
         return (
             <Container>
@@ -55,16 +25,16 @@ class Profile extends Component {
 
                 <Text>
                     <b>Your Name: </b>
-                    {this.state.firstName}
+                    {this.props.firstName}
                 </Text>
                 <Text>
                     <b>Your Surname: </b>
-                    {this.state.lastName}
+                    {this.props.lastName}
                 </Text>
 
                 <Text>
                     <b>Email: </b>
-                    {this.state.email}
+                    {this.props.email}
                 </Text>
 
                 <Button onClick={(e) => this.updateHandler(e)}>Update Profile</Button>
@@ -74,4 +44,16 @@ class Profile extends Component {
     }
 }
 
-export default Profile;
+const mapStateToProps = (state) => ({
+    email: state.database.email,
+    firstName: state.database.firstName,
+    lastName: state.database.lastName,
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLogin: (email, password) => dispatch(actions.loginUser(email, password)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

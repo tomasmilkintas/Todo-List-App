@@ -6,9 +6,9 @@ import Button from "../stories/Button";
 import Input from "../stories/Input";
 import firebaseInit from "./config/FirebaseInit";
 
-// import { connect } from "react-redux";
-// import { fetchTasks, createTask } from "../store/actions/taskActions";
-// import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { fetchTasks, createTask } from "../store/actions/taskActions";
+import PropTypes from "prop-types";
 
 class Tasks extends Component {
     //remove
@@ -118,16 +118,14 @@ class Tasks extends Component {
     }
 }
 
-// const mapStateToProps = (state) => ({
-//     tasks: state.tasks.taskList,
-//     newTask: state.tasks.task,
-// });
+const mapStateToProps = (state) => ({
+    tasklist: state.tasks.taskList,
+    newTask: state.tasks.task,
+});
 
-// Tasks.propTypes = {
-//     fetchTasks: PropTypes.func.isRequired,
-//     createPost: PropTypes.func.isRequired,
-// };
+Tasks.propTypes = {
+    fetchTasks: PropTypes.func.isRequired,
+    createPost: PropTypes.func.isRequired,
+};
 
-// export default connect(mapStateToProps, { fetchTasks, createTask })(Tasks);
-
-export default Tasks;
+export default connect(mapStateToProps, { fetchTasks, createTask })(Tasks);

@@ -4,7 +4,7 @@ import Input from "../../../stories/Input";
 import Button from "../../../stories/Button";
 import Text from "../../../stories/Text";
 
-import { PasswordRecoveryHandler } from "../../../API/Authentication";
+import { passwordRecoveryHandler } from "../../../API/Authentication";
 import Form from "../../../stories/Form";
 import TextInputContainer from "../../../stories/TextInputContainer";
 
@@ -34,7 +34,7 @@ class PasswordRecovery extends Component {
         event.preventDefault();
         const isValid = this.validationHandler();
         if (isValid) {
-            PasswordRecoveryHandler(this.state.email);
+            passwordRecoveryHandler(this.state.email);
             this.props.history.push("/");
         }
     }

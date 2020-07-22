@@ -4,31 +4,26 @@ import firebaseInit from "../../API/config/FirebaseInit";
 // not quite adjusted yet, will tackle user first, just as a mockup of fleshing it out
 
 export const fetchTasks = () => (dispatch) => {
-    console.log("fetching");
-
     let userId = firebaseInit.auth().currentUser.uid;
-
     let tasksRef = firebaseInit.database().ref(`users/${userId}/tasks`);
-    tasksRef
-        .on("value", (snapshot) => {
-            const list = [];
-            let newTask = { key: "", value: "" };
 
-            snapshot.forEach((childSnapshot) => {
-                let childData = childSnapshot.val().value;
-                let childKey = childSnapshot.key;
-                newTask.key = childKey;
-                newTask.value = childData;
-                list.push(newTask);
-                newTask = {};
-            });
+    const list = [];
+
+    tasksRef
+        .on("value", (data) => {
+            let values = data.val();
+            console.log(values);
+
+            // let newList = values.map((item) => [item.key, item.value]);
         })
-        .then((taskList) =>
+        .then((res) => {
+            console.log(res);
+
             dispatch({
                 actionTypes: FETCH_TASKS,
-                payload: taskList,
-            })
-        );
+                taskList: list,
+            });
+        });
 };
 
 export const createTask = (postData) => (dispatch) => {
@@ -40,7 +35,7 @@ export const createTask = (postData) => (dispatch) => {
         value: this.state.newTask.slice(),
     };
 
-    const list = [];
+    const newList = [];
 
     tasksRef
         .push({
@@ -56,6 +51,6 @@ export const createTask = (postData) => (dispatch) => {
             })
         );
 
-    list.push(newTask);
+    newList.push(newTask);
     newTask = {};
 };
