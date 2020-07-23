@@ -1,6 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import * as actions from "./index";
 import firebaseInit from "../../API/config/FirebaseInit";
+import { passwordRecoveryHandler } from "../../API/Authentication";
 
 export const registerUser = (firstName, lastName, email, password) => {
     return {
@@ -11,11 +12,12 @@ export const registerUser = (firstName, lastName, email, password) => {
         password: password,
     };
 };
-export const recoverUser = (email) => {
-    return {
+export const recoverUser = (email) => (dispatch) => {
+    passwordRecoveryHandler(email);
+    dispatch({
         type: actionTypes.RECOVER_USER,
         email: email,
-    };
+    });
 };
 
 export const logoutUser = () => (dispatch) => {

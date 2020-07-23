@@ -4,9 +4,12 @@ import Input from "../../../stories/Input";
 import Button from "../../../stories/Button";
 import Text from "../../../stories/Text";
 
-import { passwordRecoveryHandler } from "../../../API/Authentication";
+// import { passwordRecoveryHandler } from "../../../API/Authentication";
 import Form from "../../../stories/Form";
 import TextInputContainer from "../../../stories/TextInputContainer";
+
+import * as actions from "../../../store/actions/index";
+import { connect } from "react-redux";
 
 class PasswordRecovery extends Component {
     constructor(props) {
@@ -34,7 +37,7 @@ class PasswordRecovery extends Component {
         event.preventDefault();
         const isValid = this.validationHandler();
         if (isValid) {
-            passwordRecoveryHandler(this.state.email);
+            this.props.onRecover(this.state.email);
             this.props.history.push("/");
         }
     }
@@ -78,4 +81,10 @@ class PasswordRecovery extends Component {
     }
 }
 
-export default PasswordRecovery;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onRecover: (email) => dispatch(actions.recoverUser(email)),
+    };
+};
+
+export default connect(null, mapDispatchToProps)(PasswordRecovery);

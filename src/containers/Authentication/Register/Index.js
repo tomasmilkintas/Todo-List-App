@@ -5,7 +5,7 @@ import Button from "../../../stories/Button";
 import Input from "../../../stories/Input";
 
 import { signupHandler } from "../../../API/Authentication";
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Text from "../../../stories/Text";
 import TitleText from "../../../stories/TitleText";
 import TextInputContainer from "../../../stories/TextInputContainer";
@@ -19,8 +19,7 @@ const initialState = {
     firstName: "",
     lastName: "",
     userId: "",
-    redirect: false,
-    returnSecureToken: true,
+
     firstNameError: "",
     lastNameError: "",
     emailError: "",
@@ -75,6 +74,7 @@ class Register extends Component {
                 this.state.lastName
             );
             alert("Success, login now!");
+            this.props.history.push("/login");
         } else {
         }
     }
@@ -84,15 +84,10 @@ class Register extends Component {
     }
 
     handleOnClick() {
-        this.setState({ redirect: true });
+        this.props.history.push("/login");
     }
 
     render() {
-        const { redirect } = this.state;
-
-        if (redirect) {
-            return <Redirect to="/login" />;
-        }
         return (
             <Form method="POST">
                 <TitleText> Sign up</TitleText>

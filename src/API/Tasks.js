@@ -32,17 +32,14 @@ class Tasks extends Component {
         let userId = firebaseInit.auth().currentUser.uid;
 
         // database reducer
-        let tasksRef = firebaseInit
-            .database()
-            .ref("users/" + userId)
-            .child("tasks");
+        let tasksRef = firebaseInit.database().ref(`users/${userId}/tasks`);
 
         const newTask = {
             key: "",
             value: this.state.newTask.slice(),
         };
 
-        const list = this.state.list;
+        const list = this.props.taskList;
 
         // database reducer
         tasksRef
@@ -71,22 +68,15 @@ class Tasks extends Component {
     taskRemoveHandler(key) {
         let userId = firebaseInit.auth().currentUser.uid;
 
-        const list = [...this.state.list];
+        const list = [...this.props.taskList];
         const updatedList = list.filter((item) => item.key !== key);
         this.setState({ list: updatedList });
 
         //database reducer
-        let tasksRef = firebaseInit
-            .database()
-            .ref("users/" + userId)
-            .child("tasks");
+        let tasksRef = firebaseInit.database().ref(`users/${userId}/tasks`);
 
         tasksRef.child(key).remove();
     }
-
-    // componentDidMount() {
-    //     this.props.fetchTasks();
-    // }
 
     render() {
         return (
@@ -99,8 +89,8 @@ class Tasks extends Component {
                 />
                 <Button onClick={() => this.taskAddHandler()}>Add</Button>
                 <List>
-                    {this.state.list !== []
-                        ? this.state.list.map((item) => {
+                    {this.props.taskList !== []
+                        ? this.props.taskList.map((item) => {
                               return (
                                   <ListItem key={item.key} taskId={item.key}>
                                       {item.value}
@@ -119,7 +109,7 @@ class Tasks extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    tasklist: state.tasks.taskList,
+    taskList: state.tasks.taskList,
     newTask: state.tasks.task,
 });
 

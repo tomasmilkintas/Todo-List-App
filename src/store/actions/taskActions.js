@@ -6,24 +6,22 @@ import firebaseInit from "../../API/config/FirebaseInit";
 export const fetchTasks = () => (dispatch) => {
     let userId = firebaseInit.auth().currentUser.uid;
     let tasksRef = firebaseInit.database().ref(`users/${userId}/tasks`);
+    let newList = [];
 
-    const list = [];
-
-    tasksRef
-        .on("value", (data) => {
-            let values = data.val();
-            console.log(values);
-
-            // let newList = values.map((item) => [item.key, item.value]);
-        })
-        .then((res) => {
-            console.log(res);
-
-            dispatch({
-                actionTypes: FETCH_TASKS,
-                taskList: list,
-            });
+    tasksRef.once("value", (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            let childKey = childSnapshot.key;
+            let childData = childSnapshot.val();
+            console.log(childData, childKey);
+            newList.push(childData);
+            // ...
         });
+        dispatch({
+            type: FETCH_TASKS,
+            taskList: newList,
+        });
+        // console.log(newList);
+    });
 };
 
 export const createTask = (postData) => (dispatch) => {
