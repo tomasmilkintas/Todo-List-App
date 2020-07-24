@@ -16,6 +16,7 @@ class Profile extends Component {
     updateHandler(event) {
         event.preventDefault();
         // logic for updating user to be added shortly
+        this.props.history.push("/updateprofile");
     }
 
     render() {

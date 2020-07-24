@@ -1,134 +1,106 @@
-import React, { Component } from "react";
+import React from "react";
 
 import List from "../stories/List/index";
 import ListItem from "../stories/List/ListItem/index";
-import Button from "../stories/Button";
-import Input from "../stories/Input";
-import firebaseInit from "./config/FirebaseInit";
+// import Button from "../stories/Button";
+// import Input from "../stories/Input";
+// import firebaseInit from "./config/FirebaseInit";
 
 import { connect } from "react-redux";
 import { fetchTasks, createTask } from "../store/actions/taskActions";
-import PropTypes from "prop-types";
 
-class Tasks extends Component {
-    //remove
+const Tasks = (props) => {
+    //LOGIC TO BE UPDATED & REMOVED TO NEW TASK
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            newTask: "",
-            list: [],
-        };
-    }
+    // const taskAddHandler = () => {
+    //     props.history.push("/new");
+    // };
+    // taskAddHandler() {
+    //     // user reducer
+    //     let userId = firebaseInit.auth().currentUser.uid;
 
-    updateInput(key, value) {
-        this.setState({
-            [key]: value,
-        });
-    }
+    //     // database reducer
+    //     let tasksRef = firebaseInit.database().ref(`users/${userId}/tasks`);
 
-    taskAddHandler() {
-        // user reducer
-        let userId = firebaseInit.auth().currentUser.uid;
+    //     const newTask = {
+    //         key: "",
+    //         value: state.newTask.slice(),
+    //     };
 
-        // database reducer
-        let tasksRef = firebaseInit.database().ref(`users/${userId}/tasks`);
+    //     const list = props.taskList;
 
-        const newTask = {
-            key: "",
-            value: this.state.newTask.slice(),
-        };
+    //     // database reducer
+    //     tasksRef
+    //         .push({
+    //             ...newTask,
+    //         })
+    //         .then((res) => {
+    //             newTask.key = res.key;
+    //         });
 
-        const list = this.props.taskList;
+    //     list.push(newTask);
 
-        // database reducer
-        tasksRef
-            .push({
-                ...newTask,
-            })
-            .then((res) => {
-                newTask.key = res.key;
-            });
-
-        list.push(newTask);
-
-        this.setState({
-            list,
-            newTask: "",
-        });
-        // this.props.createTask(...newTask);
-    }
+    //     setState({
+    //         list,
+    //         newTask: "",
+    //     });
+    //     // props.createTask(...newTask);
+    // }
 
     // componentWillReceiveProps(nextProps) {
     //     if (nextProps.newTask) {
-    //         this.props.tasks.push(nextProps.newTask);
+    //         props.tasks.push(nextProps.newTask);
     //     }
     // }
 
-    handleKeyUp = (e) => {
-        if (e.keyCode === 13) {
-            this.taskAddHandler();
-        }
-    };
+    // handleKeyUp = (e) => {
+    //     if (e.keyCode === 13) {
+    //         taskAddHandler();
+    //     }
+    // };
 
-    taskRemoveHandler(key) {
-        let userId = firebaseInit.auth().currentUser.uid;
+    // const taskRemoveHandler = (key) => {
+    //     let userId = firebaseInit.auth().currentUser.uid;
 
-        const list = [...this.props.taskList];
-        const updatedList = list.filter((item) => item.key !== key);
-        this.setState({ list: updatedList });
+    //     const list = [...props.taskList];
+    //     const updatedList = list.filter((item) => item.key !== key);
+    //     setState({ list: updatedList });
 
-        //database reducer
-        let tasksRef = firebaseInit.database().ref(`users/${userId}/tasks`);
+    //     //database reducer
+    //     let tasksRef = firebaseInit.database().ref(`users/${userId}/tasks`);
 
-        tasksRef.child(key).remove();
-    }
+    //     tasksRef.child(key).remove();
+    // };
 
-    componentDidMount() {
-        document.addEventListener("keydown", this.handleKeyUp, false);
-    }
-    componentWillUnmount() {
-        document.removeEventListener("keydown", this.handleKeyUp, false);
-    }
+    // componentDidMount() {
+    //     document.addEventListener("keydown", handleKeyUp, false);
+    // }
+    // componentWillUnmount() {
+    //     document.removeEventListener("keydown", handleKeyUp, false);
+    // }
 
-    render() {
-        return (
-            <div>
-                <Input
-                    type="text"
-                    placeholder="Type here..."
-                    value={this.state.newTask}
-                    onChange={(e) => this.updateInput("newTask", e.target.value)}
-                />
-                <Button onClick={() => this.taskAddHandler()}>Add</Button>
-                <List>
-                    {this.props.taskList !== []
-                        ? this.props.taskList.map((item) => {
-                              return (
-                                  <ListItem key={item.key} taskId={item.key}>
-                                      {item.value}
+    return (
+        <div>
+            <List>
+                {props.taskList !== []
+                    ? props.taskList.map((item) => {
+                          return (
+                              <ListItem key={item.key} taskId={item.key}>
+                                  {item.value}
 
-                                      <span onClick={() => this.taskRemoveHandler(item.key)}>
-                                          &#215;
-                                      </span>
-                                  </ListItem>
-                              );
-                          })
-                        : null}
-                </List>
-            </div>
-        );
-    }
-}
+                                  {/* <span onClick={() => taskRemoveHandler(item.key)}>&#215;</span> */}
+                              </ListItem>
+                          );
+                      })
+                    : null}
+            </List>
+        </div>
+    );
+};
 
 const mapStateToProps = (state) => ({
     taskList: state.tasks.taskList,
     newTask: state.tasks.task,
 });
-
-Tasks.propTypes = {
-    fetchTasks: PropTypes.func.isRequired,
-    createTask: PropTypes.func.isRequired,
-};
 
 export default connect(mapStateToProps, { fetchTasks, createTask })(Tasks);

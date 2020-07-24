@@ -1,80 +1,61 @@
-import React, { Component } from "react";
-import firebaseInit from "../../../API/config/FirebaseInit";
+import React from "react";
 
 import Button from "../../../stories/Button/index";
 import StatusBarTop from "../../../stories/StatusBarTop";
 import StatusBarBottom from "../../../stories/StatusBarBottom";
 import Container from "../../../stories/Container";
 import TitleText from "../../../stories/TitleText";
+// import Text from "../../../stories/TitleText";
 import Tasks from "../../../API/Tasks";
-import { getValueHandler } from "../../../API/Database";
 
 import * as actions from "../../../store/actions/index";
 import { connect } from "react-redux";
 
-class Home extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            firstName: "",
-        };
-        this.logout = this.logout.bind(this);
-        this.profileHandler = this.profileHandler.bind(this);
-    }
+const Home = (props) => {
+    const taskAddHandler = () => {
+        props.history.push("/new");
+    };
 
-    logout() {
-        this.props.onLogout();
-        this.props.history.push("/");
-    }
+    const logout = () => {
+        props.onLogout();
+        props.history.push("/");
+    };
 
-    profileHandler() {
-        this.props.history.push("/profile");
-    }
+    const profileHandler = () => {
+        props.history.push("/profile");
+    };
 
-    authListener() {
-        firebaseInit.auth().onAuthStateChanged((user) => {
-            if (user) {
-                this.setState({ firstName: user.displayName });
-                getValueHandler();
-            } else {
-                this.setState({ firstName: null });
-            }
-        });
-    }
+    return (
+        <Container>
+            <StatusBarTop>
+                <Button onClick={profileHandler}>Profile</Button>
+                <Button onClick={logout}>Logout</Button>
+            </StatusBarTop>
 
-    componentDidMount() {
-        this.authListener();
-    }
+            <TitleText id="name">Hello, {props.firstName}</TitleText>
 
-    render() {
-        return (
-            // visualising the home
-            <Container>
-                <StatusBarTop>
-                    <Button onClick={this.profileHandler}>Profile</Button>
-                    <Button onClick={this.logout}>Logout</Button>
-                </StatusBarTop>
+            <Button onClick={() => taskAddHandler()}>Add +</Button>
 
-                <TitleText id="name">Hello, {this.state.firstName}</TitleText>
+            {/* {props.taskList !== [] ? (
+                <Text>Looks like you don’t have any tasks, go ahead and create a new task!</Text>
+            ) : ( */}
+            <Tasks />
+            {/* )} */}
 
-                {/* if no tasks - */}
-                {/* <Text>Looks like you don’t have any tasks, go ahead and create a new task!</Text> */}
+            <StatusBarBottom>Icons</StatusBarBottom>
+        </Container>
+    );
+};
 
-                {/* else - */}
-
-                <Tasks />
-
-                <StatusBarBottom>Icons</StatusBarBottom>
-            </Container>
-        );
-    }
-}
+const mapStateToProps = (state) => ({
+    firstName: state.database.firstName,
+    taskList: state.tasks.taskList,
+});
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onLogout: () => dispatch(actions.logoutUser()),
-        onGetUserData: () => dispatch(actions.getUserData()),
     };
 };
 
-export default connect(null, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -9,9 +9,11 @@ import Home from "./containers/Tasks/Home";
 import Welcome from "./containers/Welcome";
 import PasswordRecovery from "./containers/Authentication/ForgotPassword";
 import Profile from "./containers/Profile";
+import UpdateProfile from "./containers/Profile/UpdateProfile";
 
 import * as actions from "./store/actions/index";
 import { connect } from "react-redux";
+import NewTask from "./API/NewTask";
 
 class App extends Component {
     componentDidMount() {
@@ -26,7 +28,9 @@ class App extends Component {
                     <Route path="/signup" component={Register} />
                     <Route path="/reset" component={PasswordRecovery} />
                     <Route path="/profile" component={Profile} />
+                    <Route path="/updateprofile" component={UpdateProfile} />
                     <Route path="/home" component={Home} />
+                    <Route path="/new" component={NewTask} />
                     <Route path="/" component={Welcome} />
                     <Redirect to="/" />
                 </Switch>

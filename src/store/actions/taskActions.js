@@ -1,4 +1,4 @@
-import { FETCH_TASKS, NEW_TASK } from "./actionTypes";
+import * as actionTypes from "./actionTypes";
 import firebaseInit from "../../API/config/FirebaseInit";
 
 // not quite adjusted yet, will tackle user first, just as a mockup of fleshing it out
@@ -12,15 +12,13 @@ export const fetchTasks = () => (dispatch) => {
         snapshot.forEach((childSnapshot) => {
             // let childKey = childSnapshot.key;
             let childData = childSnapshot.val();
-            // console.log(childData, childKey);
             newList.push(childData);
             // ...
         });
         dispatch({
-            type: FETCH_TASKS,
+            type: actionTypes.FETCH_TASKS,
             taskList: newList,
         });
-        // console.log(newList);
     });
 };
 
@@ -44,7 +42,7 @@ export const createTask = (postData) => (dispatch) => {
         })
         .then((task) =>
             dispatch({
-                type: NEW_TASK,
+                type: actionTypes.NEW_TASK,
                 payload: task,
             })
         );

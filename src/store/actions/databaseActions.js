@@ -20,10 +20,23 @@ export const getUserData = () => (dispatch) => {
     );
 };
 
-export const updateUser = (firstName, lastName) => {
-    return {
-        type: actionTypes.UPDATE_USER_DETAILS,
-        firstName: firstName,
-        lastName: lastName,
-    };
+export const updateUser = (firstName, lastName) => (dispatch) => {
+    let userId = firebaseInit.auth().currentUser.uid;
+
+    firebaseInit
+        .database()
+        .ref("users/" + userId)
+        .update({
+            firstName: firstName,
+            lastName: lastName,
+        })
+        .then(firebaseInit.auth().currentUser.updateProfile({ displayName: firstName }))
+        .then(
+            dispatch({
+                type: actionTypes.UPDATE_USER_DETAILS,
+                firstName: firstName,
+                lastName: lastName,
+            })
+        )
+        .catch((err) => console.log(err.message));
 };
