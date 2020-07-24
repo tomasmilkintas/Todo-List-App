@@ -1,11 +1,10 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Form from "../../../stories/Form/index";
 
 import Button from "../../../stories/Button";
 import Input from "../../../stories/Input";
 
-// import { loginHandler } from "../../../API/Authentication";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Text from "../../../stories/Text";
 import TitleText from "../../../stories/TitleText";
 import TextInputContainer from "../../../stories/TextInputContainer";
@@ -13,131 +12,83 @@ import TextInputContainer from "../../../stories/TextInputContainer";
 import * as actions from "../../../store/actions/index";
 import { connect } from "react-redux";
 
-class Login extends Component {
-    constructor(props) {
-        super(props);
+import { emailValidation, passwordValidation } from "../../../API/Validation";
 
-        this.state = {
-            email: "",
-            password: "",
-            redirect: false,
-            //         emailError: "",
-            //         passwordError: "",
-        };
-    }
+const Login = (props) => {
+    const [enteredEmail, setEnteredEmail] = useState("");
+    const [enteredPassword, setEnteredPassword] = useState("");
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setpasswordError] = useState("");
 
-    // validationHandler = () => {
-    //     let emailError = "";
-    //     let passwordError = "";
+    const textErrorStyle = {
+        color: emailError === "" ? "white" : "red",
+        fontSize: emailError === "" ? "14px" : "14px",
+    };
 
-    //     if (!this.state.email.includes("@")) {
-    //         emailError = "Please enter a valid email address";
-    //     }
-
-    //     if (this.state.password.length < 8) {
-    //         passwordError = "Password should be 8 characters or more";
-    //     }
-
-    //     if (emailError || passwordError) {
-    //         this.setState({ passwordError });
-    //         this.setState({ emailError });
-    //         return false;
-    //     }
-    //     return true;
-    // };
-
-    login(event) {
+    const loginHandler = (event) => {
         event.preventDefault();
-        // const isValid = this.validationHandler();
-        // if (isValid) {
-        this.props.onLogin(this.state.email, this.state.password);
-        this.props.history.push("/home");
-        // }
-    }
+        const notValidEmail = emailValidation(enteredEmail);
+        const notValidPassword = passwordValidation(enteredPassword);
 
-    changeHandler(event) {
-        this.setState({
-            [event.target.name]: event.target.value,
-        });
-    }
-
-    handleOnClick() {
-        this.setState({ redirect: true });
-        this.props.history.push(this.props.authRedirectPath);
-    }
-
-    render() {
-        const { redirect } = this.state;
-
-        if (redirect) {
-            return <Redirect to="/signup" />;
+        if (!notValidEmail && !notValidPassword) {
+            props.onLogin(enteredEmail, enteredPassword);
+            props.history.push("/home");
+        } else {
+            setEmailError(notValidEmail);
+            setpasswordError(notValidPassword);
         }
+    };
 
-        return (
-            <Form method="POST">
-                <TitleText> Log in</TitleText>
+    const handleOnClick = () => {
+        props.history.push(props.authRedirectPath);
+    };
 
-                <TextInputContainer>
-                    {/* <Text
-                        style={
-                            this.state.emailError === ""
-                                ? { color: "white", fontSize: "14px" }
-                                : { color: "red", fontSize: "14px" }
-                        }
-                    >
-                        {this.state.emailError}
-                    </Text> */}
-                    <Input
-                        onChange={(e) => this.changeHandler(e)}
-                        placeholder="Your Email"
-                        type="email"
-                        name="email"
-                        value={this.state.email}
-                    />
-                </TextInputContainer>
-                <TextInputContainer>
-                    {/* <Text
-                        style={
-                            this.state.passwordError === ""
-                                ? { color: "white", fontSize: "14px" }
-                                : { color: "red", fontSize: "14px" }
-                        }
-                    >
-                        {this.state.passwordError}
-                    </Text> */}
-                    <Input
-                        onChange={(e) => this.changeHandler(e)}
-                        placeholder="Your Password"
-                        type="password"
-                        name="password"
-                        value={this.state.password}
-                    />
-                </TextInputContainer>
-                <Button onClick={(e) => this.login(e)}>Login</Button>
-                <Text>
-                    Don't have an account?
-                    <Link onClick={() => this.handleOnClick()} to="/login">
-                        Register
-                    </Link>
-                </Text>
-                <Text>
-                    Having trouble logging in?
-                    <Link onClick={() => this.handleOnClick()} to="/reset">
-                        Reset your password
-                    </Link>
-                </Text>
-            </Form>
-        );
-    }
-}
+    return (
+        <Form method="POST">
+            <TitleText> Log in</TitleText>
 
-// preparing for conversion
+            <TextInputContainer>
+                <Text style={textErrorStyle}>{emailError}</Text>
+                <Input
+                    onChange={(e) => {
+                        setEnteredEmail(e.target.value);
+                    }}
+                    placeholder="Your Email"
+                    type="email"
+                    name="email"
+                    value={enteredEmail}
+                />
+            </TextInputContainer>
 
-const mapStateToProps = (state) => ({
-    email: state.user.email,
-    password: state.user.password,
-    authRedirectPath: state.user.authRedirectPath,
-});
+            <TextInputContainer>
+                <Text style={textErrorStyle}>{passwordError}</Text>
+                <Input
+                    onChange={(e) => {
+                        setEnteredPassword(e.target.value);
+                    }}
+                    placeholder="Your Password"
+                    type="password"
+                    name="password"
+                    value={enteredPassword}
+                />
+            </TextInputContainer>
+
+            <Button onClick={(e) => loginHandler(e)}>Login</Button>
+            <Text>
+                Don't have an account?
+                <Link onClick={() => handleOnClick()} to="/signup">
+                    Register
+                </Link>
+            </Text>
+            <Text>
+                Having trouble logging in?
+                <Link onClick={() => handleOnClick()} to="/reset">
+                    Reset your password
+                </Link>
+            </Text>
+        </Form>
+    );
+};
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -145,4 +96,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);

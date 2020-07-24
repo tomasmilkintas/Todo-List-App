@@ -65,6 +65,12 @@ class Tasks extends Component {
     //     }
     // }
 
+    handleKeyUp = (e) => {
+        if (e.keyCode === 13) {
+            this.taskAddHandler();
+        }
+    };
+
     taskRemoveHandler(key) {
         let userId = firebaseInit.auth().currentUser.uid;
 
@@ -76,6 +82,13 @@ class Tasks extends Component {
         let tasksRef = firebaseInit.database().ref(`users/${userId}/tasks`);
 
         tasksRef.child(key).remove();
+    }
+
+    componentDidMount() {
+        document.addEventListener("keydown", this.handleKeyUp, false);
+    }
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.handleKeyUp, false);
     }
 
     render() {
@@ -115,7 +128,7 @@ const mapStateToProps = (state) => ({
 
 Tasks.propTypes = {
     fetchTasks: PropTypes.func.isRequired,
-    createPost: PropTypes.func.isRequired,
+    createTask: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, { fetchTasks, createTask })(Tasks);

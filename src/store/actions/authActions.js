@@ -59,3 +59,10 @@ export const authStateChanged = () => (dispatch) => {
         }
     });
 };
+
+export const setAuthRedirectPath = (path) => {
+    return {
+        type: actionTypes.SET_AUTH_REDIRECT_PATH,
+        authRedirectPath: path,
+    };
+};

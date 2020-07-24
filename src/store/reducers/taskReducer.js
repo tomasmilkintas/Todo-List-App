@@ -10,7 +10,7 @@ export default (state = initialState, action) => {
         case actionTypes.FETCH_TASKS:
             return { ...state, taskList: action.taskList };
         case actionTypes.NEW_TASK:
-            return { ...state, task: action.task };
+            return { ...state, task: action.task, taskList: action.taskList };
         case actionTypes.DELETE_TASK:
             return { ...state, task: action.task, taskList: action.taskList };
         default:

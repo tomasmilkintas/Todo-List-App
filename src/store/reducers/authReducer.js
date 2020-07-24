@@ -20,7 +20,7 @@ export default (state = initialState, action) => {
         case actionTypes.AUTH_FAIL:
             return { ...state, error: action.error };
         case actionTypes.SET_AUTH_REDIRECT_PATH:
-            return { ...state, authRedirectPath: "/login" };
+            return { ...state, authRedirectPath: action.authRedirectPath };
 
         // general check for authentication state
         case actionTypes.AUTH_STATE_CHANGED:

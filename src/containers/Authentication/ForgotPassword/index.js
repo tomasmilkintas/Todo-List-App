@@ -1,85 +1,62 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
 import Input from "../../../stories/Input";
 import Button from "../../../stories/Button";
 import Text from "../../../stories/Text";
 
-// import { passwordRecoveryHandler } from "../../../API/Authentication";
 import Form from "../../../stories/Form";
 import TextInputContainer from "../../../stories/TextInputContainer";
 
 import * as actions from "../../../store/actions/index";
 import { connect } from "react-redux";
+import { emailValidation } from "../../../API/Validation";
 
-class PasswordRecovery extends Component {
-    constructor(props) {
-        super(props);
+const PasswordRecovery = (props) => {
+    const [enteredEmail, setEnteredEmail] = useState("");
+    const [emailError, setEmailError] = useState("");
 
-        this.state = {
-            email: "",
-            emailError: "",
-        };
-    }
-
-    validationHandler = () => {
-        let emailError = "";
-        if (!this.state.email.includes("@")) {
-            emailError = "Please enter a valid email address";
-        }
-        if (emailError) {
-            this.setState({ emailError });
-            return false;
-        }
-        return true;
+    const textErrorStyle = {
+        color: emailError === "" ? "white" : "red",
+        fontSize: emailError === "" ? "14px" : "14px",
     };
 
-    emailHandler(event) {
+    const emailHandler = (event) => {
         event.preventDefault();
-        const isValid = this.validationHandler();
-        if (isValid) {
-            this.props.onRecover(this.state.email);
-            this.props.history.push("/");
+        const notValidEmail = emailValidation(enteredEmail);
+
+        if (!notValidEmail) {
+            props.onRecover(enteredEmail);
+            props.history.push("/");
+        } else {
+            setEmailError(notValidEmail);
         }
-    }
+    };
 
-    returnHandler(event) {
+    const returnHandler = (event) => {
         event.preventDefault();
-        this.props.history.push("/login");
-    }
+        props.history.push("/login");
+    };
 
-    changeHandler(event) {
-        this.setState({ [event.target.name]: event.target.value });
-    }
+    return (
+        <Form method="POST">
+            <Text>Enter a valid email address to reset your password!</Text>
 
-    render() {
-        return (
-            <Form method="POST">
-                <Text>Enter a valid email address to reset your password!</Text>
+            <TextInputContainer>
+                <Text style={textErrorStyle}>{emailError}</Text>
+                <Input
+                    onChange={(e) => setEnteredEmail(e.target.value)}
+                    placeholder="Your Email"
+                    type="email"
+                    name="email"
+                    value={enteredEmail}
+                />
+            </TextInputContainer>
 
-                <TextInputContainer>
-                    <Text
-                        style={
-                            this.state.emailError === ""
-                                ? { color: "white", fontSize: "14px" }
-                                : { color: "red", fontSize: "14px" }
-                        }
-                    >
-                        {this.state.emailError}
-                    </Text>
-                    <Input
-                        onChange={(e) => this.changeHandler(e)}
-                        placeholder="Your Email"
-                        type="email"
-                        name="email"
-                        value={this.state.email}
-                    />
-                </TextInputContainer>
-                <Button onClick={(e) => this.emailHandler(e)}>Reset Password</Button>
-                <Button onClick={(e) => this.returnHandler(e)}>Go back &#10226;</Button>
-            </Form>
-        );
-    }
-}
+            <Button onClick={(e) => emailHandler(e)}>Reset Password</Button>
+            <Button onClick={(e) => returnHandler(e)}>Go back &#10226;</Button>
+        </Form>
+    );
+};
 
 const mapDispatchToProps = (dispatch) => {
     return {

@@ -33,7 +33,7 @@ export default (state = initialState, action) => {
                 authRedirectPath: action.authRedirectPath,
             };
         case actionTypes.RECOVER_USER:
-            return { ...state, email: action.email };
+            return { ...state, email: action.email, authRedirectPath: action.authRedirectPath };
         default:
             return state;
     }

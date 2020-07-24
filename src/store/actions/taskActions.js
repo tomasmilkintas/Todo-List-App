@@ -10,9 +10,9 @@ export const fetchTasks = () => (dispatch) => {
 
     tasksRef.once("value", (snapshot) => {
         snapshot.forEach((childSnapshot) => {
-            let childKey = childSnapshot.key;
+            // let childKey = childSnapshot.key;
             let childData = childSnapshot.val();
-            console.log(childData, childKey);
+            // console.log(childData, childKey);
             newList.push(childData);
             // ...
         });

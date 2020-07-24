@@ -1,189 +1,131 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Form from "../../../stories/Form/index";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import Button from "../../../stories/Button";
 import Input from "../../../stories/Input";
 
-import { signupHandler } from "../../../API/Authentication";
-import { Link } from "react-router-dom";
 import Text from "../../../stories/Text";
 import TitleText from "../../../stories/TitleText";
 import TextInputContainer from "../../../stories/TextInputContainer";
 
 import * as actions from "../../../store/actions/userActions";
-import { connect } from "react-redux";
 
-const initialState = {
-    email: "",
-    password: "",
-    firstName: "",
-    lastName: "",
-    userId: "",
+import {
+    emailValidation,
+    passwordValidation,
+    firstNameValidation,
+    lastNameValidation,
+} from "../../../API/Validation";
 
-    firstNameError: "",
-    lastNameError: "",
-    emailError: "",
-    passwordError: "",
-};
+const Register = (props) => {
+    const [enteredFirstName, setEnteredFirstName] = useState("");
+    const [enteredLastName, setEnteredLastName] = useState("");
+    const [enteredEmail, setEnteredEmail] = useState("");
+    const [enteredPassword, setEnteredPassword] = useState("");
 
-class Register extends Component {
-    constructor(props) {
-        super(props);
-        this.state = initialState;
-    }
+    const [passwordError, setpasswordError] = useState("");
+    const [emailError, setEmailError] = useState("");
+    const [firstNameError, setFirstNameError] = useState("");
+    const [lastNameError, setLastNameError] = useState("");
 
-    validationHandler = () => {
-        let firstNameError = "";
-        let lastNameError = "";
-        let emailError = "";
-        let passwordError = "";
-
-        if (!this.state.email.includes("@")) {
-            emailError = "Please enter a valid email address";
-        }
-        if (this.state.firstName === "") {
-            firstNameError = "Cannot be blank";
-        }
-        if (this.state.lastName === "") {
-            lastNameError = "Cannot be blank";
-        }
-        if (this.state.password.length < 8) {
-            passwordError = "Password should be 8 characters or more";
-        }
-
-        if (firstNameError || lastNameError || emailError || passwordError) {
-            this.setState({ passwordError });
-            this.setState({ emailError });
-            this.setState({ firstNameError });
-            this.setState({ lastNameError });
-            return false;
-        }
-        return true;
+    const textErrorStyle = {
+        color: firstNameError === "" ? "white" : "red",
+        fontSize: firstNameError === "" ? "14px" : "14px",
     };
 
-    signup(event) {
+    const signup = (event) => {
         event.preventDefault();
-        const isValid = this.validationHandler();
-        console.log(isValid);
 
-        if (isValid) {
-            signupHandler(
-                this.state.email,
-                this.state.password,
-                this.state.firstName,
-                this.state.lastName
-            );
+        const notValidFirstName = firstNameValidation(enteredFirstName);
+        const notValidLastName = lastNameValidation(enteredLastName);
+        const notValidEmail = emailValidation(enteredEmail);
+        const notValidPassword = passwordValidation(enteredPassword);
+
+        if (!notValidFirstName && !notValidLastName && !notValidEmail && !notValidPassword) {
+            props.onRegister(enteredFirstName, enteredLastName, enteredEmail, enteredPassword);
             alert("Success, login now!");
-            this.props.history.push("/login");
+            props.history.push("/login");
         } else {
+            setFirstNameError(notValidFirstName);
+            setLastNameError(notValidLastName);
+            setEmailError(notValidEmail);
+            setpasswordError(notValidPassword);
         }
-    }
+    };
 
-    changeHandler(event) {
-        this.setState({ [event.target.name]: event.target.value });
-    }
+    const handleOnClick = () => {
+        props.history.push("/login");
+    };
 
-    handleOnClick() {
-        this.props.history.push("/login");
-    }
+    return (
+        <Form method="POST">
+            <TitleText> Sign up</TitleText>
 
-    render() {
-        return (
-            <Form method="POST">
-                <TitleText> Sign up</TitleText>
-                <TextInputContainer>
-                    <Text
-                        style={
-                            this.state.firstNameError === ""
-                                ? { color: "white", fontSize: "14px" }
-                                : { color: "red", fontSize: "14px" }
-                        }
-                    >
-                        {this.state.firstNameError}
-                    </Text>
-                    <Input
-                        onChange={(e) => this.changeHandler(e)}
-                        placeholder="Your Name"
-                        type="text"
-                        name="firstName"
-                        value={this.state.firstName}
-                    />
-                </TextInputContainer>
-                <TextInputContainer>
-                    <Text
-                        style={
-                            this.state.lastNameError === ""
-                                ? { color: "white", fontSize: "14px" }
-                                : { color: "red", fontSize: "14px" }
-                        }
-                    >
-                        {this.state.lastNameError}
-                    </Text>
-                    <Input
-                        onChange={(e) => this.changeHandler(e)}
-                        placeholder="Your Surname"
-                        type="text"
-                        name="lastName"
-                        value={this.state.lastName}
-                    />
-                </TextInputContainer>
-                <TextInputContainer>
-                    <Text
-                        style={
-                            this.state.emailError === ""
-                                ? { color: "white", fontSize: "14px" }
-                                : { color: "red", fontSize: "14px" }
-                        }
-                    >
-                        {this.state.emailError}
-                    </Text>
-                    <Input
-                        onChange={(e) => this.changeHandler(e)}
-                        placeholder="Your Email"
-                        type="email"
-                        name="email"
-                        value={this.state.email}
-                    />
-                </TextInputContainer>
+            <TextInputContainer>
+                <Text style={textErrorStyle}>{firstNameError}</Text>
 
-                <TextInputContainer>
-                    <Text
-                        style={
-                            this.state.passwordError === ""
-                                ? { color: "white", fontSize: "14px" }
-                                : { color: "red", fontSize: "14px" }
-                        }
-                    >
-                        {this.state.passwordError}
-                    </Text>
-                    <Input
-                        onChange={(e) => this.changeHandler(e)}
-                        placeholder="Your Password"
-                        type="password"
-                        name="password"
-                        value={this.state.password}
-                    />
-                </TextInputContainer>
-                <Button onClick={(e) => this.signup(e)}>Sign up</Button>
-                <Text>
-                    Got an account?{" "}
-                    <Link onClick={() => this.handleOnClick()} to="/login">
-                        Log in
-                    </Link>
-                </Text>
-            </Form>
-        );
-    }
-}
+                <Input
+                    onChange={(e) => {
+                        setEnteredFirstName(e.target.value);
+                    }}
+                    placeholder="Your Name"
+                    type="text"
+                    name="firstName"
+                    value={enteredFirstName}
+                />
+            </TextInputContainer>
 
-// preparing for conversion
+            <TextInputContainer>
+                <Text style={textErrorStyle}>{lastNameError}</Text>
+                <Input
+                    onChange={(e) => {
+                        setEnteredLastName(e.target.value);
+                    }}
+                    placeholder="Your Surname"
+                    type="text"
+                    name="lastName"
+                    value={enteredLastName}
+                />
+            </TextInputContainer>
 
-const mapStateToProps = (state) => ({
-    firstName: state.user.firstName,
-    lastName: state.user.lastName,
-    email: state.user.email,
-    password: state.user.password,
-});
+            <TextInputContainer>
+                <Text style={textErrorStyle}>{emailError}</Text>
+                <Input
+                    onChange={(e) => {
+                        setEnteredEmail(e.target.value);
+                    }}
+                    placeholder="Your Email"
+                    type="email"
+                    name="email"
+                    value={enteredEmail}
+                />
+            </TextInputContainer>
+
+            <TextInputContainer>
+                <Text style={textErrorStyle}>{passwordError}</Text>
+                <Input
+                    onChange={(e) => {
+                        setEnteredPassword(e.target.value);
+                    }}
+                    placeholder="Your Password"
+                    type="password"
+                    name="password"
+                    value={enteredPassword}
+                />
+            </TextInputContainer>
+
+            <Button onClick={(e) => signup(e)}>Sign up</Button>
+            <Text>
+                Got an account?{" "}
+                <Link onClick={() => handleOnClick()} to="/login">
+                    Log in
+                </Link>
+            </Text>
+        </Form>
+    );
+};
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -192,4 +134,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default connect(null, mapDispatchToProps)(Register);
