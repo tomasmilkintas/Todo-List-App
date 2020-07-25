@@ -3,7 +3,7 @@ import { colours } from "../Colours/index";
 
 const StyledContainer = styled.div`
     width: 99%;
-    min-height: 99vh
+    min-height: 99vh;
     height: 100%;
     outline: 2px solid ${colours.secondaryColours.Teal};
     display: flex;
