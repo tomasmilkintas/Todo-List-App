@@ -55,3 +55,26 @@ export const lastNameValidation = (lastName) => {
     }
     return false;
 };
+
+export const taskTitleValidation = (taskTitle) => {
+    let taskTitleError = "";
+    if (taskTitle === "") {
+        taskTitleError = "Cannot be blank";
+    }
+
+    if (taskTitleError) {
+        return taskTitleError;
+    }
+    return false;
+};
+export const taskDescriptionValidation = (taskDescription) => {
+    let taskDescriptionError = "";
+    if (taskDescription === "") {
+        taskDescriptionError = "Cannot be blank";
+    }
+
+    if (taskDescriptionError) {
+        return taskDescriptionError;
+    }
+    return false;
+};

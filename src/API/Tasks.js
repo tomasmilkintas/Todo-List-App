@@ -7,88 +7,21 @@ import ListItem from "../stories/List/ListItem/index";
 // import firebaseInit from "./config/FirebaseInit";
 
 import { connect } from "react-redux";
-import { fetchTasks, createTask } from "../store/actions/taskActions";
+import * as actions from "../store/actions/index";
 
 const Tasks = (props) => {
-    //LOGIC TO BE UPDATED & REMOVED TO NEW TASK
-
-    // const taskAddHandler = () => {
-    //     props.history.push("/new");
-    // };
-    // taskAddHandler() {
-    //     // user reducer
-    //     let userId = firebaseInit.auth().currentUser.uid;
-
-    //     // database reducer
-    //     let tasksRef = firebaseInit.database().ref(`users/${userId}/tasks`);
-
-    //     const newTask = {
-    //         key: "",
-    //         value: state.newTask.slice(),
-    //     };
-
-    //     const list = props.taskList;
-
-    //     // database reducer
-    //     tasksRef
-    //         .push({
-    //             ...newTask,
-    //         })
-    //         .then((res) => {
-    //             newTask.key = res.key;
-    //         });
-
-    //     list.push(newTask);
-
-    //     setState({
-    //         list,
-    //         newTask: "",
-    //     });
-    //     // props.createTask(...newTask);
-    // }
-
-    // componentWillReceiveProps(nextProps) {
-    //     if (nextProps.newTask) {
-    //         props.tasks.push(nextProps.newTask);
-    //     }
-    // }
-
-    // handleKeyUp = (e) => {
-    //     if (e.keyCode === 13) {
-    //         taskAddHandler();
-    //     }
-    // };
-
-    // const taskRemoveHandler = (key) => {
-    //     let userId = firebaseInit.auth().currentUser.uid;
-
-    //     const list = [...props.taskList];
-    //     const updatedList = list.filter((item) => item.key !== key);
-    //     setState({ list: updatedList });
-
-    //     //database reducer
-    //     let tasksRef = firebaseInit.database().ref(`users/${userId}/tasks`);
-
-    //     tasksRef.child(key).remove();
-    // };
-
-    // componentDidMount() {
-    //     document.addEventListener("keydown", handleKeyUp, false);
-    // }
-    // componentWillUnmount() {
-    //     document.removeEventListener("keydown", handleKeyUp, false);
-    // }
-
     return (
         <div>
             <List>
                 {props.taskList !== []
-                    ? props.taskList.map((item) => {
+                    ? props.taskList.map((item, key) => {
                           return (
-                              <ListItem key={item.key} taskId={item.key}>
-                                  {item.value}
-
-                                  {/* <span onClick={() => taskRemoveHandler(item.key)}>&#215;</span> */}
+                              <ListItem key={key}>
+                                  <span onClick={() => props.onDeleteTask(item.key)}>
+                                      {item.title}
+                                      <br />
+                                      {item.description}
+                                  </span>
                               </ListItem>
                           );
                       })
@@ -100,7 +33,12 @@ const Tasks = (props) => {
 
 const mapStateToProps = (state) => ({
     taskList: state.tasks.taskList,
-    newTask: state.tasks.task,
 });
 
-export default connect(mapStateToProps, { fetchTasks, createTask })(Tasks);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onDeleteTask: (key) => dispatch(actions.deleteTask(key)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tasks);

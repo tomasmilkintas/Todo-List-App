@@ -6,16 +6,36 @@ import StatusBarBottom from "../stories/StatusBarBottom";
 import Container from "../stories/Container";
 import Input from "../stories/Input";
 import TitleText from "../stories/TitleText";
+import Text from "../stories/Text";
+import TextArea from "../stories/TextArea";
+import TextInputContainer from "../stories/TextInputContainer";
 
 import * as actions from "../store/actions/index";
 import { connect } from "react-redux";
+import { taskTitleValidation, taskDescriptionValidation } from "../API/Validation";
 
 const NewTask = (props) => {
-    const [enteredTask, setEnteredTask] = useState("");
+    const [enteredTaskTitle, setEnteredTaskTitle] = useState("");
+    const [enteredTaskDescription, setEnteredTaskDescription] = useState("");
+    const [taskTitleError, setTaskTitleError] = useState("");
+    const [taskDescriptionError, setTaskDescriptionError] = useState("");
+
+    const textErrorStyle = {
+        color: taskTitleError === "" ? "white" : "red",
+        fontSize: taskTitleError === "" ? "14px" : "14px",
+    };
 
     const taskAddHandler = () => {
-        //redux for adding tasks
-        props.history.push("/home");
+        const notValidTaskTitle = taskTitleValidation(enteredTaskTitle);
+        const notValidTaskDescription = taskDescriptionValidation(enteredTaskDescription);
+
+        if (!notValidTaskTitle && !notValidTaskDescription) {
+            props.history.push("/home");
+            props.onCreateTask(enteredTaskTitle, enteredTaskDescription);
+        } else {
+            setTaskTitleError(notValidTaskTitle);
+            setTaskDescriptionError(notValidTaskDescription);
+        }
     };
 
     const logout = () => {
@@ -36,14 +56,29 @@ const NewTask = (props) => {
 
             <TitleText id="title">New Task</TitleText>
 
-            <Input
-                type="text"
-                placeholder="Title..."
-                value={enteredTask}
-                onChange={(e) => {
-                    setEnteredTask(e.target.value);
-                }}
-            />
+            <TextInputContainer>
+                <Text style={textErrorStyle}>{taskTitleError}</Text>
+                <Input
+                    type="text"
+                    placeholder="Title..."
+                    value={enteredTaskTitle}
+                    onChange={(e) => {
+                        setEnteredTaskTitle(e.target.value);
+                    }}
+                />
+            </TextInputContainer>
+
+            <TextInputContainer>
+                <Text style={textErrorStyle}>{taskDescriptionError}</Text>
+                <TextArea
+                    type="text"
+                    placeholder="Description..."
+                    value={enteredTaskDescription}
+                    onChange={(e) => {
+                        setEnteredTaskDescription(e.target.value);
+                    }}
+                />
+            </TextInputContainer>
 
             <Button onClick={() => taskAddHandler()}>Submit</Button>
 
@@ -53,13 +88,13 @@ const NewTask = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-    firstName: state.database.firstName,
     taskList: state.tasks.taskList,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onLogout: () => dispatch(actions.logoutUser()),
+        onCreateTask: (title, description) => dispatch(actions.createTask(title, description)),
     };
 };
 

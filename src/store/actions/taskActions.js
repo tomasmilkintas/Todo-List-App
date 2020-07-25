@@ -22,31 +22,47 @@ export const fetchTasks = () => (dispatch) => {
     });
 };
 
-export const createTask = (postData) => (dispatch) => {
+export const createTask = (taskTitle, taskDescription) => (dispatch) => {
     let userId = firebaseInit.auth().currentUser.uid;
     let tasksRef = firebaseInit.database().ref(`users/${userId}/tasks`);
 
+    let newTaskRef = tasksRef.push();
+    let taskKey = newTaskRef.key;
+
     let newTask = {
-        key: "",
-        value: this.state.newTask.slice(),
+        title: taskTitle,
+        description: taskDescription,
+        key: taskKey,
     };
-
-    const newList = [];
-
-    tasksRef
-        .push({
+    newTaskRef
+        .set({
+            // ...
             ...newTask,
         })
-        .then((res) => {
-            newTask.key = res.key;
-        })
-        .then((task) =>
+        .then((task) => {
             dispatch({
                 type: actionTypes.NEW_TASK,
-                payload: task,
-            })
-        );
-
-    newList.push(newTask);
+                task: task,
+            });
+            dispatch(fetchTasks());
+        })
+        .catch((err) => console.log(err.message));
     newTask = {};
+};
+
+export const deleteTask = (key) => (dispatch) => {
+    let userId = firebaseInit.auth().currentUser.uid;
+    let tasksRef = firebaseInit.database().ref(`users/${userId}/tasks`);
+
+    tasksRef
+        .child(key)
+        .remove()
+        .then(
+            dispatch({
+                type: actionTypes.DELETE_TASK,
+                key: key,
+            }),
+            dispatch(fetchTasks())
+        )
+        .catch((err) => console.log(err.message));
 };

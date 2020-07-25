@@ -3,12 +3,13 @@ import { colours } from "../Colours/index";
 
 const StyledStatusBarTop = styled.section`
     width: 95%;
-    height: 50px;
+    height: 7vh;
     border: 4px solid ${colours.secondaryColours.Teal};
     display: flex;
     justify-content: center;
-    align-items: center;
-    margin: -3px auto;
+    align-self: flex-end;
+    margin: 6px auto;
+    padding: 15px 0;
 `;
 
 export default StyledStatusBarTop;
