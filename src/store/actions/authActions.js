@@ -55,7 +55,7 @@ export const authStateChanged = () => (dispatch) => {
                 lastName: null,
                 email: null,
             });
-            dispatch({ type: actionTypes.FETCH_TASKS, taskList: [] });
+            dispatch({ type: actionTypes.FETCH_TASKS, tasksTodo: [] });
         }
     });
 };

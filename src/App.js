@@ -6,6 +6,9 @@ import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import Login from "./containers/Authentication/Login";
 import Register from "./containers/Authentication/Register/Index";
 import Home from "./containers/Tasks/Home";
+import Todo from "./containers/Tasks/Todo";
+import Doing from "./containers/Tasks/Doing";
+import Complete from "./containers/Tasks/Complete";
 import Welcome from "./containers/Welcome";
 import PasswordRecovery from "./containers/Authentication/ForgotPassword";
 import Profile from "./containers/Profile";
@@ -30,6 +33,9 @@ class App extends Component {
                     <Route path="/profile" component={Profile} />
                     <Route path="/updateprofile" component={UpdateProfile} />
                     <Route path="/home" component={Home} />
+                    <Route path="/todo" component={Todo} />
+                    <Route path="/doing" component={Doing} />
+                    <Route path="/complete" component={Complete} />
                     <Route path="/new" component={NewTask} />
                     <Route path="/" component={Welcome} />
                     <Redirect to="/" />

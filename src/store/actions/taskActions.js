@@ -17,7 +17,7 @@ export const fetchTasks = () => (dispatch) => {
         });
         dispatch({
             type: actionTypes.FETCH_TASKS,
-            taskList: newList,
+            tasksTodo: newList,
         });
     });
 };
@@ -65,4 +65,15 @@ export const deleteTask = (key) => (dispatch) => {
             dispatch(fetchTasks())
         )
         .catch((err) => console.log(err.message));
+};
+
+export const moveTaskToDoing = (key) => (dispatch) => {
+    // 1. fetch the task using the key
+
+    // 2. copy its data in entirety
+
+    // 3. delete from the old list
+    dispatch(deleteTask(key));
+
+    // 4. add to the new one
 };

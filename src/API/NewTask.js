@@ -38,19 +38,19 @@ const NewTask = (props) => {
         }
     };
 
+    const clickHandler = (path) => {
+        props.history.push(path);
+    };
+
     const logout = () => {
         props.onLogout();
         props.history.push("/");
     };
 
-    const profileHandler = () => {
-        props.history.push("/profile");
-    };
-
     return (
         <Container>
             <StatusBarTop>
-                <Button onClick={profileHandler}>Profile</Button>
+                <Button onClick={() => clickHandler("/profile")}>Profile</Button>
                 <Button onClick={logout}>Logout</Button>
             </StatusBarTop>
 
@@ -82,14 +82,15 @@ const NewTask = (props) => {
 
             <Button onClick={() => taskAddHandler()}>Submit</Button>
 
-            <StatusBarBottom>Icons</StatusBarBottom>
+            <StatusBarBottom>
+                <Button onClick={() => clickHandler("/home")}>Home</Button>
+                <Button onClick={() => clickHandler("/todo")}>Todo</Button>
+                <Button onClick={() => clickHandler("/doing")}>Doing</Button>
+                <Button onClick={() => clickHandler("/complete")}>Complete</Button>
+            </StatusBarBottom>
         </Container>
     );
 };
-
-const mapStateToProps = (state) => ({
-    taskList: state.tasks.taskList,
-});
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -98,4 +99,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewTask);
+export default connect(null, mapDispatchToProps)(NewTask);

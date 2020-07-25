@@ -1,7 +1,3 @@
-export const FETCH_TASKS = "FETCH_TASKS";
-export const NEW_TASK = "NEW_TASK";
-export const DELETE_TASK = "DELETE_TASK";
-
 export const REGISTER_USER = "REGISTER_USER";
 export const LOGIN_USER = "LOGIN_USER";
 export const LOGOUT_USER = "LOGOUT_USER";
@@ -20,3 +16,11 @@ export const AUTH_FAIL = "AUTH_FAIL";
 
 export const SET_AUTH_REDIRECT_PATH = "SET_AUTH_REDIRECT_PATH";
 export const AUTH_STATE_CHANGED = "AUTH_STATE_CHANGED";
+
+export const FETCH_TASKS = "FETCH_TASKS";
+export const NEW_TASK = "NEW_TASK";
+export const DELETE_TASK = "DELETE_TASK";
+
+export const MOVE_TASK_TO_TODO = "MOVE_TASK_TO_TODO";
+export const MOVE_TASK_TO_DOING = "MOVE_TASK_TO_DOING";
+export const MOVE_TASK_TO_COMPLETE = "MOVE_TASK_TO_COMPLETE";

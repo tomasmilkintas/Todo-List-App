@@ -1,10 +1,8 @@
 import React from "react";
 
 import List from "../stories/List/index";
+import Input from "../stories/Input/index";
 import ListItem from "../stories/List/ListItem/index";
-// import Button from "../stories/Button";
-// import Input from "../stories/Input";
-// import firebaseInit from "./config/FirebaseInit";
 
 import { connect } from "react-redux";
 import * as actions from "../store/actions/index";
@@ -13,14 +11,17 @@ const Tasks = (props) => {
     return (
         <div>
             <List>
-                {props.taskList !== []
-                    ? props.taskList.map((item, key) => {
+                {props.tasksTodo !== []
+                    ? props.tasksTodo.map((item, key) => {
                           return (
                               <ListItem key={key}>
                                   <span onClick={() => props.onDeleteTask(item.key)}>
                                       {item.title}
                                       <br />
                                       {item.description}
+                                  </span>
+                                  <span>
+                                      <Input onChange={() => {}} type="checkbox" name="doing" />
                                   </span>
                               </ListItem>
                           );
@@ -32,7 +33,7 @@ const Tasks = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-    taskList: state.tasks.taskList,
+    tasksTodo: state.tasks.tasksTodo,
 });
 
 const mapDispatchToProps = (dispatch) => {

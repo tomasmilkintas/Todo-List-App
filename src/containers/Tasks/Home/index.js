@@ -5,15 +5,13 @@ import StatusBarTop from "../../../stories/StatusBarTop";
 import StatusBarBottom from "../../../stories/StatusBarBottom";
 import Container from "../../../stories/Container";
 import TitleText from "../../../stories/TitleText";
-// import Text from "../../../stories/TitleText";
-import Tasks from "../../../API/Tasks";
 
 import * as actions from "../../../store/actions/index";
 import { connect } from "react-redux";
 
 const Home = (props) => {
-    const taskAddHandler = () => {
-        props.history.push("/new");
+    const clickHandler = (path) => {
+        props.history.push(path);
     };
 
     const logout = () => {
@@ -21,35 +19,32 @@ const Home = (props) => {
         props.history.push("/");
     };
 
-    const profileHandler = () => {
-        props.history.push("/profile");
-    };
-
     return (
         <Container>
             <StatusBarTop>
-                <Button onClick={profileHandler}>Profile</Button>
+                <Button onClick={() => clickHandler("/profile")}>Profile</Button>
                 <Button onClick={logout}>Logout</Button>
             </StatusBarTop>
 
             <TitleText id="name">Hello, {props.firstName}</TitleText>
 
-            <Button onClick={() => taskAddHandler()}>Add +</Button>
+            <Button onClick={() => clickHandler("/new")}>Add New Task</Button>
+            <Button onClick={() => clickHandler("/todo")}>Todo Tasks</Button>
+            <Button onClick={() => clickHandler("/doing")}>Task in Progress</Button>
+            <Button onClick={() => clickHandler("/complete")}>Complete Tasks</Button>
 
-            {/* {props.taskList !== [] ? (
-                <Text>Looks like you don’t have any tasks, go ahead and create a new task!</Text>
-            ) : ( */}
-            <Tasks />
-            {/* )} */}
-
-            <StatusBarBottom>Icons</StatusBarBottom>
+            <StatusBarBottom>
+                <Button onClick={() => clickHandler("/home")}>Home</Button>
+                <Button onClick={() => clickHandler("/todo")}>Todo</Button>
+                <Button onClick={() => clickHandler("/doing")}>Doing</Button>
+                <Button onClick={() => clickHandler("/complete")}>Complete</Button>
+            </StatusBarBottom>
         </Container>
     );
 };
 
 const mapStateToProps = (state) => ({
     firstName: state.database.firstName,
-    taskList: state.tasks.taskList,
 });
 
 const mapDispatchToProps = (dispatch) => {
