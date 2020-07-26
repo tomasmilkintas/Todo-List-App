@@ -30,7 +30,7 @@ const Home = (props) => {
 
             <Button onClick={() => clickHandler("/new")}>Add New Task</Button>
             <Button onClick={() => clickHandler("/todo")}>Todo Tasks</Button>
-            <Button onClick={() => clickHandler("/doing")}>Task in Progress</Button>
+            <Button onClick={() => clickHandler("/doing")}>Tasks in Progress</Button>
             <Button onClick={() => clickHandler("/complete")}>Complete Tasks</Button>
 
             <StatusBarBottom>

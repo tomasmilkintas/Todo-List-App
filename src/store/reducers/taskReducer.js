@@ -10,8 +10,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.FETCH_TASKS:
+        case actionTypes.FETCH_TASKS_TODO:
             return { ...state, tasksTodo: action.tasksTodo };
+        case actionTypes.FETCH_TASKS_DOING:
+            return { ...state, tasksDoing: action.tasksDoing };
+        case actionTypes.FETCH_TASKS_COMPLETE:
+            return { ...state, tasksComplete: action.tasksComplete };
         case actionTypes.NEW_TASK:
             const newTask = {
                 ...action.task,

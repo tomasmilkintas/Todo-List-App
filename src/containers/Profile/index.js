@@ -9,14 +9,8 @@ import * as actions from "../../store/actions/index";
 import { connect } from "react-redux";
 
 class Profile extends Component {
-    returnHandler(event) {
-        event.preventDefault();
-        this.props.history.push("/home");
-    }
-    updateHandler(event) {
-        event.preventDefault();
-        // logic for updating user to be added shortly
-        this.props.history.push("/updateprofile");
+    clickHandler(path) {
+        this.props.history.push(path);
     }
 
     render() {
@@ -38,8 +32,8 @@ class Profile extends Component {
                     {this.props.email}
                 </Text>
 
-                <Button onClick={(e) => this.updateHandler(e)}>Update Profile</Button>
-                <Button onClick={(e) => this.returnHandler(e)}>Go Back &#10226;</Button>
+                <Button onClick={() => this.clickHandler("/updateprofile")}>Update Profile</Button>
+                <Button onClick={() => this.clickHandler("/home")}>Go Back &#10226;</Button>
             </Container>
         );
     }

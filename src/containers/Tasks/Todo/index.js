@@ -5,7 +5,7 @@ import StatusBarTop from "../../../stories/StatusBarTop";
 import StatusBarBottom from "../../../stories/StatusBarBottom";
 import Container from "../../../stories/Container";
 import TitleText from "../../../stories/TitleText";
-import Tasks from "../../../API/Tasks";
+import TasksTodo from "../../../API/TasksTodo";
 
 import * as actions from "../../../store/actions/index";
 import { connect } from "react-redux";
@@ -31,7 +31,7 @@ const Todo = (props) => {
             {/* {props.tasksTodo !== [] ? (
                 <Text>Looks like you don’t have any tasks, go ahead and create a new task!</Text>
             ) : ( */}
-            <Tasks />
+            <TasksTodo />
             {/* )} */}
             <StatusBarBottom>
                 <Button onClick={() => clickHandler("/home")}>Home</Button>

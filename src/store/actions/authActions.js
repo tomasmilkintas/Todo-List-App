@@ -44,7 +44,9 @@ export const authStateChanged = () => (dispatch) => {
                 userId: user.uid,
             });
             dispatch(actions.getUserData());
-            dispatch(actions.fetchTasks());
+            dispatch(actions.fetchTasks("tasksTodo"));
+            dispatch(actions.fetchTasks("tasksDoing"));
+            dispatch(actions.fetchTasks("tasksComplete"));
         } else {
             // No user is signed in.
             dispatch({ type: actionTypes.AUTH_STATE_CHANGED, idToken: null, userId: null });
@@ -55,7 +57,9 @@ export const authStateChanged = () => (dispatch) => {
                 lastName: null,
                 email: null,
             });
-            dispatch({ type: actionTypes.FETCH_TASKS, tasksTodo: [] });
+            dispatch({ type: actionTypes.FETCH_TASKS_TODO, tasksTodo: [] });
+            dispatch({ type: actionTypes.FETCH_TASKS_DOING, tasksDoing: [] });
+            dispatch({ type: actionTypes.FETCH_TASKS_COMPLETE, tasksComplete: [] });
         }
     });
 };

@@ -1,4 +1,11 @@
-export { fetchTasks, createTask, deleteTask } from "./taskActions";
+export {
+    fetchTasks,
+    createTask,
+    deleteTask,
+    moveTaskToDoing,
+    moveTaskToTodo,
+    moveTaskToComplete,
+} from "./taskActions";
 export {
     authLoginRequest,
     authLoginResponse,

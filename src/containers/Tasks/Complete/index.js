@@ -5,10 +5,11 @@ import StatusBarTop from "../../../stories/StatusBarTop";
 import StatusBarBottom from "../../../stories/StatusBarBottom";
 import Container from "../../../stories/Container";
 import TitleText from "../../../stories/TitleText";
-import Text from "../../../stories/Text";
 
 import * as actions from "../../../store/actions/index";
 import { connect } from "react-redux";
+
+import TasksComplete from "../../../API/TasksComplete";
 
 const Todo = (props) => {
     const clickHandler = (path) => {
@@ -27,7 +28,7 @@ const Todo = (props) => {
                 <Button onClick={logout}>Logout</Button>
             </StatusBarTop>
             <TitleText id="complete">Completed Tasks</TitleText>
-            <Text>Completed tasks</Text>
+            <TasksComplete />
             <StatusBarBottom>
                 <Button onClick={() => clickHandler("/home")}>Home</Button>
                 <Button onClick={() => clickHandler("/todo")}>Todo</Button>

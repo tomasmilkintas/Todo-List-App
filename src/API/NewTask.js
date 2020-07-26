@@ -30,7 +30,7 @@ const NewTask = (props) => {
         const notValidTaskDescription = taskDescriptionValidation(enteredTaskDescription);
 
         if (!notValidTaskTitle && !notValidTaskDescription) {
-            props.history.push("/home");
+            props.history.push("/todo");
             props.onCreateTask(enteredTaskTitle, enteredTaskDescription);
         } else {
             setTaskTitleError(notValidTaskTitle);

@@ -6,20 +6,15 @@ import Button from "../../stories/Button";
 import TextInputContainer from "../../stories/TextInputContainer";
 
 const Welcome = (props) => {
-    const handleOnClickLogin = () => {
-        props.history.push("/login");
+    const clickHandler = (path) => {
+        props.history.push(path);
     };
-
-    const handleOnClickSingup = () => {
-        props.history.push("/signup");
-    };
-
     return (
         <Form>
             <TitleText>Welcome</TitleText>
             <TextInputContainer>
-                <Button onClick={() => handleOnClickLogin()}>Login</Button>
-                <Button onClick={() => handleOnClickSingup()}>Signup</Button>
+                <Button onClick={() => clickHandler("/login")}>Login</Button>
+                <Button onClick={() => clickHandler("/signup")}>Signup</Button>
             </TextInputContainer>
         </Form>
     );

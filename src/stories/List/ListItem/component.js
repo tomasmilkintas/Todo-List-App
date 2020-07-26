@@ -9,7 +9,9 @@ const StyledListItem = styled.li`
     box-sizing: border-box;
     background: #eee;
     width: 400px;
-    text-align: center;
+    /* text-align: center; */
+    display: flex;
+    justify-content: center;
 
     &:nth-child(odd) {
         background: #f9f9f9;

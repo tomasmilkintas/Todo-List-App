@@ -10,7 +10,9 @@ import Text from "../../../stories/Text";
 import * as actions from "../../../store/actions/index";
 import { connect } from "react-redux";
 
-const Todo = (props) => {
+import TasksDoing from "../../../API/TasksDoing";
+
+const Doing = (props) => {
     const clickHandler = (path) => {
         props.history.push(path);
     };
@@ -28,6 +30,7 @@ const Todo = (props) => {
             </StatusBarTop>
             <TitleText id="doing">Tasks in Progress</TitleText>
             <Text>Tasks in Progress</Text>
+            <TasksDoing />
             <StatusBarBottom>
                 <Button onClick={() => clickHandler("/home")}>Home</Button>
                 <Button onClick={() => clickHandler("/todo")}>Todo</Button>
@@ -45,7 +48,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         onLogout: () => dispatch(actions.logoutUser()),
+        onDeleteTask: (key, path) => dispatch(actions.deleteTask(key, path)),
+        onMoveTaskToTodo: (key) => dispatch(actions.moveTaskToTodo(key)),
+        onMoveTaskToComplete: (key) => dispatch(actions.moveTaskToComplete(key)),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Todo);
+export default connect(mapStateToProps, mapDispatchToProps)(Doing);
