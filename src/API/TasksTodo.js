@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import List from "../stories/List/index";
 import Input from "../stories/Input/index";
@@ -8,6 +8,19 @@ import { connect } from "react-redux";
 import * as actions from "../store/actions/index";
 
 const TasksTodo = (props) => {
+    // const [selected, setSelected] = useState("");
+
+    // const changeHandler = (e, key) => {
+    //     e.preventDefault();
+    //     if (e.target.value === "doing") {
+    //         setSelected(e.target.value);
+    //         props.onMoveTaskToDoing(key, "tasksTodo");
+    //     } else if (e.target.value === "complete") {
+    //         setSelected(e.target.value);
+    //         props.onMoveTaskToComplete(key, "tasksTodo");
+    //     }
+    // };
+
     return (
         <div>
             <List>
@@ -38,6 +51,20 @@ const TasksTodo = (props) => {
                                       type="checkbox"
                                       name="complete"
                                   />
+
+                                  {/* <select
+                                      key={key}
+                                      onChange={(e) => {
+                                          changeHandler(e, key);
+                                      }}
+                                      value={selected}
+                                  >
+                                      <option selected value="todo">
+                                          Todo
+                                      </option>
+                                      <option value="doing">Doing</option>
+                                      <option value="complete">Complete</option>
+                                  </select> */}
                               </ListItem>
                           );
                       })
