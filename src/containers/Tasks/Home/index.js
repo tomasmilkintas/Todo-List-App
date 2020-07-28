@@ -26,7 +26,7 @@ const Home = (props) => {
                 <Button onClick={logout}>Logout</Button>
             </StatusBarTop>
 
-            <TitleText id="name">Hello, {props.firstName}</TitleText>
+            <TitleText id="name">Welcome Back, {props.firstName}!</TitleText>
 
             <Button onClick={() => clickHandler("/new")}>Add New Task</Button>
             <Button onClick={() => clickHandler("/todo")}>Todo Tasks</Button>

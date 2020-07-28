@@ -29,8 +29,10 @@ const TasksTodo = (props) => {
                           return (
                               <ListItem key={key}>
                                   <span onClick={() => props.onDeleteTask(item.key, "tasksTodo")}>
+                                      <b>Title:</b>
                                       {item.title}
                                       <br />
+                                      <b>Description:</b>
                                       {item.description}
                                   </span>
 
