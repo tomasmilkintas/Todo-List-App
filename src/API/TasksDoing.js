@@ -1,11 +1,12 @@
 import React from "react";
 
 import List from "../stories/List/index";
-import Input from "../stories/Input/index";
 import ListItem from "../stories/List/ListItem/index";
 
 import { connect } from "react-redux";
 import * as actions from "../store/actions/index";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt, faPause, faCalendarCheck } from "@fortawesome/free-solid-svg-icons";
 
 const TasksDoing = (props) => {
     return (
@@ -15,28 +16,34 @@ const TasksDoing = (props) => {
                     ? props.tasksDoing.map((item, key) => {
                           return (
                               <ListItem key={key}>
-                                  <span onClick={() => props.onDeleteTask(item.key, "tasksDoing")}>
+                                  <span>
+                                      <b>Title:</b>
                                       {item.title}
                                       <br />
+                                      <b>Description:</b>
                                       {item.description}
                                   </span>
 
-                                  <Input
-                                      style={{ float: "right" }}
-                                      onChange={() =>
-                                          props.onMoveTaskToTodo(item.key, "tasksDoing")
-                                      }
-                                      type="checkbox"
-                                      name="doing"
-                                  />
-                                  <Input
-                                      style={{ float: "right" }}
-                                      onChange={() =>
-                                          props.onMoveTaskToComplete(item.key, "tasksDoing")
-                                      }
-                                      type="checkbox"
-                                      name="complete"
-                                  />
+                                  <div>
+                                      <FontAwesomeIcon
+                                          icon={faPause}
+                                          onClick={() =>
+                                              props.onMoveTaskToTodo(item.key, "tasksDoing")
+                                          }
+                                      />
+
+                                      <FontAwesomeIcon
+                                          icon={faCalendarCheck}
+                                          onClick={() =>
+                                              props.onMoveTaskToComplete(item.key, "tasksDoing")
+                                          }
+                                      />
+
+                                      <FontAwesomeIcon
+                                          icon={faTrashAlt}
+                                          onClick={() => props.onDeleteTask(item.key, "tasksDoing")}
+                                      />
+                                  </div>
                               </ListItem>
                           );
                       })

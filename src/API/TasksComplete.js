@@ -1,11 +1,13 @@
 import React from "react";
 
 import List from "../stories/List/index";
-import Input from "../stories/Input/index";
 import ListItem from "../stories/List/ListItem/index";
 
 import { connect } from "react-redux";
 import * as actions from "../store/actions/index";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt, faUndoAlt } from "@fortawesome/free-solid-svg-icons";
 
 const TasksComplete = (props) => {
     return (
@@ -15,32 +17,27 @@ const TasksComplete = (props) => {
                     ? props.tasksComplete.map((item, key) => {
                           return (
                               <ListItem key={key}>
-                                  <span
-                                      onClick={() => props.onDeleteTask(item.key, "tasksComplete")}
-                                  >
+                                  <span>
+                                      <b>Title:</b>
                                       {item.title}
                                       <br />
+                                      <b>Description:</b>
                                       {item.description}
                                   </span>
-                                  <Input
-                                      id="todo"
-                                      style={{ float: "right" }}
-                                      onChange={() =>
-                                          props.onMoveTaskToTodo(item.key, "tasksComplete")
-                                      }
-                                      type="checkbox"
-                                      name="todo"
-                                  />
-
-                                  <Input
-                                      id="doing"
-                                      style={{ float: "right" }}
-                                      onChange={() =>
-                                          props.onMoveTaskToDoing(item.key, "tasksComplete")
-                                      }
-                                      type="checkbox"
-                                      name="doing"
-                                  />
+                                  <div>
+                                      <FontAwesomeIcon
+                                          icon={faUndoAlt}
+                                          onClick={() =>
+                                              props.onMoveTaskToTodo(item.key, "tasksComplete")
+                                          }
+                                      />
+                                      <FontAwesomeIcon
+                                          icon={faTrashAlt}
+                                          onClick={() =>
+                                              props.onDeleteTask(item.key, "tasksComplete")
+                                          }
+                                      />
+                                  </div>
                               </ListItem>
                           );
                       })

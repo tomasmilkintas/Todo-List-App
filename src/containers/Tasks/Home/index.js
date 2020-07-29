@@ -9,6 +9,16 @@ import TitleText from "../../../stories/TitleText";
 import * as actions from "../../../store/actions/index";
 import { connect } from "react-redux";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faHome,
+    faTasks,
+    faCalendarCheck,
+    faListUl,
+    faUserCircle,
+    faDoorOpen,
+} from "@fortawesome/free-solid-svg-icons";
+
 const Home = (props) => {
     const clickHandler = (path) => {
         props.history.push(path);
@@ -22,22 +32,61 @@ const Home = (props) => {
     return (
         <Container>
             <StatusBarTop>
-                <Button onClick={() => clickHandler("/profile")}>Profile</Button>
-                <Button onClick={logout}>Logout</Button>
+                <div>
+                    <FontAwesomeIcon
+                        size="3x"
+                        icon={faUserCircle}
+                        onClick={() => clickHandler("/profile")}
+                    />
+                    Profile
+                </div>
+                <div>
+                    <FontAwesomeIcon size="3x" icon={faDoorOpen} onClick={logout} />
+                    Logout
+                </div>
             </StatusBarTop>
 
             <TitleText id="name">Welcome Back, {props.firstName}!</TitleText>
 
             <Button onClick={() => clickHandler("/new")}>Add New Task</Button>
-            <Button onClick={() => clickHandler("/todo")}>Todo Tasks</Button>
+            <Button onClick={() => clickHandler("/todo")}>Tasks</Button>
             <Button onClick={() => clickHandler("/doing")}>Tasks in Progress</Button>
-            <Button onClick={() => clickHandler("/complete")}>Complete Tasks</Button>
+            <Button onClick={() => clickHandler("/complete")}>Completed Tasks</Button>
 
             <StatusBarBottom>
-                <Button onClick={() => clickHandler("/home")}>Home</Button>
-                <Button onClick={() => clickHandler("/todo")}>Todo</Button>
-                <Button onClick={() => clickHandler("/doing")}>Doing</Button>
-                <Button onClick={() => clickHandler("/complete")}>Complete</Button>
+                <div>
+                    <FontAwesomeIcon
+                        style={{ color: "black" }}
+                        size="3x"
+                        icon={faHome}
+                        onClick={() => clickHandler("/home")}
+                    />
+                    Home
+                </div>
+                <div>
+                    <FontAwesomeIcon
+                        size="3x"
+                        icon={faListUl}
+                        onClick={() => clickHandler("/todo")}
+                    />
+                    To-do
+                </div>
+                <div>
+                    <FontAwesomeIcon
+                        size="3x"
+                        icon={faTasks}
+                        onClick={() => clickHandler("/doing")}
+                    />
+                    Doing
+                </div>
+                <div>
+                    <FontAwesomeIcon
+                        size="3x"
+                        icon={faCalendarCheck}
+                        onClick={() => clickHandler("/complete")}
+                    />
+                    Done
+                </div>
             </StatusBarBottom>
         </Container>
     );

@@ -1,26 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 
 import List from "../stories/List/index";
-import Input from "../stories/Input/index";
 import ListItem from "../stories/List/ListItem/index";
 
 import { connect } from "react-redux";
 import * as actions from "../store/actions/index";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt, faPlay, faCalendarCheck } from "@fortawesome/free-solid-svg-icons";
+
 const TasksTodo = (props) => {
-    // const [selected, setSelected] = useState("");
-
-    // const changeHandler = (e, key) => {
-    //     e.preventDefault();
-    //     if (e.target.value === "doing") {
-    //         setSelected(e.target.value);
-    //         props.onMoveTaskToDoing(key, "tasksTodo");
-    //     } else if (e.target.value === "complete") {
-    //         setSelected(e.target.value);
-    //         props.onMoveTaskToComplete(key, "tasksTodo");
-    //     }
-    // };
-
     return (
         <div>
             <List>
@@ -28,7 +17,7 @@ const TasksTodo = (props) => {
                     ? props.tasksTodo.map((item, key) => {
                           return (
                               <ListItem key={key}>
-                                  <span onClick={() => props.onDeleteTask(item.key, "tasksTodo")}>
+                                  <span>
                                       <b>Title:</b>
                                       {item.title}
                                       <br />
@@ -36,37 +25,26 @@ const TasksTodo = (props) => {
                                       {item.description}
                                   </span>
 
-                                  <Input
-                                      id="doing"
-                                      style={{ float: "right" }}
-                                      onChange={() =>
-                                          props.onMoveTaskToDoing(item.key, "tasksTodo")
-                                      }
-                                      type="checkbox"
-                                      name="doing"
-                                  />
-                                  <Input
-                                      style={{ float: "right" }}
-                                      onChange={() =>
-                                          props.onMoveTaskToComplete(item.key, "tasksTodo")
-                                      }
-                                      type="checkbox"
-                                      name="complete"
-                                  />
+                                  <div>
+                                      <FontAwesomeIcon
+                                          icon={faPlay}
+                                          onClick={() =>
+                                              props.onMoveTaskToDoing(item.key, "tasksTodo")
+                                          }
+                                      />
 
-                                  {/* <select
-                                      key={key}
-                                      onChange={(e) => {
-                                          changeHandler(e, key);
-                                      }}
-                                      value={selected}
-                                  >
-                                      <option selected value="todo">
-                                          Todo
-                                      </option>
-                                      <option value="doing">Doing</option>
-                                      <option value="complete">Complete</option>
-                                  </select> */}
+                                      <FontAwesomeIcon
+                                          icon={faCalendarCheck}
+                                          onClick={() =>
+                                              props.onMoveTaskToComplete(item.key, "tasksTodo")
+                                          }
+                                      />
+
+                                      <FontAwesomeIcon
+                                          icon={faTrashAlt}
+                                          onClick={() => props.onDeleteTask(item.key, "tasksTodo")}
+                                      />
+                                  </div>
                               </ListItem>
                           );
                       })

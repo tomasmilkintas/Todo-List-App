@@ -9,6 +9,15 @@ import TasksTodo from "../../../API/TasksTodo";
 
 import * as actions from "../../../store/actions/index";
 import { connect } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faHome,
+    faTasks,
+    faCalendarCheck,
+    faListUl,
+    faDoorOpen,
+    faUserCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Todo = (props) => {
     const clickHandler = (path) => {
@@ -23,10 +32,20 @@ const Todo = (props) => {
     return (
         <Container>
             <StatusBarTop>
-                <Button onClick={() => clickHandler("/profile")}>Profile</Button>
-                <Button onClick={logout}>Logout</Button>
+                <div>
+                    <FontAwesomeIcon
+                        size="3x"
+                        icon={faUserCircle}
+                        onClick={() => clickHandler("/profile")}
+                    />
+                    Profile
+                </div>
+                <div>
+                    <FontAwesomeIcon size="3x" icon={faDoorOpen} onClick={logout} />
+                    Logout
+                </div>
             </StatusBarTop>
-            <TitleText id="todo">Your Todo List</TitleText>
+            <TitleText id="todo">Your To-do List</TitleText>
             <Button onClick={() => clickHandler("/new")}>Add +</Button>
             {/* {props.tasksTodo !== [] ? (
                 <Text>Looks like you don’t have any tasks, go ahead and create a new task!</Text>
@@ -34,11 +53,40 @@ const Todo = (props) => {
             <TasksTodo />
             {/* )} */}
             <StatusBarBottom>
-                <Button onClick={() => clickHandler("/home")}>Home</Button>
-                <Button onClick={() => clickHandler("/todo")}>Todo</Button>
-                <Button onClick={() => clickHandler("/doing")}>Doing</Button>
-                <Button onClick={() => clickHandler("/complete")}>Complete</Button>
-            </StatusBarBottom>{" "}
+                <div>
+                    <FontAwesomeIcon
+                        size="3x"
+                        icon={faHome}
+                        onClick={() => clickHandler("/home")}
+                    />
+                    Home
+                </div>
+                <div>
+                    <FontAwesomeIcon
+                        style={{ color: "black" }}
+                        size="3x"
+                        icon={faListUl}
+                        onClick={() => clickHandler("/todo")}
+                    />
+                    To-do
+                </div>
+                <div>
+                    <FontAwesomeIcon
+                        size="3x"
+                        icon={faTasks}
+                        onClick={() => clickHandler("/doing")}
+                    />
+                    Doing
+                </div>
+                <div>
+                    <FontAwesomeIcon
+                        size="3x"
+                        icon={faCalendarCheck}
+                        onClick={() => clickHandler("/complete")}
+                    />
+                    Done
+                </div>
+            </StatusBarBottom>
         </Container>
     );
 };
