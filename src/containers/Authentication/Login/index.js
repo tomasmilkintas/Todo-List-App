@@ -33,7 +33,7 @@ const Login = (props) => {
 
         if (!notValidEmail && !notValidPassword) {
             props.onLogin(enteredEmail, enteredPassword);
-            // if (props.error !== false) {
+            // if (props.error === false) {
             props.history.push("/home");
             // } else {
             //     props.history.push("/login");

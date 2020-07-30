@@ -23,6 +23,9 @@ const TasksComplete = (props) => {
                                       <br />
                                       <b>Description:</b>
                                       {item.description}
+                                      <br />
+                                      <b>Deadline:</b>
+                                      {item.deadline}
                                   </span>
                                   <div>
                                       <FontAwesomeIcon

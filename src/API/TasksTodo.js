@@ -1,7 +1,6 @@
 import React from "react";
 
 import List from "../stories/List/index";
-// import Text from "../stories/Text/index";
 import ListItem from "../stories/List/ListItem/index";
 
 import { connect } from "react-redux";
@@ -24,6 +23,9 @@ const TasksTodo = (props) => {
                                       <br />
                                       <b>Description:</b>
                                       {item.description}
+                                      <br />
+                                      <b>Deadline:</b>
+                                      {item.deadline}
                                   </span>
 
                                   <div>
@@ -46,9 +48,6 @@ const TasksTodo = (props) => {
                                           onClick={() => props.onDeleteTask(item.key, "tasksTodo")}
                                       />
                                   </div>
-                                  {/* <div>
-                                      <Text style={{ color: "white" }}>Deadline</Text>
-                                  </div> */}
                               </ListItem>
                           );
                       })

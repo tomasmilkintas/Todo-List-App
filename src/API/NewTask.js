@@ -23,10 +23,13 @@ import {
     faUserCircle,
     faDoorOpen,
 } from "@fortawesome/free-solid-svg-icons";
+import moment from "moment";
 
 const NewTask = (props) => {
     const [enteredTaskTitle, setEnteredTaskTitle] = useState("");
     const [enteredTaskDescription, setEnteredTaskDescription] = useState("");
+    const [enteredDeadline, setEnteredDeadline] = useState("");
+
     const [taskTitleError, setTaskTitleError] = useState("");
     const [taskDescriptionError, setTaskDescriptionError] = useState("");
 
@@ -40,9 +43,12 @@ const NewTask = (props) => {
         const notValidTaskTitle = taskTitleValidation(enteredTaskTitle);
         const notValidTaskDescription = taskDescriptionValidation(enteredTaskDescription);
 
+        const adjustedDeadline = moment(enteredDeadline).format("MM/DD/YYYY h:mm a");
+        // console.log(convertedDeadline);
+
         if (!notValidTaskTitle && !notValidTaskDescription) {
             props.history.push("/todo");
-            props.onCreateTask(enteredTaskTitle, enteredTaskDescription);
+            props.onCreateTask(enteredTaskTitle, enteredTaskDescription, adjustedDeadline);
         } else {
             setTaskTitleError(notValidTaskTitle);
             setTaskDescriptionError(notValidTaskDescription);
@@ -101,7 +107,13 @@ const NewTask = (props) => {
                 />
             </TextInputContainer>
 
-            {/* <Input type="datetime-local" /> */}
+            <Input
+                type="datetime-local"
+                value={enteredDeadline}
+                onChange={(e) => {
+                    setEnteredDeadline(e.target.value);
+                }}
+            />
 
             <Button onClick={() => taskAddHandler()}>Submit</Button>
 
@@ -147,7 +159,8 @@ const NewTask = (props) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onLogout: () => dispatch(actions.logoutUser()),
-        onCreateTask: (title, description) => dispatch(actions.createTask(title, description)),
+        onCreateTask: (title, description, deadline) =>
+            dispatch(actions.createTask(title, description, deadline)),
     };
 };
 

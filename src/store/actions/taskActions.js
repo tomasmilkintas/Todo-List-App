@@ -34,7 +34,7 @@ export const fetchTasks = (path) => (dispatch) => {
     });
 };
 
-export const createTask = (taskTitle, taskDescription) => (dispatch) => {
+export const createTask = (taskTitle, taskDescription, taskDeadline) => (dispatch) => {
     let userId = firebaseInit.auth().currentUser.uid;
     let tasksRef = firebaseInit.database().ref(`users/${userId}/tasks/tasksTodo`);
 
@@ -44,8 +44,11 @@ export const createTask = (taskTitle, taskDescription) => (dispatch) => {
     let newTask = {
         title: taskTitle,
         description: taskDescription,
+        deadline: taskDeadline,
         key: taskKey,
     };
+
+    console.log(newTask);
     newTaskRef
         .set({
             // ...
