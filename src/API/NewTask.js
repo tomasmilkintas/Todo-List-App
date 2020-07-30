@@ -32,7 +32,8 @@ const NewTask = (props) => {
 
     const textErrorStyle = {
         color: taskTitleError === "" ? "white" : "red",
-        fontSize: taskTitleError === "" ? "14px" : "14px",
+        fontSize: taskTitleError === "" ? "16px" : "16px",
+        fontWeight: "400",
     };
 
     const taskAddHandler = () => {
@@ -99,6 +100,8 @@ const NewTask = (props) => {
                     }}
                 />
             </TextInputContainer>
+
+            {/* <Input type="datetime-local" /> */}
 
             <Button onClick={() => taskAddHandler()}>Submit</Button>
 

@@ -17,7 +17,8 @@ const PasswordRecovery = (props) => {
 
     const textErrorStyle = {
         color: emailError === "" ? "white" : "red",
-        fontSize: emailError === "" ? "14px" : "14px",
+        fontSize: emailError === "" ? "16px" : "16px",
+        fontWeight: "400",
     };
 
     const emailHandler = (event) => {

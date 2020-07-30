@@ -8,7 +8,9 @@ const StyledTextArea = styled.textarea`
     overflow: auto;
     font-size: 1.3em;
     border: 2px solid black;
-    border-radius: 5px;
+    border-radius: 19px;
+    text-indent: 15px;
+    line-height: 32px;
     background: beige;
 `;
 

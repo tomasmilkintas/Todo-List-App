@@ -37,20 +37,20 @@ only one by one, so this code circumvents that:
 let intervalId;
 
 let clearFunction = function() {
-  let size = $('[aria-label="Delete account"]').size()
+  let size = $('[aria-label="Delete account"]').size();
   if (size == 0) {
-    console.log("interval cleared")
-    clearInterval(intervalId)
-    return
+    console.log("interval cleared");
+    clearInterval(intervalId);
+    return;
   }
-  let index = Math.floor(Math.random() * size)
+  let index = Math.floor(Math.random() * size);
   $('[aria-label="Delete account"]')[index].click();
   setTimeout(function () {
      $(".md-raised:contains(Delete)").click()
   }, 1000);
 };
 
-intervalId = setInterval(clearFunction, 300)
+intervalId = setInterval(clearFunction, 300);
 ```
 
 In order to use it, copy the text above and paste it into the developer tools console,

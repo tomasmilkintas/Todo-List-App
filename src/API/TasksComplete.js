@@ -17,7 +17,7 @@ const TasksComplete = (props) => {
                     ? props.tasksComplete.map((item, key) => {
                           return (
                               <ListItem key={key}>
-                                  <span>
+                                  <span id="complete">
                                       <b>Title:</b>
                                       {item.title}
                                       <br />

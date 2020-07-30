@@ -32,7 +32,8 @@ const Register = (props) => {
 
     const textErrorStyle = {
         color: firstNameError === "" ? "white" : "red",
-        fontSize: firstNameError === "" ? "14px" : "14px",
+        fontSize: firstNameError === "" ? "16px" : "16px",
+        fontWeight: "400",
     };
 
     const signup = (event) => {

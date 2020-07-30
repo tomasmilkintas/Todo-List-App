@@ -5,13 +5,13 @@ const StyledButton = styled.button`
     text-align: center;
     font-style: normal;
     font-weight: normal;
-    border: 2px solid grey;
-    border-radius: 6px;
+    border: 1px solid teal;
+    border-radius: 16px;
     padding: 12px;
     width: 30%;
     font-size: 18px;
     font-weight: 300;
-    /* margin-top: 2%; */
+    word-break: break-word;
 `;
 
 export default StyledButton;

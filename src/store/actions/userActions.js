@@ -28,6 +28,7 @@ export const loginUser = (email, password) => (dispatch) => {
         })
         .catch((err) => {
             dispatch(actions.authFail(err));
+            alert(err.message);
         });
 };
 

@@ -18,16 +18,16 @@ class Profile extends Component {
             <Container>
                 <TitleText>Profile Summary</TitleText>
 
-                <Text>
+                <Text className="profile">
                     <b>Your Name: </b>
                     {this.props.firstName}
                 </Text>
-                <Text>
+                <Text className="profile">
                     <b>Your Surname: </b>
                     {this.props.lastName}
                 </Text>
 
-                <Text>
+                <Text className="profile">
                     <b>Email: </b>
                     {this.props.email}
                 </Text>

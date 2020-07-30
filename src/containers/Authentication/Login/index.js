@@ -22,7 +22,8 @@ const Login = (props) => {
 
     const textErrorStyle = {
         color: emailError === "" ? "white" : "red",
-        fontSize: emailError === "" ? "14px" : "14px",
+        fontSize: emailError === "" ? "16px" : "16px",
+        fontWeight: "400",
     };
 
     const loginHandler = (event) => {
@@ -32,7 +33,11 @@ const Login = (props) => {
 
         if (!notValidEmail && !notValidPassword) {
             props.onLogin(enteredEmail, enteredPassword);
+            // if (props.error !== false) {
             props.history.push("/home");
+            // } else {
+            //     props.history.push("/login");
+            // }
         } else {
             setEmailError(notValidEmail);
             setpasswordError(notValidPassword);
@@ -90,10 +95,14 @@ const Login = (props) => {
     );
 };
 
+const mapStateToProps = (state) => ({
+    error: state.auth.error,
+});
+
 const mapDispatchToProps = (dispatch) => {
     return {
         onLogin: (email, password) => dispatch(actions.loginUser(email, password)),
     };
 };
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

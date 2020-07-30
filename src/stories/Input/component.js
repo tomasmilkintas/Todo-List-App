@@ -5,7 +5,7 @@ const StyledInput = styled.input`
     width: 40%;
     padding: 0.8em;
     font-size: 1em;
-    background-color: wheat;
+    background-color: beige;
 `;
 
 export default StyledInput;

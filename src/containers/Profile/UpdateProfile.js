@@ -20,7 +20,8 @@ const Profile = (props) => {
 
     const textErrorStyle = {
         color: firstNameError === "" ? "white" : "red",
-        fontSize: firstNameError === "" ? "14px" : "14px",
+        fontSize: firstNameError === "" ? "16px" : "16px",
+        fontWeight: "400",
     };
 
     const returnHandler = (event) => {
@@ -44,7 +45,7 @@ const Profile = (props) => {
 
     return (
         <Container>
-            <TitleText>Profile Summary</TitleText>
+            <TitleText>Update Profile</TitleText>
 
             <TextInputContainer>
                 <Text style={textErrorStyle}>{firstNameError}</Text>
@@ -73,7 +74,7 @@ const Profile = (props) => {
                 />
             </TextInputContainer>
 
-            <Text>
+            <Text className="profile">
                 <b>Email: </b>
                 {props.email}
             </Text>

@@ -4,7 +4,8 @@ import { colours } from "../Colours/index";
 const StyledStatusBarTop = styled.section`
     width: 95%;
     height: 7vh;
-    border: 4px solid ${colours.secondaryColours.Teal};
+    border: 1px solid ${colours.secondaryColours.Teal};
+    border-radius: 6px;
     display: flex;
     justify-content: space-evenly;
     align-self: flex-end;

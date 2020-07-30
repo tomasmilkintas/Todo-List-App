@@ -16,6 +16,7 @@ const StyledListItem = styled.li`
     margin: 6px 0;
     border-radius: 5px;
     border: 2px solid;
+    word-wrap: break-word;
 
     &:nth-child(odd) {
         background: #f9f9f9;
@@ -32,6 +33,10 @@ const StyledListItem = styled.li`
 
     & > span > b {
         padding-right: 5px;
+    }
+
+    & > #complete {
+        text-decoration: line-through;
     }
 `;
 

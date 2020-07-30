@@ -15,7 +15,7 @@ const Welcome = (props) => {
             <TitleText>Welcome</TitleText>
             <Text>A nice simple to-do list app for you!</Text>
 
-            <TextInputContainer>
+            <TextInputContainer id="welcome">
                 <Button onClick={() => clickHandler("/login")}>Login</Button>
                 <Button onClick={() => clickHandler("/signup")}>Signup</Button>
             </TextInputContainer>

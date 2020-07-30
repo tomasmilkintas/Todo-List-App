@@ -4,7 +4,6 @@ import StatusBarTop from "../../../stories/StatusBarTop";
 import StatusBarBottom from "../../../stories/StatusBarBottom";
 import Container from "../../../stories/Container";
 import TitleText from "../../../stories/TitleText";
-import Text from "../../../stories/Text";
 
 import * as actions from "../../../store/actions/index";
 import { connect } from "react-redux";
@@ -48,7 +47,6 @@ const Doing = (props) => {
                 </div>
             </StatusBarTop>
             <TitleText id="doing">Tasks in Progress</TitleText>
-            <Text>Tasks in Progress</Text>
             <TasksDoing />
             <StatusBarBottom>
                 <div>
