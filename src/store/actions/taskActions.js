@@ -82,26 +82,6 @@ export const deleteTask = (key, path) => (dispatch) => {
         .catch((err) => console.log(err.message));
 };
 
-export const moveTaskToDoing = (key, pathFrom) => (dispatch) => {
-    // 1. fetch the task using the key
-    let userId = firebaseInit.auth().currentUser.uid;
-    let tasksRef = firebaseInit.database().ref(`users/${userId}/tasks/${pathFrom}/${key}`);
-
-    tasksRef.once("value").then((snapshot) => {
-        // 2. copy its data
-        let task = snapshot.val();
-
-        // 3. delete from the old list
-        dispatch(deleteTask(key, pathFrom));
-        // 4. add to the doing
-        let newTaskRef = firebaseInit.database().ref(`users/${userId}/tasks/tasksDoing/${key}`);
-        newTaskRef
-            .set({
-                ...task,
-            })
-            .then(dispatch(fetchTasks("tasksDoing")));
-    });
-};
 export const moveTaskToTodo = (key, pathFrom) => (dispatch) => {
     // 1. fetch the task using the key
     let userId = firebaseInit.auth().currentUser.uid;
@@ -123,6 +103,27 @@ export const moveTaskToTodo = (key, pathFrom) => (dispatch) => {
     });
 };
 
+export const moveTaskToDoing = (key, pathFrom) => (dispatch) => {
+    // 1. fetch the task using the key
+    let userId = firebaseInit.auth().currentUser.uid;
+    let tasksRef = firebaseInit.database().ref(`users/${userId}/tasks/${pathFrom}/${key}`);
+
+    tasksRef.once("value").then((snapshot) => {
+        // 2. copy its data
+        let task = snapshot.val();
+
+        // 3. delete from the old list
+        dispatch(deleteTask(key, pathFrom));
+        // 4. add to the doing
+        let newTaskRef = firebaseInit.database().ref(`users/${userId}/tasks/tasksDoing/${key}`);
+        newTaskRef
+            .set({
+                ...task,
+            })
+            .then(dispatch(fetchTasks("tasksDoing")));
+    });
+};
+
 export const moveTaskToComplete = (key, pathFrom) => (dispatch) => {
     // 1. fetch the task using the key
     let userId = firebaseInit.auth().currentUser.uid;
@@ -134,7 +135,7 @@ export const moveTaskToComplete = (key, pathFrom) => (dispatch) => {
 
         // 3. delete from the old list
         dispatch(deleteTask(key, pathFrom));
-        // 4. add to the todo
+        // 4. add to the complete
         let newTaskRef = firebaseInit.database().ref(`users/${userId}/tasks/tasksComplete/${key}`);
         newTaskRef
             .set({
@@ -142,4 +143,54 @@ export const moveTaskToComplete = (key, pathFrom) => (dispatch) => {
             })
             .then(dispatch(fetchTasks("tasksComplete")));
     });
+};
+
+export const getTaskDetails = (key) => (dispatch) => {
+    let userId = firebaseInit.auth().currentUser.uid;
+    let singleTaskRef = firebaseInit.database().ref(`users/${userId}/tasks/tasksTodo/${key}`);
+    singleTaskRef.on(
+        "value",
+        (data) => {
+            let values = data.val();
+            dispatch({
+                type: actionTypes.GET_TASK_DETAILS,
+                key: values.key,
+                title: values.title,
+                description: values.description,
+                deadline: values.deadline,
+            });
+        },
+        (err) => console.log(err)
+    );
+};
+
+export const updateTaskDetails = (key, title, description, deadline) => (dispatch) => {
+    let userId = firebaseInit.auth().currentUser.uid;
+    let singleTaskRef = firebaseInit.database().ref(`users/${userId}/tasks/tasksTodo/${key}`);
+
+    // let updatedTask = {
+    //     key: key,
+    //     title: title,
+    //     description: description,
+    //     deadline: deadline,
+    // };
+
+    singleTaskRef
+        .update({
+            title: title,
+            description: description,
+            deadline: deadline,
+            // ...updatedTask,
+        })
+        .then(
+            dispatch({
+                type: actionTypes.UPDATE_TASK_DETAILS,
+                title: title,
+                description: description,
+                deadline: deadline,
+            }),
+            dispatch(fetchTasks("tasksTodo"))
+        )
+        // .then(dispatch(fetchTasks("tasksTodo")))
+        .catch((err) => console.log(err.message));
 };

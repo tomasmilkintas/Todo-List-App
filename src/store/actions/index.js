@@ -5,6 +5,8 @@ export {
     moveTaskToDoing,
     moveTaskToTodo,
     moveTaskToComplete,
+    getTaskDetails,
+    updateTaskDetails,
 } from "./taskActions";
 export {
     authLoginRequest,

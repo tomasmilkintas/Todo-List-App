@@ -7,9 +7,16 @@ import { connect } from "react-redux";
 import * as actions from "../store/actions/index";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt, faPlay, faCalendarCheck } from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt, faPlay, faCalendarCheck, faEdit } from "@fortawesome/free-solid-svg-icons";
+
+import { withRouter } from "react-router-dom";
 
 const TasksTodo = (props) => {
+    const clickHandler = (key) => {
+        props.onGetTaskDetails(key);
+        props.history.push("/updatetask");
+    };
+
     return (
         <div>
             <List>
@@ -29,6 +36,10 @@ const TasksTodo = (props) => {
                                   </span>
 
                                   <div>
+                                      <FontAwesomeIcon
+                                          icon={faEdit}
+                                          onClick={() => clickHandler(item.key)}
+                                      />
                                       <FontAwesomeIcon
                                           icon={faPlay}
                                           onClick={() =>
@@ -63,6 +74,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        onGetTaskDetails: (key) => dispatch(actions.getTaskDetails(key)),
         onDeleteTask: (key, path) => dispatch(actions.deleteTask(key, path)),
         onMoveTaskToDoing: (key, pathFrom) => dispatch(actions.moveTaskToDoing(key, pathFrom)),
         onMoveTaskToComplete: (key, pathFrom) =>
@@ -70,4 +82,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TasksTodo);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(TasksTodo));

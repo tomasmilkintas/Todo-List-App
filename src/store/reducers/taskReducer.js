@@ -6,6 +6,9 @@ const initialState = {
     tasksComplete: [],
     task: {},
     key: "",
+    title: "",
+    description: "",
+    deadline: "",
 };
 
 export default (state = initialState, action) => {
@@ -23,6 +26,22 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 tasksTodo: state.tasksTodo.concat(newTask),
+            };
+        case actionTypes.GET_TASK_DETAILS:
+            return {
+                ...state,
+                key: action.key,
+                title: action.title,
+                description: action.description,
+                deadline: action.deadline,
+            };
+        case actionTypes.UPDATE_TASK_DETAILS:
+            return {
+                ...state,
+                key: action.key,
+                title: action.title,
+                description: action.description,
+                deadline: action.deadline,
             };
         case actionTypes.DELETE_TASK:
             return { ...state, key: action.key };

@@ -15,7 +15,7 @@ const StyledListItem = styled.li`
     justify-content: center;
     margin: 6px 0;
     border-radius: 5px;
-    border: 2px solid;
+    border: 1px solid;
     word-wrap: break-word;
 
     &:nth-child(odd) {
