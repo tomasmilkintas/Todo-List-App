@@ -5,7 +5,7 @@ const StyledContainer = styled.div`
     width: 99%;
     min-height: 99vh;
     height: 100%;
-    outline: 2px solid ${colours.secondaryColours.Teal};
+    outline: 1.2px solid ${colours.secondaryColours.Teal};
     display: flex;
     flex-direction: column;
     justify-content: space-around;

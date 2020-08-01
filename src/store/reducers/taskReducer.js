@@ -38,7 +38,7 @@ export default (state = initialState, action) => {
         case actionTypes.UPDATE_TASK_DETAILS:
             return {
                 ...state,
-                key: action.key,
+                // key: action.key,
                 title: action.title,
                 description: action.description,
                 deadline: action.deadline,

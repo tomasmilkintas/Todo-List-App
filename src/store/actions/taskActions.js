@@ -168,19 +168,11 @@ export const updateTaskDetails = (key, title, description, deadline) => (dispatc
     let userId = firebaseInit.auth().currentUser.uid;
     let singleTaskRef = firebaseInit.database().ref(`users/${userId}/tasks/tasksTodo/${key}`);
 
-    // let updatedTask = {
-    //     key: key,
-    //     title: title,
-    //     description: description,
-    //     deadline: deadline,
-    // };
-
     singleTaskRef
         .update({
             title: title,
             description: description,
             deadline: deadline,
-            // ...updatedTask,
         })
         .then(
             dispatch({
@@ -191,6 +183,5 @@ export const updateTaskDetails = (key, title, description, deadline) => (dispatc
             }),
             dispatch(fetchTasks("tasksTodo"))
         )
-        // .then(dispatch(fetchTasks("tasksTodo")))
         .catch((err) => console.log(err.message));
 };

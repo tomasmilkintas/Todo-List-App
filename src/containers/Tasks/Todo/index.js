@@ -47,11 +47,9 @@ const Todo = (props) => {
             </StatusBarTop>
             <TitleText id="todo">Your To-do List</TitleText>
             <Button onClick={() => clickHandler("/new")}>Add +</Button>
-            {/* {props.tasksTodo !== [] ? (
-                <Text>Looks like you don’t have any tasks, go ahead and create a new task!</Text>
-            ) : ( */}
+
             <TasksTodo />
-            {/* )} */}
+
             <StatusBarBottom>
                 <div>
                     <FontAwesomeIcon
