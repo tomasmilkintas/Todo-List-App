@@ -45,9 +45,9 @@ const Profile = (props) => {
 
     return (
         <Container>
-            <TitleText>Update Profile</TitleText>
+            <TitleText className="profileTitle">Update Profile</TitleText>
 
-            <TextInputContainer>
+            <TextInputContainer className="updateProfileTop">
                 <Text style={textErrorStyle}>{firstNameError}</Text>
 
                 <Input
@@ -61,7 +61,7 @@ const Profile = (props) => {
                 />
             </TextInputContainer>
 
-            <TextInputContainer>
+            <TextInputContainer className="updateProfileBottom">
                 <Text style={textErrorStyle}>{lastNameError}</Text>
                 <Input
                     onChange={(e) => {
@@ -74,7 +74,7 @@ const Profile = (props) => {
                 />
             </TextInputContainer>
 
-            <Text className="profile">
+            <Text className="profile bottom">
                 <b>Email: </b>
                 {props.email}
             </Text>

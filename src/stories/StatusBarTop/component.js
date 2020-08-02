@@ -5,7 +5,7 @@ const StyledStatusBarTop = styled.section`
     width: 98.9%;
     height: 7vh;
     border: 1px solid ${colours.secondaryColours.Teal};
-    border-radius: 6px;
+    /* border-radius: 6px; */
     display: flex;
     justify-content: space-evenly;
     align-items: center;

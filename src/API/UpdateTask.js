@@ -12,6 +12,7 @@ import TextInputContainer from "../stories/TextInputContainer";
 
 import * as actions from "../store/actions/index";
 import { connect } from "react-redux";
+import { taskTitleValidation, taskDescriptionValidation } from "../API/Validation";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -29,13 +30,34 @@ const NewTask = (props) => {
     const [enteredTaskDescription, setEnteredTaskDescription] = useState("");
     const [enteredDeadline, setEnteredDeadline] = useState("");
 
+    const [taskTitleError, setTaskTitleError] = useState("");
+    const [taskDescriptionError, setTaskDescriptionError] = useState("");
+
     // useEffect / useRef perhaps for populating data as well as updating the input properly
 
+    const textErrorStyle = {
+        color: taskTitleError === "" ? "white" : "red",
+        fontSize: taskTitleError === "" ? "16px" : "16px",
+        fontWeight: "400",
+    };
+
     const taskUpdateHandler = () => {
+        const notValidTaskTitle = taskTitleValidation(enteredTaskTitle);
+        const notValidTaskDescription = taskDescriptionValidation(enteredTaskDescription);
         const adjustedDeadline = moment(enteredDeadline).format("MM/DD/YYYY h:mm a");
 
-        props.history.push("/todo");
-        props.onUpdateTask(props.key, enteredTaskTitle, enteredTaskDescription, adjustedDeadline);
+        if (!notValidTaskTitle && !notValidTaskDescription) {
+            props.history.push("/todo");
+            props.onUpdateTask(
+                props.key,
+                enteredTaskTitle,
+                enteredTaskDescription,
+                adjustedDeadline
+            );
+        } else {
+            setTaskTitleError(notValidTaskTitle);
+            setTaskDescriptionError(notValidTaskDescription);
+        }
     };
 
     const clickHandler = (path) => {
@@ -64,9 +86,11 @@ const NewTask = (props) => {
                 </div>
             </StatusBarTop>
 
-            <TitleText id="title">Update Your Task</TitleText>
+            <TitleText className="newTaskTitle">Update Your Task</TitleText>
 
             <TextInputContainer>
+                <Text style={textErrorStyle}>{taskTitleError}</Text>
+
                 <Input
                     type="text"
                     placeholder="Title..."
@@ -78,6 +102,8 @@ const NewTask = (props) => {
             </TextInputContainer>
 
             <TextInputContainer>
+                <Text style={textErrorStyle}>{taskDescriptionError}</Text>
+
                 <TextArea
                     type="text"
                     placeholder="Description..."

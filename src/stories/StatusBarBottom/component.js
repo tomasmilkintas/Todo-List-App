@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { colours } from "../Colours/index";
 
 const StyledStatusBarBottom = styled.section`
-    width: 98.9%;
+    width: 99.8%;
     height: 7vh;
     border: 1px solid ${colours.secondaryColours.Teal};
-    border-radius: 6px;
+    /* border-radius: 6px; */
 
     display: flex;
     justify-content: space-around;

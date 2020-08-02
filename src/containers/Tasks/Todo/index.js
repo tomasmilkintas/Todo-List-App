@@ -46,7 +46,9 @@ const Todo = (props) => {
                 </div>
             </StatusBarTop>
             <TitleText id="todo">Your To-do List</TitleText>
-            <Button onClick={() => clickHandler("/new")}>Add +</Button>
+            <Button className="buttonTop" onClick={() => clickHandler("/new")}>
+                Add +
+            </Button>
 
             <TasksTodo />
 

@@ -12,8 +12,8 @@ const Welcome = (props) => {
     };
     return (
         <Container>
-            <TitleText>Welcome</TitleText>
-            <Text>A nice simple to-do list app for you!</Text>
+            <TitleText className="welcomeTitle">Welcome</TitleText>
+            <Text className="welcomeText">A nice simple to-do list app for you!</Text>
 
             <TextInputContainer id="welcome">
                 <Button onClick={() => clickHandler("/login")}>Login</Button>

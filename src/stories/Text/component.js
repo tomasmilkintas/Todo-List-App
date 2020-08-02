@@ -10,9 +10,24 @@ const StyledText = styled.p`
         font-size: 1.43em;
     }
 
+    &.top {
+        margin-top: 15vh;
+    }
+    &.bottom {
+        margin-bottom: 11vh;
+    }
+
     &.deadline {
         padding: 0;
-        margin 10px auto 2px;
+        margin: 10px auto 2px;
+    }
+
+    &.welcomeText {
+        margin: 28vh auto;
+    }
+
+    &.resetText {
+        margin-top: 25vh;
     }
 `;
 

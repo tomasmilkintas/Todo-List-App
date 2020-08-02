@@ -12,6 +12,10 @@ const StyledButton = styled.button`
     font-size: 18px;
     font-weight: 300;
     word-break: break-word;
+
+    &.buttonTop {
+        margin-top: 7vh;
+    }
 `;
 
 export default StyledButton;

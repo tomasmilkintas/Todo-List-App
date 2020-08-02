@@ -46,14 +46,14 @@ const Home = (props) => {
                 </div>
             </StatusBarTop>
 
-            {/* <div className="content"> */}
             <TitleText id="name">Welcome Back, {props.firstName}!</TitleText>
 
-            <Button onClick={() => clickHandler("/new")}>Add New Task</Button>
+            <Button className="buttonTop" onClick={() => clickHandler("/new")}>
+                Add New Task
+            </Button>
             <Button onClick={() => clickHandler("/todo")}>Tasks</Button>
             <Button onClick={() => clickHandler("/doing")}>Tasks in Progress</Button>
             <Button onClick={() => clickHandler("/complete")}>Completed Tasks</Button>
-            {/* </div> */}
 
             <StatusBarBottom>
                 <div>

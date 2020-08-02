@@ -81,7 +81,7 @@ const NewTask = (props) => {
                 </div>
             </StatusBarTop>
 
-            <TitleText id="title">New Task</TitleText>
+            <TitleText className="newTaskTitle">New Task</TitleText>
 
             <TextInputContainer>
                 <Text style={textErrorStyle}>{taskTitleError}</Text>

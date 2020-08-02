@@ -113,13 +113,13 @@ For this project I started using Storybook to achieve a cleaner and a more consi
 Basically it allows you to break down the reusable components into little chunk and give you your
 own mini visual library for each component irrespective of where the app itself is at that point.
 
-To get it running, paste this in the terminal:
+To get it running, paste this in the terminal to get it installed:
 
 ```
 npx -p @storybook/cli sb init --type react
 ```
 
-followed by:
+followed by the command below to run a server:
 
 ```
 yarn storybook

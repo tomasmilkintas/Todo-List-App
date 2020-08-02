@@ -4,12 +4,12 @@ import Input from "../../../stories/Input";
 import Button from "../../../stories/Button";
 import Text from "../../../stories/Text";
 
-import Form from "../../../stories/Form";
 import TextInputContainer from "../../../stories/TextInputContainer";
 
 import * as actions from "../../../store/actions/index";
 import { connect } from "react-redux";
 import { emailValidation } from "../../../API/Validation";
+import Container from "../../../stories/Container";
 
 const PasswordRecovery = (props) => {
     const [enteredEmail, setEnteredEmail] = useState("");
@@ -39,10 +39,10 @@ const PasswordRecovery = (props) => {
     };
 
     return (
-        <Form method="POST">
-            <Text>Enter a valid email address to reset your password!</Text>
+        <Container>
+            <Text className="resetText"> Enter a valid email address to reset your password!</Text>
 
-            <TextInputContainer>
+            <TextInputContainer className="resetInput">
                 <Text style={textErrorStyle}>{emailError}</Text>
                 <Input
                     onChange={(e) => setEnteredEmail(e.target.value)}
@@ -55,7 +55,7 @@ const PasswordRecovery = (props) => {
 
             <Button onClick={(e) => emailHandler(e)}>Reset Password</Button>
             <Button onClick={(e) => returnHandler(e)}>Go back &#10226;</Button>
-        </Form>
+        </Container>
     );
 };
 

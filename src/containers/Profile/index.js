@@ -16,9 +16,9 @@ class Profile extends Component {
     render() {
         return (
             <Container>
-                <TitleText>Profile Summary</TitleText>
+                <TitleText className="profileTitle">Profile Summary</TitleText>
 
-                <Text className="profile">
+                <Text className="profile top">
                     <b>Your Name: </b>
                     {this.props.firstName}
                 </Text>
@@ -27,7 +27,7 @@ class Profile extends Component {
                     {this.props.lastName}
                 </Text>
 
-                <Text className="profile">
+                <Text className="profile bottom">
                     <b>Email: </b>
                     {this.props.email}
                 </Text>

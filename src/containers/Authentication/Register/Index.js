@@ -62,9 +62,9 @@ const Register = (props) => {
 
     return (
         <Form method="POST">
-            <TitleText> Sign up</TitleText>
+            <TitleText className="signupTitle"> Sign up</TitleText>
 
-            <TextInputContainer>
+            <TextInputContainer className="inputTop">
                 <Text style={textErrorStyle}>{firstNameError}</Text>
 
                 <Input
@@ -104,7 +104,7 @@ const Register = (props) => {
                 />
             </TextInputContainer>
 
-            <TextInputContainer>
+            <TextInputContainer className="inputBottom">
                 <Text style={textErrorStyle}>{passwordError}</Text>
                 <Input
                     onChange={(e) => {

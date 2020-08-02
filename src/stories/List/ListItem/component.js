@@ -13,7 +13,7 @@ const StyledListItem = styled.li`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 6px 0;
+    margin: 1.8vh 0;
     border-radius: 5px;
     border: 1px solid;
     word-wrap: break-word;

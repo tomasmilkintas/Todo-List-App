@@ -50,7 +50,7 @@ const Login = (props) => {
 
     return (
         <Form method="POST">
-            <TitleText> Log in</TitleText>
+            <TitleText className="loginTitle"> Log in</TitleText>
 
             <TextInputContainer>
                 <Text style={textErrorStyle}>{emailError}</Text>
