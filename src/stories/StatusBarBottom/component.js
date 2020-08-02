@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { colours } from "../Colours/index";
 
 const StyledStatusBarBottom = styled.section`
-    width: 95%;
+    width: 98.9%;
     height: 7vh;
     border: 1px solid ${colours.secondaryColours.Teal};
     border-radius: 6px;
@@ -10,9 +10,13 @@ const StyledStatusBarBottom = styled.section`
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin: 6px auto;
+    margin: 0px auto;
     padding: 15px 0;
     background-color: white;
+
+    margin-top: auto;
+    position: sticky;
+    bottom: 0;
 
     & > div {
         display: flex;

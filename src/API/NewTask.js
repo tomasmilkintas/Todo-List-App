@@ -106,7 +106,7 @@ const NewTask = (props) => {
                     }}
                 />
             </TextInputContainer>
-
+            <Text className="deadline"> Deadline: </Text>
             <Input
                 type="datetime-local"
                 value={enteredDeadline}

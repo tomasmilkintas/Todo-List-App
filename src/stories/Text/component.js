@@ -9,6 +9,11 @@ const StyledText = styled.p`
     &.profile {
         font-size: 1.43em;
     }
+
+    &.deadline {
+        padding: 0;
+        margin 10px auto 2px;
+    }
 `;
 
 export default StyledText;

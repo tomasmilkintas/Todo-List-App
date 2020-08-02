@@ -6,6 +6,7 @@ import StatusBarBottom from "../stories/StatusBarBottom";
 import Container from "../stories/Container";
 import Input from "../stories/Input";
 import TitleText from "../stories/TitleText";
+import Text from "../stories/Text";
 import TextArea from "../stories/TextArea";
 import TextInputContainer from "../stories/TextInputContainer";
 
@@ -86,6 +87,8 @@ const NewTask = (props) => {
                     }}
                 />
             </TextInputContainer>
+
+            <Text className="deadline"> Deadline: </Text>
 
             <Input
                 type="datetime-local"
