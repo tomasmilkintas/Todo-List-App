@@ -17,7 +17,7 @@ import UpdateProfile from "./containers/Profile/UpdateProfile";
 import * as actions from "./store/actions/index";
 import { connect } from "react-redux";
 import NewTask from "./API/NewTask";
-import UpdateTask from "./API/UpdateTask";
+// import UpdateTask from "./API/UpdateTask";
 
 class App extends Component {
     componentDidMount() {
@@ -38,7 +38,7 @@ class App extends Component {
                     <Route path="/doing" component={Doing} />
                     <Route path="/complete" component={Complete} />
                     <Route path="/new" component={NewTask} />
-                    <Route path="/updatetask" component={UpdateTask} />
+                    {/* <Route path="/updatetask" component={UpdateTask} /> */}
                     <Route path="/" component={Welcome} />
                     <Redirect to="/" />
                 </Switch>

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { colours } from "../Colours/index";
 
 const StyledStatusBarTop = styled.section`
-    width: 98.9%;
+    width: 98.99%;
     height: 7vh;
     border: 1px solid ${colours.secondaryColours.Teal};
     /* border-radius: 6px; */
