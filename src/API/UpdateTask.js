@@ -26,14 +26,16 @@ import {
 import moment from "moment";
 
 const NewTask = (props) => {
-    const [enteredTaskTitle, setEnteredTaskTitle] = useState("");
-    const [enteredTaskDescription, setEnteredTaskDescription] = useState("");
-    const [enteredDeadline, setEnteredDeadline] = useState("");
+    const [enteredTaskTitle, setEnteredTaskTitle] = useState(props.title || "");
+    const [enteredTaskDescription, setEnteredTaskDescription] = useState(props.description);
+    const [enteredDeadline, setEnteredDeadline] = useState(props.deadline);
 
     const [taskTitleError, setTaskTitleError] = useState("");
     const [taskDescriptionError, setTaskDescriptionError] = useState("");
 
     // useEffect / useRef perhaps for populating data as well as updating the input properly
+
+    // redux-form  + field might be an option!
 
     const textErrorStyle = {
         color: taskTitleError === "" ? "white" : "red",
@@ -94,8 +96,8 @@ const NewTask = (props) => {
                 <Input
                     type="text"
                     placeholder="Title..."
-                    value={enteredTaskTitle || props.title}
-                    onChange={(e) => {
+                    defaultValue={enteredTaskTitle}
+                    onBlur={(e) => {
                         setEnteredTaskTitle(e.target.value);
                     }}
                 />
@@ -107,7 +109,7 @@ const NewTask = (props) => {
                 <TextArea
                     type="text"
                     placeholder="Description..."
-                    value={enteredTaskDescription || props.description}
+                    value={enteredTaskDescription}
                     onChange={(e) => {
                         setEnteredTaskDescription(e.target.value);
                     }}

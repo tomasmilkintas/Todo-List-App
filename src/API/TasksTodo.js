@@ -7,15 +7,15 @@ import { connect } from "react-redux";
 import * as actions from "../store/actions/index";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt, faPlay, faCalendarCheck } from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt, faPlay, faCalendarCheck, faEdit } from "@fortawesome/free-solid-svg-icons";
 
 import { withRouter } from "react-router-dom";
 
 const TasksTodo = (props) => {
-    // const clickHandler = (key) => {
-    //     props.onGetTaskDetails(key);
-    //     props.history.push("/updatetask");
-    // };
+    const clickHandler = (key) => {
+        props.onGetTaskDetails(key);
+        props.history.push("/updatetask");
+    };
 
     return (
         <div>
@@ -36,10 +36,10 @@ const TasksTodo = (props) => {
                                   </span>
 
                                   <div>
-                                      {/* <FontAwesomeIcon
+                                      <FontAwesomeIcon
                                           icon={faEdit}
                                           onClick={() => clickHandler(item.key)}
-                                      /> */}
+                                      />
                                       <FontAwesomeIcon
                                           icon={faPlay}
                                           onClick={() =>
